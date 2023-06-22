@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% include "front/layout/css.html" %} {% include "front/layout/style.html"%}
+  </head>
+  <body>
+    {% include "front/layout/topbar.html"%} {% include
+    "front/layout/navbar.html"%} {% block content %} {% endblock %}
+    <!-- <div class="popup">
+      <div class="popup-content">
+        <button class="close-btn" id="popup-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <form>
+          <div class="input-group search-box">
+            <input type="text" class="form-control" placeholder="Search" />
+            <button class="btn" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div> -->
+    {% include "front/layout/footer.html" %}
+    <div class="go-top"><i class="fas fa-chevron-up"></i></div>
+
+    {% include "front/layout/scripts.html" %} {% block js %} {% endblock %}
+  </body>
+</html>

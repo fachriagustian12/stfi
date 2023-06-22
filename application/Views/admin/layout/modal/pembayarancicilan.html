@@ -1,0 +1,80 @@
+<div class="modal fade" tabindex="-1" id="pembayaran_cicilan" data-bs-backdrop="static">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header bg-warning">
+                <div class="flex-grow-1 pb-0">
+                    <div class="d-flex flex-stack flex-wrap">
+                        <div class="me-2">
+                            <div class="fw-bold text-dark"><h5 class="modal-title fs-1"><i class="bi bi-cash-stack fs-1 me-2 text-dark" ></i> Form Pembayaran Cicilan</h5></div>
+                            <div class="fs-7 fw-bold text-dark"><p>Merubah Pembayaran Cicilan</p></div>
+                        </div>
+                    </div>
+                  </div>
+				<div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+					<span class="svg-icon svg-icon-2x"></span>
+				</div>
+			</div>
+  
+			
+			  <div class="modal-body">
+				<div class="row mb-3">
+                    <input type="hidden" name="" id="id_rumah-pembayaran"  placeholder="" />
+                    <input type="hidden" name="" id="hdno-pembayaran"  placeholder="" />
+
+                    <label class="col-lg-3 mt-4">Jenis Pembayaran</label>
+                    <div class="col-lg-9">
+                        <select class="form-control" name="pembayaran" id="jenis_pembayaran-pembayaran" data-control="select2">
+                            <option value="425123">Sewa Beli</option>
+                            <option value="425828">Denda</option>
+                            <option value="425131">Sewa</option>
+                            <option value="777777">Pembayaran lama / Pelunasan</option>
+                        </select>
+                    </div>
+                </div>
+				<div class="row mb-3">
+                    <label class="col-lg-3 mt-4">Kode Billing</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="pembayaran" id="kode_billing-pembayaran"  placeholder="" />
+                    </div>
+                </div>
+				<div class="row mb-3">
+                    <label class="col-lg-3 mt-4">Nomor NTPN</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="pembayaran" id="ntpn-pembayaran"  placeholder="" />
+                    </div>
+                </div>
+				<div class="row mb-3">
+                    <label class="col-lg-3 mt-4">Nomor NTB</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="pembayaran" id="ntbp-pembayaran"  placeholder="" />
+                    </div>
+                </div>
+				<div class="row mb-3">
+                    <label class="col-lg-3 mt-4">Pembayaran Ke</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="pembayaran" id="angsuran_ke-pembayaran"  placeholder="" />
+                    </div>
+                </div>
+				<div class="row mb-3">
+                    <label class="col-lg-3 mt-4">Jumlah Pembayaran</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="pembayaran" id="setoran-pembayaran"  placeholder="" />
+                    </div>
+                </div>
+				<div class="row mb-3">
+                    <label class="col-lg-3 mt-4">Keterangan</label>
+                    <div class="col-lg-9">
+                        <textarea class="form-control" data-kt-autosize="true" rows="4" name="pembayaran" id="keterangan-pembayaran"></textarea>
+                    </div>
+                </div>
+				
+			  </div>
+			  
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal"><i class="bi bi-x fs-1"></i>Batal</button>
+				<button type="submit" class="btn btn-success btn-sm" onclick="simpanpembayaran()"><i class="bi bi-check-all fs-1"></i> Ubah Pembayaran</button>
+			  </div>
+			
+		</div>
+	</div>
+  </div>

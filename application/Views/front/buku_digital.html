@@ -1,0 +1,110 @@
+{% extends "front/layout.html" %} {% block content %}
+
+<section class="uni-banner">
+  <div class="container">
+    <div class="uni-banner-text-area">
+      <h1>Layanan Buku Digital</h1>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li>Layanan Buku Digital</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="events pt-70 pb-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="events-card">
+          <img src="{{baseURL}}assets/images/book-1.png" alt="image" />
+          <div class="events-card-text">
+            <ul>
+              <li>Report</li>
+              <li>Oct 12, 2022</li>
+            </ul>
+            <h4><a href="event-details.html">Title Of The Report</a></h4>
+            <p>
+              <!-- <i class="fas fa-map-marker-alt"></i> -->
+              <!-- <a href="https://goo.gl/maps/QTg39qSWoB5fdndT7"
+                >At City Center, 27 Division Street, USA</a
+              > -->
+            </p>
+            <a class="read-more-btn" href="event-details.html">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="events-card">
+          <img src="{{baseURL}}assets/images/book-2.png" alt="image" />
+          <div class="events-card-text">
+            <ul>
+              <li>Cover</li>
+              <li>Oct 13, 2022</li>
+            </ul>
+            <h4>
+              <a href="event-details.html">Japanese Pattern Book Cover</a>
+            </h4>
+            <p>
+              <!-- <i class="fas fa-map-marker-alt"></i>
+              <a href="https://goo.gl/maps/QTg39qSWoB5fdndT7"
+                >At City Center, 27 Division Street, USA</a
+              > -->
+            </p>
+            <a class="read-more-btn" href="event-details.html">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="events-card">
+          <img src="{{baseURL}}assets/images/book-3.png" alt="image" />
+          <div class="events-card-text">
+            <ul>
+              <li>Design</li>
+              <li>Oct 14, 2022</li>
+            </ul>
+            <h4><a href="event-details.html">Magazine Design</a></h4>
+            <p>
+              <!-- <i class="fas fa-map-marker-alt"></i>
+              <a href="https://goo.gl/maps/QTg39qSWoB5fdndT7"
+                >At City Center, 27 Division Street, USA</a
+              > -->
+            </p>
+            <a class="read-more-btn" href="event-details.html">Read More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="paginations mt-30">
+      <ul>
+        <li><a class="active" href="events.html">1</a></li>
+        <li><a href="events.html">2</a></li>
+        <li><a href="events.html">3</a></li>
+        <li>
+          <a href="events.html"><i class="fas fa-chevron-right"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+<div class="popup">
+  <div class="popup-content">
+    <button class="close-btn" id="popup-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <form>
+      <div class="input-group search-box">
+        <input type="text" class="form-control" placeholder="Search" />
+        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %} {% block js %}
+<script>
+  $(() => {
+    $("#page-layanan_buku").addClass("active");
+  });
+</script>
+{% endblock %}

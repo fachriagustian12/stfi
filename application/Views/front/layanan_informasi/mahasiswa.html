@@ -1,0 +1,74 @@
+{% extends "front/layout.html" %} {% block content %}
+<section class="uni-banner">
+  <div class="container">
+    <div class="uni-banner-text-area">
+      <h1>Layanan Informasi Mahasiswa</h1>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li>Layanan Informasi Mahasiswa</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="terms ptb-100">
+  <div class="container">
+    <button class="popup-button float-end">
+      <i class="fas fa-search"></i>
+    </button>
+    <h1>Informasi Mahasiswa</h1>
+    <p>
+      We may collect personal identification information from Users in a variety
+      of ways, including, but not limited to, when Users visit our site,
+      subscribe to the newsletter, fill out a form, and in connection with other
+      activities, services, features or <a href="index.html">resources</a> we
+      make available on our Site. Users may be asked for, as appropriate, name,
+      email address, mailing address, phone number, company name. We will
+      collect personal <strong>identification</strong> information from Users
+      only if they voluntarily consent such information to us. Users can always
+      refuse to supply personally identification information, except that it may
+      prevent them from engaging in certain Site related activities.
+    </p>
+
+    <table class="table table-bordered">
+      <thead class="table-active">
+        <th>No.</th>
+        <th>Nama</th>
+        <th>NPM</th>
+        <th>Fakultas</th>
+        <th>Jurusan</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Febrianto Rahmadi</td>
+          <td>411550505150047</td>
+          <td>Fakultas Farmasi</td>
+          <td>Apoteker</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="popup">
+  <div class="popup-content">
+    <button class="close-btn" id="popup-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <form>
+      <div class="input-group search-box">
+        <input type="text" class="form-control" placeholder="Search" />
+        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %} {% block js %}
+<script>
+  $(() => {
+    $("#dropdown-layanan").addClass("active");
+    $("#page-layanan_mahasiswa").addClass("active");
+  });
+</script>
+{% endblock %}

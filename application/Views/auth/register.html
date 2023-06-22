@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include "auth/parts/head.html" %}
+
+  <body class="">
+    <div class="account-pages my-5 pt-sm-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6 col-xl-5">
+            <div class="card overflow-hidden">
+              <div class="bg-soft" style="background-color: #dde1e7">
+                <div class="row">
+                  <div class="col-7">
+                    <div class="p-4 text-green">
+                      <h5 class="">Daftar</h5>
+                      <p>Daftarkan akun mu sekarang!</p>
+                    </div>
+                  </div>
+                  <div class="col-5 align-self-end">
+                    <img
+                      src="{{baseURL}}/assets/images/logo-light.png"
+                      alt=""
+                      class="img-fluid"
+                      style="padding: 15px"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pt-0">
+                <div>
+                  <a href="home">
+                    <div class="avatar-md profile-user-wid mb-4">
+                      <span class="avatar-title rounded-circle bg-light">
+                        <img
+                          src="{{baseURL}}/assets/images/logo.svg"
+                          alt=""
+                          class="rounded-circle"
+                          height="34"
+                        />
+                      </span>
+                    </div>
+                  </a>
+                </div>
+                <div class="p-2">
+                  <form action="reg" method="post">
+                    <div class="mb-3">
+                      <label for="useremail" class="form-label text-green"
+                        >Nama Badan Usaha</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control regis"
+                        name="register_badan_usaha"
+                        placeholder="nama"
+                        required
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="username" class="form-label text-green"
+                        >Username</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control regis"
+                        name="register_username"
+                        placeholder="username"
+                        required
+                      />
+
+                      <div class="mb-3" id="adaDOng">
+                        <br />
+                        <div
+                          class="alert alert-danger alert-dismissible fade show"
+                          role="alert"
+                        >
+                          <i class="mdi mdi-alert-outline me-2"></i> Username
+                          sudah ada
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="useremail" class="form-label text-green"
+                        >Email</label
+                      >
+                      <input
+                        type="email"
+                        class="form-control regis"
+                        name="register_email"
+                        placeholder="email"
+                        required
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="userpassword" class="form-label text-green"
+                        >Password</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control regis"
+                        name="register_password"
+                        placeholder="******"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="userpassword" class="form-label text-green"
+                        >Ulangi Password</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control regis"
+                        name="register_password_ulang"
+                        placeholder="******"
+                        required
+                      />
+                    </div>
+
+                    <div class="mt-4 d-grid">
+                      <button
+                        id="isregis"
+                        class="btn"
+                        type="submit"
+                        style="background-color: #1f6a3f; color: #fff"
+                      >
+                        Daftar
+                      </button>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                      Sudah memiliki akun ?
+                      <a
+                        href="login"
+                        class="fw-medium text"
+                        style="color: #28a745"
+                      >
+                        Masuk</a
+                      >
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="mt-5 text-center">
+              <div>
+                <p>
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                </p>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include "auth/parts/scripts.html" %}
+    <script type="text/javascript">
+      window.ada = 1;
+      jQuery(function ($) {
+        $(document).ready(function () {
+          // if({register}){
+          // 	$('.user-signup-link').trigger('click')
+          // }
+        });
+
+        $(document).on("click", ".toolbar a[data-target]", function (e) {
+          e.preventDefault();
+          var target = $(this).data("target");
+          $(".widget-box.visible").removeClass("visible"); //hide others
+          $(target).addClass("visible"); //show target
+        });
+      });
+
+      jQuery(function ($) {
+        $("#btn-login-dark").on("click", function (e) {
+          $("body").attr("class", "login-layout");
+          $("#id-text2").attr("class", "white");
+          $("#id-company-text").attr("class", "blue");
+
+          e.preventDefault();
+        });
+        $("#btn-login-light").on("click", function (e) {
+          $("body").attr("class", "login-layout light-login");
+          $("#id-text2").attr("class", "grey");
+          $("#id-company-text").attr("class", "blue");
+
+          e.preventDefault();
+        });
+        $("#btn-login-blur").on("click", function (e) {
+          $("body").attr("class", "login-layout blur-login");
+          $("#id-text2").attr("class", "white");
+          $("#id-company-text").attr("class", "light-blue");
+
+          e.preventDefault();
+        });
+        $("#adaDOng").hide();
+        $("#isregis").prop("disabled", true);
+        $('[name="register_username"]').on("keyup", function () {
+          var formData = new FormData();
+          formData.append("user_name", $('[name="register_username"]').val());
+          formData.append("user_email", $('[name="register_email"]').val());
+          $.ajax({
+            type: "post",
+            processData: false,
+            contentType: false,
+            url: "checkUser",
+            data: formData,
+            success: function (result) {
+              var code = result.code;
+
+              if (code == "0") {
+                window.ada = 0;
+
+                $('[name="register_username"]')
+                  .parent()
+                  .removeClass("has-error");
+                $("#adaDOng").hide();
+
+                // if($('[name="register_email"]').val() &&  $('[name="register_username"]').val() && $('[name="register_password"]').val() && $('[name="register_badan_usaha"]').val())
+                // {
+                // 	$('#isregis').prop('disabled', false);
+
+                // }else{
+                // 	$('#isregis').prop('disabled', true);
+                // }
+              } else {
+                window.ada = 1;
+                $('[name="register_username"]').parent().addClass("has-error");
+                $("#adaDOng").show();
+                $("#isregis").prop("disabled", true);
+              }
+            },
+          });
+        });
+
+        $(".regis").on("keyup", function () {
+          if (
+            $('[name="register_email"]').val() &&
+            $('[name="register_username"]').val() &&
+            $('[name="register_password"]').val() &&
+            $('[name="register_password_ulang"]').val() &&
+            $('[name="register_badan_usaha"]').val()
+          ) {
+            $("#isregis").prop("disabled", false);
+          } else {
+            $("#isregis").prop("disabled", true);
+          }
+        });
+      });
+
+      function validateForm() {
+        let x = $('[name="username"]').val();
+        let y = $('[name="password"]').val();
+        if ((x == "") & (y == "")) {
+          $("#iniMessage").show();
+          $("#message").text("Harap isi username dan password");
+          return false;
+        }
+      }
+    </script>
+  </body>
+</html>

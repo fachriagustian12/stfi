@@ -1,0 +1,3 @@
+$(() => {
+  $("#menu-dashboard").addClass("active");
+});

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Epic-Themes">
+	<meta name="keywords"
+		content="landing page, click-through, lead gen, marketing campaign, mobile app launch, one page template, product launch, products, responsive, saas, startup, html template, html5, css3, bootstrap, creative, designer, freelancer">
+	<meta name="description"
+		content="Landing Page Template for Creative Agencies, Apps, Portfolio Websites and Small Businesses">
+
+	<title>Dinas Lingkungan Hidup dan Kebersihan</title>
+
+	<!-- Loading Bootstrap -->
+	<link href="{{baseURL}}/assets/tf-smart/v2/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Loading Template CSS -->
+	<link href="{{baseURL}}/assets/owlCarousel/owl.carousel.css" rel="stylesheet">
+	<link href="{{baseURL}}/assets/tf-smart/v2/css/style.css" rel="stylesheet">
+	<link href="{{baseURL}}/assets/tf-smart/v2/css/bootstrap-icons.css" rel="stylesheet">
+	<link href="{{baseURL}}/assets/tf-smart/v2/css/animate.css" rel="stylesheet">
+	<link href="{{baseURL}}/assets/tf-smart/v2/css/style-magnific-popup.css" rel="stylesheet">
+	<link href="{{baseURL}}/assets/tf-smart/v2/css/aos.css" rel="stylesheet">
+
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:ital@0;1&display=swap"
+		rel="stylesheet">
+
+	<!-- Font Favicon -->
+	<link rel="shortcut icon" href="{{baseURL}}/assets/images/fav.ico">
+	<style>
+		.navbar-fixed-top .navbar-nav > li.active > a {
+			color: #0e3f26!important;
+		}
+		.modal {
+			z-index: 9999;
+		}
+		.modal-header {
+			margin: 0 auto;
+		}
+		ul.timeline {
+			list-style-type: none;
+			position: relative;
+			padding-left: 2.5rem;
+		}
+
+		/* Timeline vertical line */
+		ul.timeline:before {
+			content: ' ';
+			background: #00b0f0;
+			display: inline-block;
+			position: absolute;
+			left: 16px;
+			width: 4px;
+			height: 100%;
+			z-index: 400;
+			border-radius: 1rem;
+		}
+
+		li.timeline-item {
+			margin: 20px 0;
+		}
+
+		/* Timeline item arrow */
+		.timeline-arrow {
+			border-top: 0.5rem solid transparent;
+			border-right: 0.5rem solid #6eac45;
+			border-bottom: 0.5rem solid transparent;
+			display: block;
+			position: absolute;
+			left: 2rem;
+		}
+
+		/* Timeline item circle marker */
+		li.timeline-item::before {
+			content: ' ';
+			background: #ed7d31;
+			display: inline-block;
+			position: absolute;
+			border-radius: 50%;
+			border: 3px solid #fff;
+			left: 11px;
+			width: 14px;
+			height: 14px;
+			z-index: 400;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+		}
+
+		.rounded {
+			border: solid 1px #6eac45;
+		}
+
+		@media only screen and (max-device-width: 700px) {
+			.isweb {
+				display: none!important;
+			}
+
+			.navbar-brand img {
+				width: 100%!important;
+			}
+
+			.ismobile {
+				display: block!important;
+			}
+
+			.btn.btn-link, .btn.btn-link i {
+				color: #fff;
+			}
+
+			.navbar-toggler {
+				border: 1px solid #fff;
+			}
+
+			.navbar-toggler-icon i {
+				color: #fff;
+				vertical-align: middle;
+			}
+			
+			.dropdown-menu {
+				transform: none!important;
+			}
+
+			.navbar-fixed-top.opaque {
+				background-color : #198754 !important
+			}
+
+			.navbar-fixed-top.opaque .navbar-nav > li > a {
+				color: #fff;
+			}
+		}
+
+	</style>
+
+</head>
+<input type="hidden" id="baseURL" value="{{baseURL}}">
+
+<body>
+	{% include "users/header.html" %}
+	<main>
+		{% block content %} {% endblock %}
+		{% include "users/footer.html" %}
+
+		{% include "users/modal/modal.html"%}
+	</main>
+
+	<script src="{{baseURL}}/assets/tf-smart/v2/js/jquery-1.9.1.min.js"></script>
+	<script src="{{baseURL}}/assets/tf-smart/v2/js/bootstrap.min.js"></script>
+	<script src="{{baseURL}}/assets/tf-smart/v2/js/jquery.scrollTo-min.js"></script>
+	<script src="{{baseURL}}/assets/tf-smart/v2/js/jquery.magnific-popup.min.js"></script>
+	<script src="{{baseURL}}/assets/tf-smart/v2/js/jquery.nav.js"></script>
+	<script src="{{baseURL}}/assets/tf-smart/v2/js/wow.js"></script>
+	<script src="{{baseURL}}/assets/tf-smart/v2/js/plugins.js"></script>
+	<script src="{{baseURL}}/assets/owlCarousel/owl.carousel.js"></script>
+	<script src="{{baseURL}}/assets/tf-smart/v2/js/aos.js"></script>
+	<script src="{{baseURL}}/assets/tf-smart/v2/js/custom.js"></script>
+	<script src="{{baseURL}}/action-js/global.js"></script>
+	<script>
+		AOS.init();
+	</script>
+
+</body>
+
+</html>

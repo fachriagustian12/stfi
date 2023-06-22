@@ -1,0 +1,42 @@
+<div class="modal fade" tabindex="-1" id="penyesuaian_pnpb" data-bs-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-warning">
+                <div class="flex-grow-1 card-p pb-0">
+                    <div class="d-flex flex-stack flex-wrap">
+                        <div class="me-2">
+                            <div class="fw-bold text-dark"><h5 class="modal-title fs-1"><i class="bi bi-card-list fs-1 me-2 text-dark" ></i> Penyesuaian Grafik PNBP</h5></div>
+                            <div class="fs-7 fw-bold text-dark"><p>Menginput data Penyesuaian grafik PNBP</p></div>
+                        </div>
+                    </div>
+                  </div>
+				<!--begin::Close-->
+				<div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+					<span class="svg-icon svg-icon-2x"></span>
+				</div>
+				<!--end::Close-->
+			</div>
+  
+			
+			  <input type="hidden" name="id_grafik" id="id_grafik" />
+			  <div class="modal-body">
+				<div class="input-group input-group-sm mb-5">
+				  <span class="input-group-text" id="group-penyesuaian">
+					  <i class="bi bi-clipboard-data fs-1"></i>
+				  </span>
+				  <input type="text" class="form-control" name="penyesuaian" id="penyesuaian"  placeholder="Angka Penyesuaian" aria-describedby="group-penyesuaian"/>
+				</div>
+                <div class="" id="alert_penyesuaian">
+                    
+                </div>
+				
+			  </div>
+			  
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal"><i class="bi bi-x fs-1"></i>Batal</button>
+				<button type="submit" class="btn btn-success btn-sm" onclick="submitpenyesuaian()"><i class="bi bi-check-all fs-1"></i> Simpan Penyesuaian</button>
+			  </div>
+			
+		</div>
+	</div>
+  </div>

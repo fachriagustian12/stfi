@@ -18,8 +18,8 @@ class View extends \CodeIgniter\Controller
 		$this->logged = $this->session->get('logged_in');
 		$this->data = array(
 			'version' => \CodeIgniter\CodeIgniter::CI_VERSION,
-			// 'baseURL' => BASE . '/public',
-			'baseURL' => BASE,
+			'baseURL' => BASE . '/public',
+			// 'baseURL' => BASE,
 			'userid' => $this->session->get('user_id'),
 			'username' => $this->session->get('username'),
 			'id' => $this->session->get('id'),

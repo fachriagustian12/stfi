@@ -1,17 +1,29 @@
 {% extends "front/layout.html" %} {% block content %}
-<section class="uni-banner">
+<section class="team pt-70 pb-70">
   <div class="container">
-    <div class="uni-banner-text-area">
-      <h1>Layanan Informasi Dosen</h1>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li>Layanan Informasi Dosen</li>
-      </ul>
+    <nav aria-label="breadcrumb" class="fw-bold">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Layanan Informasi Dosen
+        </li>
+      </ol>
+    </nav>
+    <div class="sidebar-card search-box">
+      <form>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Masukan Nama / NIDN Dosen"
+            required
+          />
+          <button class="btn" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
     </div>
-  </div>
-</section>
-<section class="team pt-70 pb-100">
-  <div class="container">
     <div class="row justify-content-center">
       <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
         <div class="team-card">

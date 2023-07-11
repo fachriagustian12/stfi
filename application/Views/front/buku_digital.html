@@ -1,19 +1,30 @@
 {% extends "front/layout.html" %} {% block content %}
 
-<section class="uni-banner">
+<section class="events pt-70 pb-70">
   <div class="container">
-    <div class="uni-banner-text-area">
-      <h1>Layanan Buku Digital</h1>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li>Layanan Buku Digital</li>
-      </ul>
+    <nav aria-label="breadcrumb" class="fw-bold">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Layanan Buku Digital
+        </li>
+      </ol>
+    </nav>
+    <div class="sidebar-card search-box">
+      <form>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Masukan Nama Buku Yang Dicari"
+            required
+          />
+          <button class="btn" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
     </div>
-  </div>
-</section>
-
-<section class="events pt-70 pb-100">
-  <div class="container">
     <div class="row justify-content-center">
       <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="events-card">

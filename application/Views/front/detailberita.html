@@ -1,0 +1,233 @@
+{% extends "front/layout.html" %} {% block content %}
+
+<section class="blog-details ptb-70">
+  <div class="container">
+    <nav aria-label="breadcrumb" class="fw-bold">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+        <li class="breadcrumb-item">
+          <a href="{{baseURL}}layanan_berita">Berita Kampus</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Judul Berita</li>
+      </ol>
+    </nav>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="blog-details-text-area details-text-area">
+          <img
+            src="{{baseURL}}assets/images/inner-images/bd1.jpg"
+            alt="image"
+          />
+          <div class="blog-date">
+            <ul>
+              <li>
+                <i class="fas fa-user"></i> By
+                <a href="posted-by.html">Admin</a>
+              </li>
+              <li><i class="far fa-comments"></i> No Comment</li>
+              <li><i class="far fa-calendar-alt"></i> 01 Nov 2022</li>
+            </ul>
+          </div>
+          <h3 class="mt-0">Responds To Citizens Advice</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt labore et dolore magna aliqua Ut enim ad
+            minim veniam, quis nostrud exercitation ullamc laboris nisi ut
+            aliquip commodo consequat. Duis aute irure dolor in reprehenderit in
+            voluptate velit esse cillum dolore eu fugiat nulla pariatur commodo.
+          </p>
+          <p>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+            officia deserunt mollit anim id est laborum. Sed ut perspiciatis
+            unde omnis iste natus error sit voluptatem accusantium sed
+            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
+            inventore veritatis et quasi architecto beatae vitae dicta sunt
+            explicabo.
+          </p>
+          <div class="blog-quote">
+            <i class="flaticon-right-quote"></i>
+            <p>
+              “ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod temporincididunt ut labore dolore magna aliqua.”
+            </p>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt labore et dolore magna aliqua Ut enim ad
+            minim veniam, quis nostrud exercitation ullamc laboris nisi ut
+            aliquip commodo consequat. Duis aute irure dolor in reprehenderit in
+            voluptate velit esse cillum dolore eu fugiat nulla pariatur commodo.
+          </p>
+          <p>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+            officia deserunt mollit anim id est laborum. Sed ut perspici unde
+            omnis iste natus error sit voluptatem accusantium sed doloremque
+            laudantium.
+          </p>
+        </div>
+        <div class="blog-text-footer mt-30">
+          <div class="tag-area">
+            <ul>
+              <li><i class="fas fa-tags"></i></li>
+              <li><a href="category.html">Culture,</a></li>
+              <li><a href="category.html">Business,</a></li>
+              <li><a href="category.html">Citizen</a></li>
+            </ul>
+          </div>
+          <div class="social-icons">
+            <ul>
+              <li><span>Share:</span></li>
+              <li>
+                <a href="https://www.facebook.com/" target="_blank"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/" target="_blank"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://twitter.com/" target="_blank"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/" target="_blank"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="sidebar-area pl-20 pt-30">
+          <div class="sidebar-card search-box">
+            <form>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Masukan Judul Berita ..."
+                  required
+                />
+                <button class="btn" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="sidebar-card sidebar-category mt-30">
+            <h3>Kategori</h3>
+            <ul>
+              <li>
+                <a href="blog-details.html"
+                  ><i class="fas fa-angle-right"></i> Adveresting Permits</a
+                >
+              </li>
+              <li>
+                <a href="blog-details.html"
+                  ><i class="fas fa-angle-right"></i> Animal Health And
+                  Welfare</a
+                >
+              </li>
+              <li>
+                <a href="blog-details.html"
+                  ><i class="fas fa-angle-right"></i> Animal Health And
+                  Welfare</a
+                >
+              </li>
+              <li>
+                <a href="blog-details.html"
+                  ><i class="fas fa-angle-right"></i> Drainage Services</a
+                >
+              </li>
+              <li>
+                <a href="blog-details.html"
+                  ><i class="fas fa-angle-right"></i> Enviromental Services</a
+                >
+              </li>
+              <li>
+                <a href="blog-details.html"
+                  ><i class="fas fa-angle-right"></i> Survey Services</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="sidebar-card recent-news mt-30">
+            <h3>Berita Terpopuler</h3>
+            <div class="recent-news-card">
+              <a href="blog-details.html"
+                ><img
+                  src="{{baseURL}}assets/images/inner-images/bds1.jpg"
+                  alt="image"
+              /></a>
+              <h5>
+                <a href="blog-details.html">Responds To Citizenship Advices</a>
+              </h5>
+              <p>1st Sep 2022</p>
+            </div>
+            <div class="recent-news-card">
+              <a href="blog-details.html"
+                ><img
+                  src="{{baseURL}}assets/images/inner-images/bds2.jpg"
+                  alt="image"
+              /></a>
+              <h5>
+                <a href="blog-details.html"
+                  >Housing Advisers Program For Beginner</a
+                >
+              </h5>
+              <p>4th Sep 2022</p>
+            </div>
+            <div class="recent-news-card">
+              <a href="blog-details.html"
+                ><img
+                  src="{{baseURL}}assets/images/inner-images/bds3.jpg"
+                  alt="image"
+              /></a>
+              <h5>
+                <a href="blog-details.html">Responds To a National Reports</a>
+              </h5>
+              <p>2nd Sep 2022</p>
+            </div>
+          </div>
+          <div class="sidebar-card sidebar-tag mt-30">
+            <h3>Penanda Terpopuler</h3>
+            <ul>
+              <li><a href="category.html">Councillor</a></li>
+              <li><a href="category.html">Culture</a></li>
+              <li><a href="category.html">Business</a></li>
+              <li><a href="category.html">Citizen</a></li>
+              <li><a href="category.html">Program</a></li>
+              <li><a href="category.html">Support</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="popup">
+  <div class="popup-content">
+    <button class="close-btn" id="popup-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <form>
+      <div class="input-group search-box">
+        <input type="text" class="form-control" placeholder="Search" />
+        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %} {% block js %}
+<script>
+  $(() => {
+    $("#page-layanan_buku").addClass("active");
+  });
+</script>
+{% endblock %}

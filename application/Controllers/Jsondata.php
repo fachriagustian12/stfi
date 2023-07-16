@@ -118,16 +118,17 @@ class Jsondata extends \CodeIgniter\Controller
 					];
 					
 					if($request->getVar('password')){
-						$data['password'] = password_hash($request->getVar('password'), PASSWORD_DEFAULT);
+						$data['password'] = md5($request->getVar('password'));
 					}
-					$user->updateUser($request->getVar('id'), $data);
+					
+					$user->update($request->getVar('id'), $data);
 					
 				}else{
 					$data = [
 						'name' 			=> $request->getVar('name'),	
 						'email' 		=> $request->getVar('email'),	
 						'username' 		=> $request->getVar('username'),	
-						'password' 		=> password_hash($request->getVar('password'), PASSWORD_DEFAULT),
+						'password' 		=> md5($request->getVar('password')),
 						'id_role' 		=> $request->getVar('id_role'),
 						'status' 		=> 1,
 						'create_date' 	=> $this->now,
@@ -135,8 +136,7 @@ class Jsondata extends \CodeIgniter\Controller
 						'create_by' 	=> $this->session->get('id'),
 						'update_by' 	=> $this->session->get('id')
 					];
-					print_r($data);die;
-					$user->insertUser($data);
+					$user->insert($data);
 				}
 		}
 		redirect('user','refresh');

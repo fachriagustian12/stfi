@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 class UserModel extends Model{
     protected $table = 'm_user';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['username','password','id_role','id_provinsi', 'status'];
+    protected $allowedFields = ['name', 'email', 'username','password','id_role', 'status'];
 
     public function getWhereis($where = null)
     {
@@ -34,7 +34,7 @@ class UserModel extends Model{
         // $builder->join('m_provinsi', 'm_provinsi.id = m_user.id_provinsi', 'INNER');
       }
       $query   = $builder->getWhere($where);
-      // echo $this->db->getLastQuery();die;
+     
       return  $query;
     }
 
@@ -124,6 +124,7 @@ class UserModel extends Model{
 
     public function updateUser($id = null, $data = null)
     {
+      
         $res = $this->db->table('m_user')->where('id', $id)->update($data);
         //  echo $this->db->getLastQuery();die;
         return  $res;

@@ -703,6 +703,58 @@ class Jsondata extends \CodeIgniter\Controller
 	}
   }
 
+  public function addmahasiswa()
+  {
+	try {
+		$request		= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method			= $request->getMethod();
+		$mahasiswa = new \App\Models\MahasiswaModel();
+		if($method == 'post'){
+				
+				if($request->getVar('id')){
+					$data = [
+						'nama' 				=> $request->getVar('nama'),
+						'npm' 				=> $request->getVar('npm'),
+						'semester' 			=> $request->getVar('semester'),
+						'jurusan' 			=> $request->getVar('jurusan'),
+						'status_mahasiswa' => ($request->getVar('status_mahasiswa') == 'on') ? 1 : 0,
+						'status_perwalian' => ($request->getVar('status_perwalian') == 'on') ? 1 : 0,
+						'create_date' 	=> $this->now,
+						'update_date' 	=> $this->now,
+						'create_by' 	=> $this->session->get('id'),
+						'update_by' 	=> $this->session->get('id')
+					];
+					
+					$mahasiswa->update($request->getVar('id'), $data);
+
+					
+				}else{
+					$data = [
+						'nama' => $request->getVar('nama'),
+						'npm' => $request->getVar('npm'),
+						'semester' => $request->getVar('semester'),
+						'jurusan' => $request->getVar('jurusan'),
+						'status_mahasiswa' => ($request->getVar('status_mahasiswa') == 'on') ? 1 : 0,
+						'status_perwalian' => ($request->getVar('status_perwalian') == 'on') ? 1 : 0,
+						'create_date' 	=> $this->now,
+						'update_date' 	=> $this->now,
+						'create_by' 	=> $this->session->get('id'),
+						'update_by' 	=> $this->session->get('id')
+					];
+					
+					$mahasiswa->insert($data);
+					$lastid = $mahasiswa->insertID();
+
+				}
+		}
+		redirect('data_mahasiswa','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
   public function getdata()
   {
 	  try {

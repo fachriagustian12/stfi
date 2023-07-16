@@ -84,6 +84,7 @@ $routes->add('home', 'View::home');
 $routes->add('layanan_informasi_mahasiswa', 'View::layanan_informasi_mahasiswa');
 $routes->add('layanan_informasi_dosen', 'View::layanan_informasi_dosen');
 $routes->add('layanan_informasi_buku', 'View::layanan_informasi_buku');
+$routes->add('layanan_informasi_buku', 'View::layanan_informasi_buku');
 
 // LOGIN
 $routes->add('login', 'View::login');
@@ -95,6 +96,8 @@ $routes->add('data_dosen', 'View::data_dosen');
 $routes->add('data_kampus', 'View::data_kampus');
 $routes->add('data_jadwal', 'View::data_jadwal');
 $routes->add('data_buku', 'View::data_buku');
+$routes->add('data_user', 'View::user');
+$routes->add('data_slider', 'View::data_slider');
 
 
 // $routes->add('/', 'View::login');
@@ -132,6 +135,9 @@ $routes->post('ubahpembayaran', 'Jsondata::ubahpembayaran');
 $routes->post('pembayaran', 'Jsondata::pembayaran');
 $routes->post('kodebilling', 'Jsondata::kodebilling');
 
+$routes->post('getdata', 'Jsondata::getdata');
+$routes->post('deletedata', 'Jsondata::deletedata');
+$routes->post('addslider', 'Jsondata::addslider');
 /**
  * --------------------------------------------------------------------
  * Additional Routing

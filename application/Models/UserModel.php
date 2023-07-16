@@ -40,18 +40,12 @@ class UserModel extends Model{
 
     public function getUsers($param = null)
     {
-      if($param){
-        $builder = $this->db->table('m_user_simponi');
-        $builder->select("m_user_simponi.*, m_provinsi.id as id_provinsi, m_provinsi.provinsi");
-        $builder->join('m_provinsi', 'm_provinsi.id = m_user_simponi.id_provinsi', 'INNER');
-        $query   = $builder->get();
-      }else{
+
         $builder = $this->db->table('m_user');
-        $builder->select("m_user.*, m_role.role, m_provinsi.id as id_provinsi, m_provinsi.provinsi");
+        $builder->select("m_user.*, m_role.role");
         $builder->join('m_role', 'm_role.id = m_user.id_role', 'INNER');
-        $builder->join('m_provinsi', 'm_provinsi.id = m_user.id_provinsi', 'INNER');
         $query   = $builder->get();
-      }
+      
       // echo $this->db->getLastQuery();
       return $query->getResult();
     }
@@ -122,21 +116,45 @@ class UserModel extends Model{
       return true;
     }
 
-    public function insertSimponi($data = null)
+    public function insertUser($data = null)
     {
-        $res = $this->db->table('m_user_simponi')->insert($data);
+        $res = $this->db->table('m_user')->insert($data);
         return  $res;
     }
 
-    public function updateSimponi($id = null, $data = null)
+    public function updateUser($id = null, $data = null)
     {
-        $res = $this->db->table('m_user_simponi')->where('id_usersim', $id)->update($data);
+        $res = $this->db->table('m_user')->where('id', $id)->update($data);
+        //  echo $this->db->getLastQuery();die;
         return  $res;
     }
 
-    public function deleteSimponi($id = null)
+    public function deleteUser($id = null)
     {
-        $res = $this->db->table('m_user_simponi')->where('id_usersim', $id)->delete();
+        $res = $this->db->table('m_user')->where('id', $id)->delete();
+        return  $res;
+    }
+
+    public function getData($table = null, $id = null)
+    {
+
+        $builder = $this->db->table("data_$table");
+        $builder->select("*");
+        if($id){
+          $query  = $builder->getWhere(['id' => $id]);
+          return $query->getRow();
+        }else{
+          $query   = $builder->get();
+          return $query->getResult();
+        }
+      
+      
+      
+    }
+
+    public function deleteData($id = null, $table = null)
+    {
+        $res = $this->db->table("data_$table")->where('id', $id)->delete();
         return  $res;
     }
 

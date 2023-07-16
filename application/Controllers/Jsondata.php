@@ -105,72 +105,41 @@ class Jsondata extends \CodeIgniter\Controller
 		$user = new \App\Models\UserModel();
 
 		if($method == 'post'){
-			if($param){
+				
 				if($request->getVar('id')){
 					$data = [
-						'nama'			=> $request->getVar('nama'),
-						'email'			=> $request->getVar('email'),
-						'usernm'		=> $request->getVar('usernm'),
-						'pass'			=> $request->getVar('pass'),
-						'kontak'		=> $request->getVar('kontak'),
-						'id_provinsi'	=> $request->getVar('id_provinsi'),
-						'updated_at'	=> date('Y-m-d H:i:s'),
-						'updated_by'	=> $this->session->get('id'),
-					];
-					$user->updateSimponi($request->getVar('id'), $data);
-				}else{
-					$data = [
-						'nama'			=> $request->getVar('nama'),
-						'email'			=> $request->getVar('email'),
-						'usernm'		=> $request->getVar('usernm'),
-						'pass'			=> $request->getVar('pass'),
-						'kontak'		=> $request->getVar('kontak'),
-						'id_provinsi'	=> $request->getVar('id_provinsi'),
-						'created_at'	=> date('Y-m-d H:i:s'),
-						'created_by'	=> $this->session->get('id'),
-					];
-
-					$user->insertSimponi($data);
-				}
-			}else{
-				if($request->getVar('id')){
-					$data = [
+						'name' 		=> $request->getVar('name'),	
+						'email' 		=> $request->getVar('email'),	
 						'username' 		=> $request->getVar('username'),	
 						'id_role' 		=> $request->getVar('id_role'),
-						'id_provinsi' 	=> $request->getVar('id_provinsi'),
-						'status' 		=> 1
+						'status' 		=> 1,
+						'update_date' 	=> $this->now,
+						'update_by' 	=> $this->session->get('id')
 					];
 					
 					if($request->getVar('password')){
 						$data['password'] = password_hash($request->getVar('password'), PASSWORD_DEFAULT);
 					}
-					$user->update($request->getVar('id'), $data);
-					$this->logModel->insert([
-						'tgl' => date('Y-m-d H:i:s'), 
-						'username' => $this->session->get('username'), 
-						'keterangan' => "Mengubah data user ".$request->getVar('username'),
-					]);
+					$user->updateUser($request->getVar('id'), $data);
 					
 				}else{
 					$data = [
+						'name' 			=> $request->getVar('name'),	
+						'email' 		=> $request->getVar('email'),	
 						'username' 		=> $request->getVar('username'),	
 						'password' 		=> password_hash($request->getVar('password'), PASSWORD_DEFAULT),
 						'id_role' 		=> $request->getVar('id_role'),
-						'id_provinsi' 	=> $request->getVar('id_provinsi'),
-						'status' 		=> 1
+						'status' 		=> 1,
+						'create_date' 	=> $this->now,
+						'update_date' 	=> $this->now,
+						'create_by' 	=> $this->session->get('id'),
+						'update_by' 	=> $this->session->get('id')
 					];
-
-
-					$user->insert($data);
-					$this->logModel->insert([
-						'tgl' => date('Y-m-d H:i:s'), 
-						'username' => $this->session->get('username'), 
-						'keterangan' => "Menambah data user ".$request->getVar('username'),
-					]);
+					print_r($data);die;
+					$user->insertUser($data);
 				}
-			}
 		}
-		redirect($param?'usersimponi':'user','refresh');
+		redirect('user','refresh');
 	} catch (\Exception $e) {
 		die($e->getMessage());
 	}
@@ -183,16 +152,9 @@ class Jsondata extends \CodeIgniter\Controller
 		$param		= $request->getVar('param');
 		$method			= $request->getMethod();
 		$user = new \App\Models\UserModel();
-		if($param){
-			$user->deleteSimponi($request->getVar('id'));
-		}else{
-			$user->delete($request->getVar('id'));
-			$this->logModel->insert([
-				'tgl' => date('Y-m-d H:i:s'), 
-				'username' => $this->session->get('username'), 
-				'keterangan' => "Menghapus data user ".$request->getVar('username'),
-			]);
-		}
+
+		$user->deleteUser($request->getVar('id'));
+		
 		$response = [
 			'status'   => 'success',
 			'code'     => 200,
@@ -650,6 +612,147 @@ class Jsondata extends \CodeIgniter\Controller
 
 		header('Content-Type: application/json');
 		echo json_encode($response);
+		exit;
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function addslider()
+  {
+	try {
+		$request		= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method			= $request->getMethod();
+		$image = new \App\Models\ImageModel();
+		if($method == 'post'){
+				
+				if($request->getVar('id')){
+					$data = [
+						'title' 		=> $request->getVar('title'),	
+						'status' 		=> 1,
+						'update_date' 	=> $this->now,
+						'update_by' 	=> $this->session->get('id'),
+						'type' 			=> 'slider'
+					];
+					
+					$image->updateImage($request->getVar('id'), $data);
+					if(array_key_exists("images",$_FILES)){
+
+						foreach ($_FILES as $key => $value) {
+							
+							$basepath = './uploads/slider/'.$request->getVar('id').'/';
+							if(!is_dir($basepath)){
+								mkdir($basepath, 0777, true);
+							}
+							
+							$tmp_name = $value['tmp_name'][0];
+							if($tmp_name){
+								$files = glob("$basepath*"); // get all file names
+								foreach($files as $file){ // iterate files
+									if(is_file($file)) {
+										unlink($file); // delete file
+									}
+								}
+								$path = $value['name'][0];
+								$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+								$imgname = "slider-".$request->getVar('id')."-".$path;
+								$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+								$image->updateImage($request->getVar('id'), ['path' => $basepath.$imgname]);
+							}
+						}
+
+					};
+					
+				}else{
+					$data = [
+						'title' 		=> $request->getVar('title'),	
+						'status' 		=> 1,
+						'create_date' 	=> $this->now,
+						'update_date' 	=> $this->now,
+						'create_by' 	=> $this->session->get('id'),
+						'update_by' 	=> $this->session->get('id'),
+						'type' 			=> 'slider'
+					];
+					$image->insertImage($data);
+					$lastid = $image->insertID();
+
+					if(array_key_exists("images",$_FILES)){
+
+						foreach ($_FILES as $key => $value) {
+							$basepath = './uploads/slider/'.$lastid.'/';
+							if(!is_dir($basepath)){
+								mkdir($basepath, 0777, true);
+							}
+							
+							$tmp_name = $value['tmp_name'][0];
+							$path = $value['name'][0];
+							$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+							$imgname = "slider-".$lastid."-".$path;
+							$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+							$image->updateImage($lastid, ['path' => $basepath.$imgname]);
+						}
+
+					};
+				}
+		}
+		redirect('data_slider','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function getdata()
+  {
+	  try {
+		  $request	= $this->request;
+		  $table	= $request->getVar('table');
+		  $id	= $request->getVar('id');
+		  $user = new \App\Models\UserModel();
+		  $data = $user->getData($table, $id);
+		  
+		  if($data){
+			  $response = [
+				  'status'   => 'sukses',
+				  'code'     => 200,
+				  'data' 	 => $data
+			  ];
+		  }else{
+			  $response = [
+				  'status'   => 'gagal',
+				  'code'     => '0',
+				  'data'     => 'tidak ada data',
+			  ];
+		  }
+
+	  header('Content-Type: application/json');
+	  echo json_encode($response);
+	  exit;
+	  } catch (\Exception $e) {
+		  die($e->getMessage());
+	  }
+  }
+
+  public function deletedata()
+  {
+	try {
+		$request		= $this->request;
+		$method			= $request->getMethod();
+		$user = new \App\Models\UserModel();
+
+		$user->deleteData($request->getVar('id'), $request->getVar('table'));
+		if (file_exists($request->getVar('path'))) {
+			unlink($request->getVar('path'));
+		}
+
+		$response = [
+			'status'   => 'success',
+			'code'     => 200,
+		];
+
+		header('Content-Type: application/json');
+	  	echo json_encode($response);
 		exit;
 	} catch (\Exception $e) {
 		die($e->getMessage());

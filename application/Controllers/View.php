@@ -152,6 +152,16 @@ class View extends \CodeIgniter\Controller
 		}
 	}
 
+	public function data_slider()
+	{
+		if ($this->logged) {
+			$this->data['script'] = $this->data['baseURL'].'/action-js/admin/content/data_slider.js';
+			return \Twig::instance()->display('admin/content/data_slider.html', $this->data);
+		} else {
+			return redirect('login');
+		}
+	}
+
 	public function pnbp()
 	{
 		if ($this->logged) {

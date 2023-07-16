@@ -1,0 +1,123 @@
+{% extends "front/layout.html" %} {% block content %}
+
+<section class="blog-details pt-70 pb-100">
+  <div class="container">
+    <nav aria-label="breadcrumb" class="fw-bold">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Agenda Kampus
+        </li>
+      </ol>
+    </nav>
+    <div class="sidebar-card search-box">
+      <form>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Masukan Judul Agenda Yang Dicari"
+            required
+          />
+          <button class="btn" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="service-card-4">
+          <img src="{{baseURL}}assets/images/service/s6.jpg" alt="image" />
+          <div class="service-card-4-text">
+            <span>Government</span>
+            <h5>
+              <a href="{{baseURL}}detailagenda/judul-slug"
+                >Building & Licenses</a
+              >
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="service-card-4">
+          <img src="{{baseURL}}assets/images/service/s5.jpg" alt="image" />
+          <div class="service-card-4-text">
+            <span>Government</span>
+            <h5>
+              <a href="{{baseURL}}detailagenda/judul-slug">Water Supply</a>
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+        <div class="service-card-4">
+          <img src="{{baseURL}}assets/images/service/s8.jpg" alt="image" />
+          <div class="service-card-4-text">
+            <span>Government</span>
+            <h5><a href="{{baseURL}}detailagenda/judul-slug">Buildings</a></h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+        <div class="service-card-4">
+          <img src="{{baseURL}}assets/images/service/s9.jpg" alt="image" />
+          <div class="service-card-4-text">
+            <span>Government</span>
+            <h5><a href="{{baseURL}}detailagenda/judul-slug">City</a></h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+        <div class="service-card-4">
+          <img src="{{baseURL}}assets/images/service/s10.jpg" alt="image" />
+          <div class="service-card-4-text">
+            <span>Government</span>
+            <h5><a href="{{baseURL}}detailagenda/judul-slug">Old Town</a></h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+        <div class="service-card-4">
+          <img src="{{baseURL}}assets/images/service/s11.jpg" alt="image" />
+          <div class="service-card-4-text">
+            <span>Government</span>
+            <h5><a href="{{baseURL}}detailagenda/judul-slug">Clean City</a></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="paginations mt-30">
+      <ul>
+        <li><a class="active" href="projects.html">1</a></li>
+        <li><a href="projects.html">2</a></li>
+        <li><a href="projects.html">3</a></li>
+        <li>
+          <a href="projects.html"><i class="fas fa-chevron-right"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="popup">
+  <div class="popup-content">
+    <button class="close-btn" id="popup-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <form>
+      <div class="input-group search-box">
+        <input type="text" class="form-control" placeholder="Search" />
+        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %} {% block js %}
+<script>
+  $(() => {
+    $("#page-layanan_buku").addClass("active");
+  });
+</script>
+{% endblock %}

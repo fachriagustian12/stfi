@@ -46,6 +46,14 @@ class View extends \CodeIgniter\Controller
 		return \Twig::instance()->display('front/home.html');
 	}
 
+	public function menu()
+	{
+		helper('url');
+		$uri = current_url(true);
+
+		return \Twig::instance()->display('front/menu.html');
+	}
+
 	public function login()
 	{
 		
@@ -69,7 +77,7 @@ class View extends \CodeIgniter\Controller
 		helper('url');
 		$uri = current_url(true);
 
-		return \Twig::instance()->display('front/layanan_informasi/mahasiswa.html');
+		return \Twig::instance()->display('front/layanan_informasi/mahasiswa.html',$this->data);
 	}
 	
 	public function layanan_informasi_dosen()
@@ -77,7 +85,7 @@ class View extends \CodeIgniter\Controller
 		helper('url');
 		$uri = current_url(true);
 
-		return \Twig::instance()->display('front/layanan_informasi/dosen.html');
+		return \Twig::instance()->display('front/layanan_informasi/dosen.html',$this->data);
 	}
 
 	public function layanan_informasi_buku()
@@ -85,8 +93,41 @@ class View extends \CodeIgniter\Controller
 		helper('url');
 		$uri = current_url(true);
 
-		return \Twig::instance()->display('front/buku_digital.html');
+		return \Twig::instance()->display('front/buku_digital.html',$this->data);
 	}
+
+	public function layanan_berita()
+	{
+		helper('url');
+		$uri = current_url(true);
+
+		return \Twig::instance()->display('front/berita.html',$this->data);
+	}
+
+	public function detail_berita()
+	{
+		helper('url');
+		$uri = current_url(true);
+
+		return \Twig::instance()->display('front/detailberita.html', $this->data);
+	}
+
+	public function layanan_agenda()
+	{
+		helper('url');
+		$uri = current_url(true);
+
+		return \Twig::instance()->display('front/agenda.html',$this->data);
+	}
+
+	public function detail_agenda()
+	{
+		helper('url');
+		$uri = current_url(true);
+
+		return \Twig::instance()->display('front/detailagenda.html', $this->data);
+	}
+
 
 	// BACKEND
 

@@ -67,7 +67,7 @@ $routes->set404Override();
 // $routes->set404Override(function() {
 // 	echo view('404');die;
 // });
-$routes->setAutoRoute(true);
+$routes->setAutoRoute(false);
 
 /**
  * --------------------------------------------------------------------
@@ -81,10 +81,18 @@ $routes->setAutoRoute(true);
 // FRONT END
 $routes->add('/', 'View::home');
 $routes->add('home', 'View::home');
+$routes->add('menu', 'View::menu');
 $routes->add('layanan_informasi_mahasiswa', 'View::layanan_informasi_mahasiswa');
 $routes->add('layanan_informasi_dosen', 'View::layanan_informasi_dosen');
 $routes->add('layanan_informasi_buku', 'View::layanan_informasi_buku');
 $routes->add('layanan_informasi_buku', 'View::layanan_informasi_buku');
+// BERITA
+$routes->add('layanan_berita', 'View::layanan_berita');
+$routes->add('detailberita/(:any)', 'View::detail_berita');
+// AGENDA
+$routes->add('layanan_agenda', 'View::layanan_agenda');
+$routes->add('detailagenda/(:any)', 'View::detail_agenda');
+
 
 // LOGIN
 $routes->add('login', 'View::login');

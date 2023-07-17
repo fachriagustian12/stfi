@@ -106,6 +106,7 @@ $routes->add('data_jadwal', 'View::data_jadwal');
 $routes->add('data_buku', 'View::data_buku');
 $routes->add('data_user', 'View::user');
 $routes->add('data_slider', 'View::data_slider');
+$routes->add('data_berita', 'View::data_berita');
 
 
 // $routes->add('/', 'View::login');
@@ -149,6 +150,7 @@ $routes->post('addslider', 'Jsondata::addslider');
 $routes->post('addmahasiswa', 'Jsondata::addmahasiswa');
 $routes->post('adddosen', 'Jsondata::adddosen');
 $routes->post('addkegiatan', 'Jsondata::addkegiatan');
+$routes->post('addberita', 'Jsondata::addberita');
 /**
  * --------------------------------------------------------------------
  * Additional Routing

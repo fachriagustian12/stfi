@@ -11,11 +11,33 @@
  Target Server Version : 50733 (5.7.33)
  File Encoding         : 65001
 
- Date: 17/07/2023 22:56:39
+ Date: 17/07/2023 23:19:07
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for data_berita
+-- ----------------------------
+DROP TABLE IF EXISTS `data_berita`;
+CREATE TABLE `data_berita`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `redaksi` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `tanggal` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `status` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `path` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `create_by` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `create_date` timestamp NULL DEFAULT NULL,
+  `update_by` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `update_date` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of data_berita
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for data_dosen
@@ -105,13 +127,14 @@ CREATE TABLE `data_slider`  (
   `path` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `type` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of data_slider
 -- ----------------------------
 INSERT INTO `data_slider` VALUES (18, 'adadwaewqe', '1', '1', '2023-07-16 20:23:33', '1', '2023-07-16 20:23:33', './uploads/slider/18/slider-18-3800_2_06.jpg', 'slider');
 INSERT INTO `data_slider` VALUES (19, '1231423534254354', '1', '1', '2023-07-16 20:43:07', '1', '2023-07-16 20:46:30', './uploads/slider/19/slider-19-38e94f00-7674-4b42-8e50-6d288f78abdf.jpg', 'slider');
+INSERT INTO `data_slider` VALUES (20, 'ada', '1', '3', '2023-07-17 23:17:01', '3', '2023-07-17 23:17:01', './uploads/slider/20/slider-20-3800_4_03.jpg', 'slider');
 
 -- ----------------------------
 -- Table structure for m_role

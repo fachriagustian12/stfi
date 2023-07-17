@@ -1,0 +1,133 @@
+{% extends "admin/layout.html" %} {% block content %}
+<div class="content-header row"></div>
+<div class="content-body">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Data Berita</h4>
+          <a class="heading-elements-toggle"
+            ><i class="la la-ellipsis-v font-medium-3"></i
+          ></a>
+          <div class="heading-elements">
+            <ul class="list-inline mb-0">
+                <li>
+                    <button type="button" class="btn btn-success btn-min-width mr-1 mb-1" id="add_berita" data-toggle="modal" data-target="#modal_add_berita"><i class="la la-plus"></i>
+                      Tambah Berita</button>
+                </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-content collapse show">
+          <div class="card-body card-dashboard">
+            <div class="table-responsive">
+              <table id="all_berita" class="table table-striped table-bordered bootstrap-3">
+                <thead>
+                  <tr>
+                    <th>#No</th>
+                    <th>Title</th>
+                    <th>Redaksi</th>
+                    <th>Tanggal</th>
+                    <th>Gambar</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modal_add_berita" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data Berita</h5>
+  
+                <!--begin::Close-->
+                <a class="btn btn-icon" data-dismiss="modal" aria-label="Close">
+                    <span class="la la-times"></span>
+                </a>
+                <!--end::Close-->
+            </div>
+  
+            <form action="addberita" method="POST" enctype="multipart/form-data">
+              <input type="hidden" name="id" id="id" />
+              <div class="modal-body">
+  
+                <fieldset>
+                  <div class="form-group">
+                    <h5>Title</h5>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id=""><i class="la la-pencil"></i></span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="title" name="title" id="title">
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <div class="form-group">
+                    <h5>Redaksi</h5>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id=""><i class="la la-pencil"></i></span>
+                      </div>
+                      <textarea class="form-control" placeholder="title" name="redaksi" id="redaksi"></textarea>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <div class="form-group">
+                    <h5>Tanggal</h5>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id=""><i class="la la-calendar"></i></span>
+                      </div>
+                      <input type="date" class="form-control" placeholder="" name="tanggal" id="tanggal">
+                    </div>
+                  </div>
+                </fieldset>
+  
+                <fieldset>
+                  <div class="form-group">
+                    <h5>Upload Gambar</h5>
+                      <div class="file" style="padding-top: .5rem;" name="file" id="file"></div>
+                  </div>
+                </fieldset>
+                
+              </div>
+              
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm mr-1 mb-1 " data-dismiss="modal"><i class="la la-times"></i> Batal</button>
+                <button type="submit" class="btn btn-success btn-sm mr-1 mb-1 "><i class="la la-check"></i> Simpan</button>
+              </div>
+            </form>
+        </div>
+    </div>
+  </div>
+  <div class="modal fade" tabindex="-1" id="modal_image">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 0px;border: none;">
+                <h5></h5>
+                <a class="btn btn-icon" data-dismiss="modal" aria-label="Close">
+                    <span class="la la-times"></span>
+                </a>
+            </div>
+            <div class="modal-body" style="padding: 0;">
+                <figure class="col-lg-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                    <span href="#!" itemprop="contentUrl" >
+                        <img id="url-image" class="img-thumbnail img-fluid" src="" itemprop="thumbnail" alt="Image description" />
+                    </span>
+                </figure>
+            </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}

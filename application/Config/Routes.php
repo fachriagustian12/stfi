@@ -151,6 +151,7 @@ $routes->post('addmahasiswa', 'Jsondata::addmahasiswa');
 $routes->post('adddosen', 'Jsondata::adddosen');
 $routes->post('addkegiatan', 'Jsondata::addkegiatan');
 $routes->post('addberita', 'Jsondata::addberita');
+$routes->post('addbuku', 'Jsondata::addbuku');
 /**
  * --------------------------------------------------------------------
  * Additional Routing

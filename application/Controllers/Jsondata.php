@@ -984,6 +984,95 @@ class Jsondata extends \CodeIgniter\Controller
 	}
   }
 
+  public function addbuku()
+  {
+	try {
+		$request		= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method			= $request->getMethod();
+		$buku = new \App\Models\BukuModel();
+		if($method == 'post'){
+				
+				if($request->getVar('id')){
+					$data = [
+						'title' => $request->getVar('title'),
+						'keterangan' => $request->getVar('redaksi'),
+						'ketersediaan' => $request->getVar('ketersediaan'),
+						'update_date' => $this->now,
+						'update_by' => $this->session->get('id'),
+						'status' => 1
+
+					];
+					
+					$buku->update($request->getVar('id'), $data);
+					if(array_key_exists("images",$_FILES)){
+
+						foreach ($_FILES as $key => $value) {
+							
+							$basepath = './uploads/buku/'.$request->getVar('id').'/';
+							if(!is_dir($basepath)){
+								mkdir($basepath, 0777, true);
+							}
+							
+							$tmp_name = $value['tmp_name'][0];
+							if($tmp_name){
+								$files = glob("$basepath*"); // get all file names
+								foreach($files as $file){ // iterate files
+									if(is_file($file)) {
+										unlink($file); // delete file
+									}
+								}
+								$path = $value['name'][0];
+								$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+								$imgname = "buku-".$request->getVar('id')."-".$path;
+								$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+								$buku->update($request->getVar('id'), ['path' => $basepath.$imgname]);
+							}
+						}
+
+					};
+					
+				}else{
+
+					$data = [
+						'title' => $request->getVar('title'),
+						'keterangan' => $request->getVar('keterangan'),
+						'ketersediaan' => $request->getVar('ketersediaan'),
+						'create_date' 	=> $this->now,
+						'update_date' => $this->now,
+						'create_by' 	=> $this->session->get('id'),
+						'update_by' => $this->session->get('id'),
+						'status' => 1
+					];
+					$buku->insert($data);
+					$lastid = $buku->insertID();
+					
+					if(array_key_exists("images",$_FILES)){
+
+						foreach ($_FILES as $key => $value) {
+							$basepath = './uploads/buku/'.$lastid.'/';
+							if(!is_dir($basepath)){
+								mkdir($basepath, 0777, true);
+							}
+							
+							$tmp_name = $value['tmp_name'][0];
+							$path = $value['name'][0];
+							$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+							$imgname = "buku-".$lastid."-".$path;
+							$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+							$buku->update($lastid, ['path' => $basepath.$imgname]);
+						}
+
+					};
+				}
+		}
+		redirect('data_buku','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
   public function getdata()
   {
 	  try {

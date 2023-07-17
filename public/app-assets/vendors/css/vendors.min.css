@@ -867,7 +867,7 @@
 	font-family: LineAwesome;
 	src: url(../../fonts/line-awesome/fonts/line-awesome.eot@v=1.1.);
 	src: url(../../fonts/line-awesome/fonts/line-awesome.eot@%253Fv=1.1.) format("embedded-opentype"),
-	  url(../../fonts/line-awesome/fonts/line-awesome.woff) format("woff2"),
+	  url(../../fonts/line-awesome/fonts/line-awesome.woff2) format("woff2"),
 	  url(../../fonts/line-awesome/fonts/line-awesome.woff) format("woff"),
 	  url(../../fonts/line-awesome/fonts/line-awesome.ttf) format("truetype"),
 	  url(../../fonts/line-awesome/fonts/line-awesome.svg@v=1.1.) format("svg");

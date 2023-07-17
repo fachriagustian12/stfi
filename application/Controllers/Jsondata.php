@@ -721,9 +721,7 @@ class Jsondata extends \CodeIgniter\Controller
 						'jurusan' 			=> $request->getVar('jurusan'),
 						'status_mahasiswa' => ($request->getVar('status_mahasiswa') == 'on') ? 1 : 0,
 						'status_perwalian' => ($request->getVar('status_perwalian') == 'on') ? 1 : 0,
-						'create_date' 	=> $this->now,
 						'update_date' 	=> $this->now,
-						'create_by' 	=> $this->session->get('id'),
 						'update_by' 	=> $this->session->get('id')
 					];
 					
@@ -750,6 +748,59 @@ class Jsondata extends \CodeIgniter\Controller
 				}
 		}
 		redirect('data_mahasiswa','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function adddosen()
+  {
+	try {
+		$request		= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method			= $request->getMethod();
+		$dosen = new \App\Models\DosenModel();
+		if($method == 'post'){
+				
+				if($request->getVar('id')){
+					$data = [
+						'nama' 			=> $request->getVar('nama'),
+						'mata_kuliah' 	=> $request->getVar('mata_kuliah'),
+						'jadwal' 		=> $request->getVar('jadwal'),
+						'kelas' 		=> $request->getVar('kelas'),
+						'perkuliahan' 	=> ($request->getVar('perkuliahan') == 'on') ? 'online' : 'offline',
+						'status' 		=> 1,
+						'tugas' 		=> $request->getVar('tugas'),
+						'update_by' 	=> $this->session->get('id'),
+						'update_date' 	=> $this->now
+					];
+					
+					$dosen->update($request->getVar('id'), $data);
+
+					
+				}else{
+					$data = [
+						'nama' 			=> $request->getVar('nama'),
+						'mata_kuliah' 	=> $request->getVar('mata_kuliah'),
+						'jadwal' 		=> $request->getVar('jadwal'),
+						'kelas' 		=> $request->getVar('kelas'),
+						'perkuliahan' 	=> ($request->getVar('perkuliahan') == 'on') ? 'online' : 'offline',
+						'status' 		=> 1,
+						'tugas' 		=> $request->getVar('tugas'),
+						'create_by' 	=> $this->session->get('id'),
+						'create_date' 	=> $this->now,
+						'update_by' 	=> $this->session->get('id'),
+						'update_date' 	=> $this->now
+					];
+					
+					
+					$dosen->insert($data);
+					$lastid = $dosen->insertID();
+
+				}
+		}
+		redirect('data_dosen','refresh');
 	} catch (\Exception $e) {
 		die($e->getMessage());
 	}

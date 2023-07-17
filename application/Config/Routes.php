@@ -147,6 +147,7 @@ $routes->post('getdata', 'Jsondata::getdata');
 $routes->post('deletedata', 'Jsondata::deletedata');
 $routes->post('addslider', 'Jsondata::addslider');
 $routes->post('addmahasiswa', 'Jsondata::addmahasiswa');
+$routes->post('adddosen', 'Jsondata::adddosen');
 /**
  * --------------------------------------------------------------------
  * Additional Routing

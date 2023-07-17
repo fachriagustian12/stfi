@@ -1,6 +1,6 @@
 $(() => {
   $("#menu-data_mahasiswa").addClass("active");
-  $(".data_mahasiswa ").addClass("open");
+  $(".layanan_informasi").addClass("open");
   $(".select2 ").select2();
 
   $('#modal_add_mahasiswa').on('show.bs.modal', function() {

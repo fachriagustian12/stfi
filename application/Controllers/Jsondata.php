@@ -806,6 +806,95 @@ class Jsondata extends \CodeIgniter\Controller
 	}
   }
 
+  public function addkegiatan()
+  {
+	try {
+		$request		= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method			= $request->getMethod();
+		$kegiatan = new \App\Models\KegiatanModel();
+		if($method == 'post'){
+				
+				if($request->getVar('id')){
+					$data = [
+						'kegiatan' => $request->getVar('kegiatan'),
+						'tanggal_kegiatan' => $request->getVar('tanggal_kegiatan'),
+						'keterangan' => $request->getVar('keterangan'),
+						'update_date' => $this->now,
+						'update_by' => $this->session->get('id'),
+						'status' => 1
+
+					];
+					
+					$kegiatan->update($request->getVar('id'), $data);
+					if(array_key_exists("images",$_FILES)){
+
+						foreach ($_FILES as $key => $value) {
+							
+							$basepath = './uploads/kegiatan/'.$request->getVar('id').'/';
+							if(!is_dir($basepath)){
+								mkdir($basepath, 0777, true);
+							}
+							
+							$tmp_name = $value['tmp_name'][0];
+							if($tmp_name){
+								$files = glob("$basepath*"); // get all file names
+								foreach($files as $file){ // iterate files
+									if(is_file($file)) {
+										unlink($file); // delete file
+									}
+								}
+								$path = $value['name'][0];
+								$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+								$imgname = "kegiatan-".$request->getVar('id')."-".$path;
+								$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+								$kegiatan->update($request->getVar('id'), ['path' => $basepath.$imgname]);
+							}
+						}
+
+					};
+					
+				}else{
+
+					$data = [
+						'kegiatan' => $request->getVar('kegiatan'),
+						'tanggal_kegiatan' => $request->getVar('tanggal_kegiatan'),
+						'keterangan' => $request->getVar('keterangan'),
+						'create_date' 	=> $this->now,
+						'update_date' => $this->now,
+						'create_by' 	=> $this->session->get('id'),
+						'update_by' => $this->session->get('id'),
+						'status' => 1
+					];
+					$kegiatan->insert($data);
+					$lastid = $kegiatan->insertID();
+					
+					if(array_key_exists("images",$_FILES)){
+
+						foreach ($_FILES as $key => $value) {
+							$basepath = './uploads/kegiatan/'.$lastid.'/';
+							if(!is_dir($basepath)){
+								mkdir($basepath, 0777, true);
+							}
+							
+							$tmp_name = $value['tmp_name'][0];
+							$path = $value['name'][0];
+							$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+							$imgname = "kegiatan-".$lastid."-".$path;
+							$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+							$kegiatan->update($lastid, ['path' => $basepath.$imgname]);
+						}
+
+					};
+				}
+		}
+		redirect('data_kampus','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
   public function getdata()
   {
 	  try {

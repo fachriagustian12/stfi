@@ -11,11 +11,59 @@
  Target Server Version : 50733 (5.7.33)
  File Encoding         : 65001
 
- Date: 17/07/2023 21:16:10
+ Date: 17/07/2023 22:56:39
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for data_dosen
+-- ----------------------------
+DROP TABLE IF EXISTS `data_dosen`;
+CREATE TABLE `data_dosen`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `mata_kuliah` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `jadwal` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `kelas` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `perkuliahan` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `status` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `tugas` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `create_by` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `create_date` timestamp NULL DEFAULT NULL,
+  `update_by` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `update_date` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of data_dosen
+-- ----------------------------
+INSERT INTO `data_dosen` VALUES (1, 'beno', 'saya', '2023-07-17', 'dua', 'online', '1', 'saya', '3', '2023-07-17 22:17:02', '3', '2023-07-17 22:21:27');
+
+-- ----------------------------
+-- Table structure for data_kegiatan
+-- ----------------------------
+DROP TABLE IF EXISTS `data_kegiatan`;
+CREATE TABLE `data_kegiatan`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kegiatan` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `tanggal_kegiatan` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `keterangan` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `create_date` timestamp NULL DEFAULT NULL,
+  `create_by` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `update_date` timestamp NULL DEFAULT NULL,
+  `update_by` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `status` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `path` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of data_kegiatan
+-- ----------------------------
+INSERT INTO `data_kegiatan` VALUES (5, 'ada', '2023-07-17', 'saya', '2023-07-17 22:50:44', '3', '2023-07-17 22:54:30', '3', '1', './uploads/kegiatan/5/kegiatan-5-28ae9314943f0aef359c9ccb9e2d17aa.jpg');
 
 -- ----------------------------
 -- Table structure for data_mahasiswa

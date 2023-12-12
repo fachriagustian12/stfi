@@ -6,8 +6,8 @@ $startTime   = microtime(true);
 
 $useKint = false;
 $minPHPVersion = '7.2';
-if (phpversion() < $minPHPVersion){
-die("Your PHP version must be {$minPHPVersion} or higher to run CodeIgniter. Current version: " . phpversion());
+if (phpversion() < $minPHPVersion) {
+	die("Your PHP version must be {$minPHPVersion} or higher to run CodeIgniter. Current version: " . phpversion());
 }
 unset($minPHPVersion);
 /*
@@ -29,12 +29,9 @@ unset($minPHPVersion);
  */
 
 // running under Continuous Integration server?
-if (getenv('CI') !== false)
-{
-	define('ENVIRONMENT', 'testing');
-}
-else
-{
+if (getenv('CI') !== false) {
+	define('ENVIRONMENT', 'development');
+} else {
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'production');
 }
 
@@ -104,19 +101,17 @@ $tests_directory = '../tests';
 chdir(__DIR__);
 
 // Are the system and application paths correct?
-if ( ! realpath($system_directory) OR ! is_dir($system_directory))
-{
+if (!realpath($system_directory) or !is_dir($system_directory)) {
 	header('HTTP/1.1 503 Service Unavailable.', true, 503);
-	echo 'Your system folder path does not appear to be set correctly. Please open the following file and correct this: '.
-	     pathinfo(__FILE__, PATHINFO_BASENAME);
+	echo 'Your system folder path does not appear to be set correctly. Please open the following file and correct this: ' .
+		pathinfo(__FILE__, PATHINFO_BASENAME);
 	exit(3); // EXIT_CONFIG
 }
 
-if ( ! realpath($application_directory) OR ! is_dir($application_directory))
-{
+if (!realpath($application_directory) or !is_dir($application_directory)) {
 	header('HTTP/1.1 503 Service Unavailable.', true, 503);
-	echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: '.
-	     pathinfo(__FILE__, PATHINFO_BASENAME);
+	echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: ' .
+		pathinfo(__FILE__, PATHINFO_BASENAME);
 	exit(3); // EXIT_CONFIG
 }
 
@@ -129,19 +124,19 @@ if ( ! realpath($application_directory) OR ! is_dir($application_directory))
 define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 
 // Path to the system folder
-define('BASEPATH', realpath($system_directory).DIRECTORY_SEPARATOR);
+define('BASEPATH', realpath($system_directory) . DIRECTORY_SEPARATOR);
 
 // Path to the front controller (this file)
-define('FCPATH', __DIR__.DIRECTORY_SEPARATOR);
+define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
 // Path to the writable directory.
-define('WRITEPATH', realpath($writable_directory).DIRECTORY_SEPARATOR);
+define('WRITEPATH', realpath($writable_directory) . DIRECTORY_SEPARATOR);
 
 // The path to the "application" folder
-define('APPPATH', realpath($application_directory).DIRECTORY_SEPARATOR);
+define('APPPATH', realpath($application_directory) . DIRECTORY_SEPARATOR);
 
 // The path to the "tests" directory
-define('TESTPATH', realpath($tests_directory).DIRECTORY_SEPARATOR);
+define('TESTPATH', realpath($tests_directory) . DIRECTORY_SEPARATOR);
 
 /*
  *---------------------------------------------------------------
@@ -157,12 +152,9 @@ define('TESTPATH', realpath($tests_directory).DIRECTORY_SEPARATOR);
  * be found under application/Config/Boot or the system
  * will stop execution.
  */
-if (file_exists(APPPATH.'Config/Boot/'.ENVIRONMENT.'.php'))
-{
-	require APPPATH.'Config/Boot/'.ENVIRONMENT.'.php';
-}
-else
-{
+if (file_exists(APPPATH . 'Config/Boot/' . ENVIRONMENT . '.php')) {
+	require APPPATH . 'Config/Boot/' . ENVIRONMENT . '.php';
+} else {
 	header('HTTP/1.1 503 Service Unavailable.', true, 503);
 	echo 'The application environment is not set correctly.';
 	exit(1); // EXIT_ERROR
@@ -173,9 +165,8 @@ else
  * Load the Kint Debugger
  * ------------------------------------------------------
  */
-if ($useKint === true)
-{
-	require_once BASEPATH.'ThirdParty/Kint/Kint.class.php';
+if ($useKint === true) {
+	require_once BASEPATH . 'ThirdParty/Kint/Kint.class.php';
 }
 
 /*
@@ -186,7 +177,7 @@ if ($useKint === true)
 
 // Load environment settings from .env files
 // into $_SERVER and $_ENV
-require BASEPATH.'Config/DotEnv.php';
+require BASEPATH . 'Config/DotEnv.php';
 $env = new CodeIgniter\Config\DotEnv(APPPATH);
 $env->load();
 unset($env);
@@ -196,12 +187,11 @@ unset($env);
  *  Load the framework constants
  * ------------------------------------------------------
  */
-if (file_exists(APPPATH.'Config/'.ENVIRONMENT.'/Constants.php'))
-{
-	require_once APPPATH.'Config/'.ENVIRONMENT.'/Constants.php';
+if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Constants.php')) {
+	require_once APPPATH . 'Config/' . ENVIRONMENT . '/Constants.php';
 }
 
-require_once(APPPATH.'Config/Constants.php');
+require_once(APPPATH . 'Config/Constants.php');
 
 /*
  * ------------------------------------------------------
@@ -209,9 +199,9 @@ require_once(APPPATH.'Config/Constants.php');
  * ------------------------------------------------------
  */
 // The autoloader isn't initialized yet, so load the file manually.
-require BASEPATH.'Autoloader/Autoloader.php';
-require APPPATH.'Config/Autoload.php';
-require APPPATH.'Config/Services.php';
+require BASEPATH . 'Autoloader/Autoloader.php';
+require APPPATH . 'Config/Autoload.php';
+require APPPATH . 'Config/Services.php';
 
 // Use Config\Services as CodeIgniter\Services
 class_alias('Config\Services', 'CodeIgniter\Services');
@@ -231,7 +221,7 @@ $loader->register();
  * ------------------------------------------------------
  */
 
-require_once BASEPATH.'Common.php';
+require_once BASEPATH . 'Common.php';
 
 /*
  * ------------------------------------------------------
@@ -247,21 +237,15 @@ CodeIgniter\Services::exceptions($config, true)
 // Should we use a Composer autoloader?
 //--------------------------------------------------------------------
 
-if ($composer_autoload = $config->composerAutoload)
-{
-	if ($composer_autoload === TRUE)
-	{
-		file_exists(APPPATH.'../vendor/autoload.php')
-			? require_once(APPPATH.'../vendor/autoload.php')
-			: log_message('error', '$config->\'composerAutoload\' is set to TRUE but '.realpath("../").'vendor/autoload.php was not found.');
-	}
-	elseif (file_exists($composer_autoload))
-	{
+if ($composer_autoload = $config->composerAutoload) {
+	if ($composer_autoload === TRUE) {
+		file_exists(APPPATH . '../vendor/autoload.php')
+			? require_once(APPPATH . '../vendor/autoload.php')
+			: log_message('error', '$config->\'composerAutoload\' is set to TRUE but ' . realpath("../") . 'vendor/autoload.php was not found.');
+	} elseif (file_exists($composer_autoload)) {
 		require_once($composer_autoload);
-	}
-	else
-	{
-		log_message('error', 'Could not find the specified $config->\'composerAutoload\' path: '.$composer_autoload);
+	} else {
+		log_message('error', 'Could not find the specified $config->\'composerAutoload\' path: ' . $composer_autoload);
 	}
 }
 

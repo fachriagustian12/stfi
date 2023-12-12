@@ -7,8 +7,9 @@
     width: 55%;
   }
 
-  .link-menu {
-    color: var(--blackColor);
+  .link-menu .card:hover {
+    color: #fff;
+    transform: scale(1.1);
   }
 
   .link-menu .card {
@@ -21,13 +22,38 @@
     margin-bottom: 1.5em;
   }
 
-  .link-menu .card:hover {
+  .link-menu #imahasiswa {
     background-color: var(--mainColor);
     border-radius: 10px;
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
+  }
+  .link-menu #idosen {
+    background-color: var(--secondColor);
+    border-radius: 10px;
+    /* transform: scale(1.1); */
+  }
+  .link-menu #ikelas {
+    background-color: var(--thirdColor);
+    border-radius: 10px;
+    /* transform: scale(1.1); */
+  }
+  .link-menu #iagenda {
+    background-color: var(--forthColor);
+    border-radius: 10px;
+    /* transform: scale(1.1); */
+  }
+  .link-menu #ibuku {
+    background-color: var(--fifthColor);
+    border-radius: 10px;
+    /* transform: scale(1.1); */
+  }
+  .link-menu #iberita {
+    background-color: brown;
+    border-radius: 10px;
+    /* transform: scale(1.1); */
   }
 
-  .link-menu:hover {
+  .link-menu {
     color: #fff;
   }
 
@@ -58,4 +84,12 @@
     color: #fff;
     font-size: 24px;
   } */
+
+  .active > .page-link,
+  .page-link.active {
+    z-index: 3;
+    color: var(--secondColor);
+    background-color: var(--mainColor);
+    border-color: var(--mainColor);
+  }
 </style>

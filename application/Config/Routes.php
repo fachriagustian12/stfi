@@ -92,6 +92,9 @@ $routes->add('detailberita/(:any)', 'View::detail_berita');
 $routes->add('layanan_agenda', 'View::layanan_agenda');
 $routes->add('detailagenda/(:any)', 'View::detail_agenda');
 
+// GETDATA
+$routes->post('getMhs', 'Jsondatas::getMhs');
+
 
 // LOGIN
 $routes->add('login', 'View::login');
@@ -119,7 +122,7 @@ $routes->add('wasdal/(:any)', 'View::wasdal');
 $routes->add('cicilan', 'View::cicilan');
 $routes->add('detailcicilan/(:any)', 'View::cicilan');
 $routes->add('detailbilling/(:any)', 'View::cicilan');
- 
+
 $routes->add('auth', 'Auth::auth');
 $routes->add('reg', 'Auth::reg');
 $routes->add('logout', 'Auth::logout');

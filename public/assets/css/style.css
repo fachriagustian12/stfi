@@ -3,8 +3,11 @@
 :root {
   --fontFamily: "Montserrat", sans-serif;
   --fontFamily2: "Roboto", sans-serif;
-  --mainColor: #014925;
-  --secondColor: #00aa5530;
+  --mainColor: #264653;
+  --secondColor: #e9c46a;
+  --thirdColor: #e76f51;
+  --forthColor: #2a9d8f;
+  --fifthColor: #f4a261;
   --whiteColor: #ffffff;
   --blackColor: #1f2428;
   --paragraphColor: #666666;

@@ -10,7 +10,7 @@
       </ol>
     </nav>
     <h1>Informasi Mahasiswa</h1>
-    <div class="sidebar-card search-box mb-3">
+    <!-- <div class="sidebar-card search-box mb-3">
       <form>
         <div class="input-group">
           <input
@@ -24,7 +24,7 @@
           </button>
         </div>
       </form>
-    </div>
+    </div> -->
 
     <!-- <p>
       We may collect personal identification information from Users in a variety
@@ -38,39 +38,32 @@
       refuse to supply personally identification information, except that it may
       prevent them from engaging in certain Site related activities.
     </p> -->
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead class="table-active">
-          <th>No.</th>
-          <th>Nama</th>
-          <th>NPM</th>
-          <th>Fakultas</th>
-          <th>Jurusan</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Febrianto Rahmadi</td>
-            <td>411550505150047</td>
-            <td>Fakultas Farmasi</td>
-            <td>Apoteker</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="paginations mt-30">
-        <ul>
-          <li><a class="active" href="blog.html">1</a></li>
-          <li><a href="blog.html">2</a></li>
-          <li><a href="blog.html">3</a></li>
-          <li>
-            <a href="blog.html"><i class="fas fa-chevron-right"></i></a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <!-- <div class="table-responsive"> -->
+    <table class="table table-bordered" id="table-mhs">
+      <thead class="table-active">
+        <th width="3%">No.</th>
+        <th>Nama</th>
+        <th>NPM</th>
+        <th>Semester</th>
+        <th>Fakultas</th>
+        <th>Program Studi</th>
+        <th>Status</th>
+      </thead>
+    </table>
+    <!-- <div class="paginations mt-30">
+      <ul>
+        <li><a class="active" href="blog.html">1</a></li>
+        <li><a href="blog.html">2</a></li>
+        <li><a href="blog.html">3</a></li>
+        <li>
+          <a href="blog.html"><i class="fas fa-chevron-right"></i></a>
+        </li>
+      </ul>
+    </div> -->
   </div>
 </div>
-<div class="popup">
+<!-- </div> -->
+<!-- <div class="popup">
   <div class="popup-content">
     <button class="close-btn" id="popup-close">
       <i class="fas fa-times"></i>
@@ -86,13 +79,41 @@
       </div>
     </form>
   </div>
-</div>
+</div> -->
 
 {% endblock %} {% block js %}
 <script>
   $(() => {
     $("#dropdown-layanan").addClass("active");
     $("#page-layanan_mahasiswa").addClass("active");
+
+    var table = $("#table-mhs").DataTable({
+      processing: true,
+      serverSide: true,
+      language: {
+        searchPlaceholder: "Masukan Nama / NPM Mahasiswa",
+        search: "Cari Data Mahasiswa :",
+        info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ Data",
+        lengthMenu: "Menampilkan _MENU_ Data",
+        paginate: {
+          first: "Awal",
+          last: "Akhir",
+          next: "Selanjutnya",
+          previous: "Sebelumnya",
+        },
+      },
+      order: [],
+      ajax: {
+        url: "getMhs",
+        type: "POST",
+      },
+      columnDefs: [
+        {
+          targets: [],
+          orderable: false,
+        },
+      ],
+    });
   });
 </script>
 {% endblock %}

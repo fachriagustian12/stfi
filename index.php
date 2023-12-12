@@ -7,8 +7,8 @@ $startTime   = microtime(true);
 $useKint = false;
 
 $minPHPVersion = '7.2';
-if (phpversion() < $minPHPVersion){
-die("Your PHP version must be {$minPHPVersion} or higher to run CodeIgniter. Current version: " . phpversion());
+if (phpversion() < $minPHPVersion) {
+	die("Your PHP version must be {$minPHPVersion} or higher to run CodeIgniter. Current version: " . phpversion());
 }
 unset($minPHPVersion);
 
@@ -31,21 +31,18 @@ unset($minPHPVersion);
  */
 
 // running under Continuous Integration server?
-if (getenv('CI') !== false)
-{
-	define('ENVIRONMENT', 'development');
-}
-else
-{
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'production');
-}
+define('ENVIRONMENT', 'development');
+// if (getenv('CI') !== false) {
+// } else {
+// 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'production');
+// }
 
 // Path to the front controller (this file)
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
 // Location of the Paths config file.
 // This is the line that might need to be changed, depending on your folder structure.
-$pathsPath = realpath(FCPATH). '/application/Config/Paths.php';
+$pathsPath = realpath(FCPATH) . '/application/Config/Paths.php';
 chdir(__DIR__);
 
 // Load our paths config file

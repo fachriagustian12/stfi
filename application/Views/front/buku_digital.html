@@ -6,26 +6,45 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Beranda</a></li>
         <li class="breadcrumb-item active" aria-current="page">
-          Layanan Buku Digital
+          Layanan Perpustakaan Digital
         </li>
       </ol>
     </nav>
-    <div class="sidebar-card search-box">
-      <form>
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Masukan Nama Buku Yang Dicari"
-            required
-          />
-          <button class="btn" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </form>
-    </div>
+    <h2>Perpustakaan Digital</h2>
+
     <div class="row justify-content-center">
+      <div class="col-xl-12">
+        <div class="row">
+          <div class="col-xl-8">
+            <!-- BUTTON API REPOSITORY -->
+            <a
+              href="#"
+              class="btn btn-success"
+              style="background-color: var(--mainColor)"
+              >Repository Buku Digital <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+          <div class="col-xl-4">
+            <form>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Masukan Nama Buku Yang Dicari"
+                  required
+                />
+                <button
+                  class="btn btn-success"
+                  style="background-color: var(--mainColor)"
+                  type="submit"
+                >
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
       <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="events-card">
           <img src="{{baseURL}}assets/images/book-1.png" alt="image" />

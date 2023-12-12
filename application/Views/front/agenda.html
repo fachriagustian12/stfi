@@ -10,93 +10,47 @@
         </li>
       </ol>
     </nav>
-    <div class="sidebar-card search-box">
-      <form>
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Masukan Judul Agenda Yang Dicari"
-            required
-          />
-          <button class="btn" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </form>
-    </div>
+
+    <h2>Agenda Kampus</h2>
+
     <div class="row justify-content-center">
-      <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+      <div class="col-xl-12">
+        <div class="row">
+          <div class="col-xl-8"></div>
+          <div class="col-xl-4">
+            <form>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Masukan Judul Agenda Yang Dicari"
+                  required
+                />
+                <button class="btn" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% for item in results %}
+      <div class="col-lg-4 col-md-4 col-sm-12 col-12">
         <div class="service-card-4">
-          <img src="{{baseURL}}assets/images/service/s6.jpg" alt="image" />
+          <img src="{{item.path}}" alt="image" />
           <div class="service-card-4-text">
-            <span>Government</span>
+            <span>{{item.keterangan}}</span>
             <h5>
-              <a href="{{baseURL}}detailagenda/judul-slug"
-                >Building & Licenses</a
+              <a href="{{baseURL}}detailagenda/{{item.id}}"
+                >{{item.kegiatan}}</a
               >
             </h5>
           </div>
         </div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-        <div class="service-card-4">
-          <img src="{{baseURL}}assets/images/service/s5.jpg" alt="image" />
-          <div class="service-card-4-text">
-            <span>Government</span>
-            <h5>
-              <a href="{{baseURL}}detailagenda/judul-slug">Water Supply</a>
-            </h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-        <div class="service-card-4">
-          <img src="{{baseURL}}assets/images/service/s8.jpg" alt="image" />
-          <div class="service-card-4-text">
-            <span>Government</span>
-            <h5><a href="{{baseURL}}detailagenda/judul-slug">Buildings</a></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-        <div class="service-card-4">
-          <img src="{{baseURL}}assets/images/service/s9.jpg" alt="image" />
-          <div class="service-card-4-text">
-            <span>Government</span>
-            <h5><a href="{{baseURL}}detailagenda/judul-slug">City</a></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-        <div class="service-card-4">
-          <img src="{{baseURL}}assets/images/service/s10.jpg" alt="image" />
-          <div class="service-card-4-text">
-            <span>Government</span>
-            <h5><a href="{{baseURL}}detailagenda/judul-slug">Old Town</a></h5>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-        <div class="service-card-4">
-          <img src="{{baseURL}}assets/images/service/s11.jpg" alt="image" />
-          <div class="service-card-4-text">
-            <span>Government</span>
-            <h5><a href="{{baseURL}}detailagenda/judul-slug">Clean City</a></h5>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
-    <div class="paginations mt-30">
-      <ul>
-        <li><a class="active" href="projects.html">1</a></li>
-        <li><a href="projects.html">2</a></li>
-        <li><a href="projects.html">3</a></li>
-        <li>
-          <a href="projects.html"><i class="fas fa-chevron-right"></i></a>
-        </li>
-      </ul>
-    </div>
+    {{links|raw}}
   </div>
 </section>
 

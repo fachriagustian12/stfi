@@ -48,4 +48,16 @@ class Jsondatas extends ControllersBaseController
             echo json_encode($output);
         }
     }
+
+    public function getKelas()
+    {
+        $output = [
+            'draw' => 0,
+            'recordsTotal' => 0,
+            'recordsFiltered' => 0,
+            'data' => []
+        ];
+
+        echo json_encode($output);
+    }
 }

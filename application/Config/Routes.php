@@ -85,7 +85,7 @@ $routes->add('menu', 'View::menu');
 $routes->add('layanan_informasi_mahasiswa', 'View::layanan_informasi_mahasiswa');
 $routes->add('layanan_informasi_dosen', 'View::layanan_informasi_dosen');
 $routes->add('layanan_informasi_buku', 'View::layanan_informasi_buku');
-$routes->add('layanan_informasi_buku', 'View::layanan_informasi_buku');
+$routes->add('layanan_informasi_kelas', 'View::layanan_informasi_kelas');
 // BERITA
 $routes->add('layanan_berita', 'View::layanan_berita');
 $routes->add('detailberita/(:any)', 'View::detail_berita');
@@ -95,6 +95,7 @@ $routes->add('detailagenda/(:any)', 'View::detail_agenda');
 
 // GETDATA
 $routes->post('getMhs', 'Jsondatas::getMhs');
+$routes->post('getKelas', 'Jsondatas::getKelas');
 
 
 // LOGIN

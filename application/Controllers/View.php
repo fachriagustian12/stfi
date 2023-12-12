@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\BeritaModel;
 use App\Models\FrontModel;
+use App\Models\KegiatanModel;
 use CodeIgniter\HTTP\RequestInterface;
 
 class View extends \CodeIgniter\Controller
@@ -84,6 +86,17 @@ class View extends \CodeIgniter\Controller
 		return \Twig::instance()->display('front/layanan_informasi/mahasiswa.html', $this->data);
 	}
 
+	public function layanan_informasi_kelas()
+	{
+		helper('url');
+		$uri = current_url(true);
+		// $mhs = new FrontModel();
+
+		// $this->data['mhs'] = $mhs->get();
+
+		return \Twig::instance()->display('front/kelas.html', $this->data);
+	}
+
 	public function layanan_informasi_dosen()
 	{
 		helper('url');
@@ -105,6 +118,14 @@ class View extends \CodeIgniter\Controller
 		helper('url');
 		$uri = current_url(true);
 
+		$model = new BeritaModel();
+
+		// Menyimpan hasil paginasi ke dalam variabel data
+		$this->data['results'] = $model->paginate(10, 'new_pagination');
+
+		// Menampilkan link pagination
+		$this->data['pager'] = $model->pager;
+		$this->data['links'] = $this->data['pager']->links('new_pagination', 'new_pagination');
 		return \Twig::instance()->display('front/berita.html', $this->data);
 	}
 
@@ -121,6 +142,14 @@ class View extends \CodeIgniter\Controller
 		helper('url');
 		$uri = current_url(true);
 
+		$model = new KegiatanModel();
+
+		// Menyimpan hasil paginasi ke dalam variabel data
+		$this->data['results'] = $model->paginate(10, 'new_pagination');
+
+		// Menampilkan link pagination
+		$this->data['pager'] = $model->pager;
+		$this->data['links'] = $this->data['pager']->links('new_pagination', 'new_pagination');
 		return \Twig::instance()->display('front/agenda.html', $this->data);
 	}
 
@@ -200,7 +229,7 @@ class View extends \CodeIgniter\Controller
 	public function data_slider()
 	{
 		if ($this->logged) {
-			$this->data['script'] = $this->data['baseURL'].'/action-js/admin/content/data_slider.js';
+			$this->data['script'] = $this->data['baseURL'] . '/action-js/admin/content/data_slider.js';
 			return \Twig::instance()->display('admin/content/data_slider.html', $this->data);
 		} else {
 			return redirect('login');
@@ -210,7 +239,7 @@ class View extends \CodeIgniter\Controller
 	public function data_berita()
 	{
 		if ($this->logged) {
-			$this->data['script'] = $this->data['baseURL'].'/action-js/admin/content/data_berita.js';
+			$this->data['script'] = $this->data['baseURL'] . '/action-js/admin/content/data_berita.js';
 			return \Twig::instance()->display('admin/content/data_berita.html', $this->data);
 		} else {
 			return redirect('login');

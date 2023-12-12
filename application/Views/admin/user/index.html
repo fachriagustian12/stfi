@@ -1,126 +1,137 @@
 {% extends "admin/layout.html" %} {% block content %}
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-	<div class="toolbar" id="kt_toolbar">
-		<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-			<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
-				<h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1"><i class="bi bi-people fs-1"></i>&nbsp;Pengguna SIRN</h1>
-          <span class="h-20px border-gray-300 border-start mx-4"></span>
-          <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
-            <li class="breadcrumb-item text-muted">
-              <a href="dashboard" class="text-muted text-hover-primary">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item">
-              <span class="bullet bg-gray-300 w-5px h-2px"></span>
-            </li>
-            <li class="breadcrumb-item text-muted">Data Pengguna SIRN</li>
-          </ul>
-			</div>
-			<div class="d-flex align-items-center py-1">
-        <button id="add_user" type="button" class="btn btn-sm btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#modal_add_user" ><i class="bi bi-person-plus fs-2 me-2"></i>Tambah User</button>
-			</div>
-		</div>
-	</div>
 
-	<div class="post d-flex flex-column-fluid" id="kt_post">
-		<div id="kt_content_container" class="container-xxl">
-
-			<div class="row gy-5 g-xl-8">
-				<div class="col-xl-12">
-					<div class="card card-xl-stretch mb-xl-8">
-						<div class="card-header border-0 bg-warning">
-							<div class="flex-grow-1 card-p pb-0">
-                <div class="d-flex flex-stack flex-wrap">
-                  <div class="me-2">
-                    <div class="fs-1 fw-bold text-dark">Lihat Semua Data Pengguna</div>
-                    <div class="fs-7 fw-bold text-dark"><p>Kolom "Kelola Data" adalah menu untuk <b>Merubah</b> atau <b>Menghapus</b> data.</p></div>
-                  </div>
-                </div>
-              </div>
-							
-						</div>
-						<div class="card-body pt-2">
-							<table id="all-user" class="table table-striped table-row-bordered gy-5 gs-7 border rounded">
+<div class="content-header row"></div>
+<div class="content-body">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Data Pengguna</h4>
+          <a class="heading-elements-toggle"
+            ><i class="la la-ellipsis-v font-medium-3"></i
+          ></a>
+          <div class="heading-elements">
+            <ul class="list-inline mb-0">
+              <li>
+                <button type="button" class="btn btn-success btn-min-width mr-1 mb-1" id="add_user"
+                data-toggle="modal" data-target="#modal_add_user"><i class="la la-plus"></i>
+                  Tambah Pengguna</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-content collapse show">
+          <div class="card-body card-dashboard">
+            <div class="table-responsive">
+              <table id="all-user" class="table table-striped table-bordered bootstrap-3">
                 <thead>
-                    <tr>
-                      <th class="fw-bolder">No.</th>
-                      <th class="fw-bolder">Username</th>
-                      <th class="fw-bolder">Role</th>
-                      <th class="fw-bolder">Daerah</th>
-                      <th class="fw-bolder">Kelola Data</th>
-                    </tr>
+                  <tr>
+                    <th>#No</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Tanggal</th>
+                    <th>Aksi</th>
+                  </tr>
                 </thead>
               </table>
-						</div>
-					</div>
-				</div>
-			</div>
-	
-		</div>
-	</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="modal fade" tabindex="-1" id="modal_add_user" data-bs-backdrop="static">
+<div class="modal fade" tabindex="-1" id="modal_add_user" data-backdrop="static">
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title"><i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data Pengguna SIRN</h5>
+              <h5 class="modal-title"><i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data Pengguna</h5>
 
               <!--begin::Close-->
-              <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                  <span class="svg-icon svg-icon-2x"></span>
-              </div>
+              <a class="btn btn-icon" data-dismiss="modal" aria-label="Close">
+                  <span class="la la-times"></span>
+              </a>
               <!--end::Close-->
           </div>
 
           <form action="adduser" method="POST">
             <input type="hidden" name="id" id="id" />
             <div class="modal-body">
-              <div class="input-group input-group-sm mb-5">
-                <span class="input-group-text" id="group-username">
-                    <i class="bi bi-person fs-1"></i>
-                </span>
-                <input type="text" class="form-control" name="username" id="username"  placeholder="Username" aria-describedby="group-username"/>
-              </div>
-              <div class="input-group input-group-sm mb-5">
-                <span class="input-group-text" id="group-password">
-                    <i class="bi bi-key fs-1"></i>
-                </span>
-                <input type="password" class="form-control" name="password" id="password"  placeholder="Password" aria-describedby="group-password"/>
-              </div>
-              <div class="input-group input-group-sm mb-5">
-                <span class="input-group-text" id="">
-                    <i class="bi bi-key fs-1"></i>
-                </span>
-                <input type="password" class="form-control" id="ulangi-pass"  placeholder="Ulangi Password" />
-              </div>
-              <div class="input-group input-group-sm mb-5">
-                <span class="input-group-text" id="">
-                  <i class="bi bi-shield-lock fs-1"></i>
-                </span>
-                <select class="form-select" name="id_role" id="id_role" aria-label="Select example">
-                    <option value="0">User Role...</option>
-                    {% for role in data_role %}
-                    <option value="{{role.id}}">{{role.role}}</option>
-                    {% endfor %}
-                </select>
-              </div>
-              <div class="input-group input-group-sm mb-5">
-                <span class="input-group-text" id="">
-                  <i class="bi bi-geo-alt fs-1"></i>
-                </span>
-                <select class="form-select" name="id_provinsi" id="id_provinsi" aria-label="Select example">
-                    <option value="0">Provinsi...</option>
-                    {% for prov in data_provinsi %}
-                    <option value="{{prov.id}}">{{prov.provinsi}}</option>
-                    {% endfor %}
-                </select>
-              </div>
+
+              <fieldset>
+                <div class="form-group">
+                  <h5>Nama Lengkap</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id=""><i class="la la-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="nama lengkap" name="name" id="name">
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <div class="form-group">
+                  <h5>Email</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id=""><i class="la la-envelope"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="email" name="email" id="email">
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <div class="form-group">
+                  <h5>Username</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id=""><i class="la la-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="username" name="username" id="username">
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <div class="form-group">
+                  <h5>Password</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id=""><i class="la la-key"></i></span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="password" name="password" id="password">
+                  </div>
+                </div>
+              </fieldset>
+              
+              <fieldset>
+                <div class="form-group">
+                  <h5>Role</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id=""><i class="la la-key"></i></span>
+                    </div>
+                    <select class="form-select" name="id_role" id="id_role" >
+                      <option value="0">Role...</option>
+                      {% for role in data_role %}
+                      <option value="{{role.id}}">{{role.role}}</option>
+                      {% endfor %}
+                  </select>
+                  </div>
+                </div>
+              </fieldset>
               
             </div>
             
             <div class="modal-footer">
-              <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal"><i class="bi bi-x fs-1"></i>Batal</button>
-              <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-check-all fs-1"></i> Simpan</button>
+              <button type="button" class="btn btn-secondary btn-sm mr-1 mb-1 " data-dismiss="modal"><i class="la la-times"></i> Batal</button>
+              <button type="submit" class="btn btn-success btn-sm mr-1 mb-1 "><i class="la la-check"></i> Simpan</button>
             </div>
           </form>
       </div>

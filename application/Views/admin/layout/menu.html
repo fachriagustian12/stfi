@@ -1,105 +1,111 @@
 <div
-  class="main-menu menu-fixed menu-dark menu-accordion menu-shadow"
-  data-scroll-to-active="true"
->
-  <div class="main-menu-content">
-    <ul
-      class="navigation navigation-main"
-      id="main-menu-navigation"
-      data-menu="menu-navigation"
-    >
-      <li class="nav-item" id="menu-dashboard">
-        <a href="{{baseURL}}dashboard"
-          ><i class="la la-home"></i
-          ><span class="menu-title" data-i18n="eCommerce">Dashboard</span></a
-        >
-      </li>
-      <li class="navigation-header">
-        <span data-i18n="Admin Panels">Content Management System</span
-        ><i
-          class="la la-ellipsis-h"
-          data-toggle="tooltip"
-          data-placement="right"
-          data-original-title="Admin Panels"
-        ></i>
-      </li>
-      <li class="nav-item">
-        <a href="dashboard-ecommerce.html#"
-          ><i class="la la-briefcase"></i
-          ><span class="menu-title" data-i18n="Project">Project</span></a
-        >
-        <ul class="menu-content">
-          <li>
-            <a class="menu-item" href="project-summary.html"
-              ><i></i
-              ><span data-i18n="Project Summary">Project Summary</span></a
-            >
-          </li>
-          <li>
-            <a class="menu-item" href="project-tasks.html"
-              ><i></i><span data-i18n="Project Task">Project Task</span></a
-            >
-          </li>
-          <li>
-            <a class="menu-item" href="project-bugs.html"
-              ><i></i><span data-i18n="Project Bugs">Project Bugs</span></a
-            >
-          </li>
-        </ul>
-      </li>
-      <li class="navigation-header">
-        <span data-i18n="Admin Panels">Data Processing</span
-        ><i
-          class="la la-ellipsis-h"
-          data-toggle="tooltip"
-          data-placement="right"
-          data-original-title="Admin Panels"
-        ></i>
-      </li>
-      <li class="nav-item">
-        <a href="dashboard-ecommerce.html#"
-          ><i class="la la-briefcase"></i
-          ><span class="menu-title" data-i18n="Project"
-            >Layanan Informasi</span
-          ></a
-        >
-        <ul class="menu-content">
-          <li id="menu-data_mahasiswa">
-            <a class="menu-item" href="{{baseURL}}data_mahasiswa"
-              ><i></i
-              ><span data-i18n="Project Summary"
-                >Layanan Informasi Mahasiswa</span
-              ></a
-            >
-          </li>
-          <li id="menu-data_dosen">
-            <a class="menu-item" href="{{baseURL}}data_dosen"
-              ><i></i
-              ><span data-i18n="Project Task">Layanan Informasi Dosen</span></a
-            >
-          </li>
-          <li id="menu-data_kampus">
-            <a class="menu-item" href="{{baseURL}}data_kampus"
-              ><i></i
-              ><span data-i18n="Project Bugs">Layanan Informasi Kampus</span></a
-            >
-          </li>
-          <li id="menu-data_jadwal">
-            <a class="menu-item" href="{{baseURL}}data_jadwal"
-              ><i></i
-              ><span data-i18n="Project Bugs">Layanan Informasi Jadwal</span></a
-            >
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item" id="menu-data_buku">
-        <a href="{{baseURL}}data_buku"
-          ><i class="la la-book"></i
-          ><span class="menu-title" data-i18n="eCommerce"
-            >Layanan Buku Digital</span
-          ></a
-        >
-      </li>
-    </ul>
-  </div>
+   class="main-menu menu-fixed menu-dark menu-accordion menu-shadow"
+   data-scroll-to-active="true"
+   >
+   <div class="main-menu-content">
+      <ul
+         class="navigation navigation-main"
+         id="main-menu-navigation"
+         data-menu="menu-navigation"
+         >
+         <li class="nav-item" id="menu-dashboard">
+            <a href="{{baseURL}}dashboard"
+               ><i class="la la-home"></i
+               ><span class="menu-title" data-i18n="eCommerce">Dashboard</span></a
+               >
+         </li>
+         <li class="navigation-header">
+            <span data-i18n="Admin Panels">Konten</span
+               ><i
+               class="la la-ellipsis-h"
+               data-toggle="tooltip"
+               data-placement="right"
+               data-original-title="Admin Panels"
+               ></i>
+         </li>
+         <li class="nav-item" id="menu-data_slider">
+            <a href="{{baseURL}}data_slider">
+            <i class="la la-image"></i><span class="menu-title" data-i18n="eCommerce">Slider</span>
+            </a>
+         </li>
+         <li class="nav-item" id="menu-data_berita">
+            <a href="{{baseURL}}data_berita">
+            <i class="la la-rss"></i><span class="menu-title" data-i18n="eCommerce">Berita</span>
+            </a>
+         </li>
+         <!-- LAYANAN -->
+         <li class="navigation-header">
+            <span data-i18n="Admin Panels">Layanan</span
+               ><i
+               class="la la-ellipsis-h"
+               data-toggle="tooltip"
+               data-placement="right"
+               data-original-title="Admin Panels"
+               ></i>
+         </li>
+         <li class="nav-item layanan_informasi">
+            <a href="#">
+              <i class="la la-share-alt"></i>
+              <span class="menu-title" data-i18n="Project">
+              Layanan Informasi</span>
+            </a>
+
+            <ul class="menu-content">
+               <li id="menu-data_mahasiswa">
+                  <a class="menu-item" href="{{baseURL}}data_mahasiswa">
+                    <i></i>
+                    <span data-i18n="Project Summary">
+                    Informasi Mahasiswa</span>
+                  </a>
+
+               </li>
+               <li id="menu-data_dosen">
+                  <a class="menu-item" href="{{baseURL}}data_dosen">
+                    <i></i>
+                    <span data-i18n="Project Task">Informasi Dosen</span></a>
+
+               </li>
+               <li id="menu-data_kampus">
+                  <a class="menu-item" href="{{baseURL}}data_kampus">
+                    <i></i>
+                    <span data-i18n="Project Bugs">Informasi Kegiatan</span></a>
+
+               </li>
+               <!-- <li id="menu-data_jadwal">
+                  <a class="menu-item" href="{{baseURL}}data_jadwal"
+                     ><i></i
+                     ><span data-i18n="Project Bugs">Informasi Jadwal</span></a
+                     >
+               </li> -->
+            </ul>
+         </li>
+         <li class="nav-item" id="menu-data_buku">
+            <a href="{{baseURL}}data_buku"
+               ><i class="la la-book"></i
+               ><span class="menu-title" data-i18n="eCommerce"
+               >Layanan Buku Digital</span
+               ></a
+               >
+         </li>
+         <!-- MANAJEMEN -->
+         <li class="navigation-header">
+          <span data-i18n="Admin Panels">Manajemen</span
+             ><i
+             class="la la-ellipsis-h"
+             data-toggle="tooltip"
+             data-placement="right"
+             data-original-title="Admin Panels"
+             ></i>
+       </li>
+       
+       <li class="nav-item" id="menu-user">
+          <a href="{{baseURL}}data_user"
+             ><i class="la la-users"></i
+             ><span class="menu-title" data-i18n="eCommerce"
+             >Pengguna</span
+             ></a
+             >
+       </li>
+      </ul>
+   </div>
 </div>

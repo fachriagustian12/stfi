@@ -85,6 +85,7 @@ $routes->add('menu', 'View::menu');
 $routes->add('layanan_informasi_mahasiswa', 'View::layanan_informasi_mahasiswa');
 $routes->add('layanan_informasi_dosen', 'View::layanan_informasi_dosen');
 $routes->add('layanan_informasi_buku', 'View::layanan_informasi_buku');
+$routes->add('layanan_informasi_buku', 'View::layanan_informasi_buku');
 // BERITA
 $routes->add('layanan_berita', 'View::layanan_berita');
 $routes->add('detailberita/(:any)', 'View::detail_berita');
@@ -106,6 +107,9 @@ $routes->add('data_dosen', 'View::data_dosen');
 $routes->add('data_kampus', 'View::data_kampus');
 $routes->add('data_jadwal', 'View::data_jadwal');
 $routes->add('data_buku', 'View::data_buku');
+$routes->add('data_user', 'View::user');
+$routes->add('data_slider', 'View::data_slider');
+$routes->add('data_berita', 'View::data_berita');
 
 
 // $routes->add('/', 'View::login');
@@ -143,6 +147,14 @@ $routes->post('ubahpembayaran', 'Jsondata::ubahpembayaran');
 $routes->post('pembayaran', 'Jsondata::pembayaran');
 $routes->post('kodebilling', 'Jsondata::kodebilling');
 
+$routes->post('getdata', 'Jsondata::getdata');
+$routes->post('deletedata', 'Jsondata::deletedata');
+$routes->post('addslider', 'Jsondata::addslider');
+$routes->post('addmahasiswa', 'Jsondata::addmahasiswa');
+$routes->post('adddosen', 'Jsondata::adddosen');
+$routes->post('addkegiatan', 'Jsondata::addkegiatan');
+$routes->post('addberita', 'Jsondata::addberita');
+$routes->post('addbuku', 'Jsondata::addbuku');
 /**
  * --------------------------------------------------------------------
  * Additional Routing

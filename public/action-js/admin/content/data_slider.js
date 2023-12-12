@@ -1,14 +1,15 @@
 $(() => {
-  $("#menu-data_mahasiswa").addClass("active");
-  $(".layanan_informasi").addClass("open");
-  $(".select2 ").select2();
+  $("#menu-data_slider").addClass("active");
+  $('#all_slider').DataTable()
 
-  $('#modal_add_mahasiswa').on('show.bs.modal', function() {
+ 
+  $('#modal_add_slider').on('show.bs.modal', function() {
     $("form").trigger("reset")
-    $(".select2").val('0').trigger("change")
+    $('.file').empty()
+    $('.file').imageUploader();
   })
 
-  load('mahasiswa')
+  load('slider')
 });
 
 function load(table) {
@@ -23,7 +24,7 @@ function load(table) {
       let data = result.data;
       let code = result.code;
       if(code != '0'){
-        var dt = $("#all_mahasiswa").DataTable({
+        var dt = $("#all_slider").DataTable({
             dom: "<'row'" +
                     "<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
                     "<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
@@ -47,26 +48,15 @@ function load(table) {
             aaData: result.data,
             aoColumns: [
               { mDataProp: "id", class: 'text-center', width: "2%" },
-              { mDataProp: "nama",class: 'text-center' },
-              { mDataProp: "npm",class: 'text-center' },
-              { mDataProp: "semester",class: 'text-center' },
-              { mDataProp: "jurusan",class: 'text-center' },
-              { mDataProp: "status_mahasiswa",class: 'text-center' },
-              { mDataProp: "status_perwalian",class: 'text-center' },
+              { mDataProp: "title",class: 'text-center' },
+              { mDataProp: "status",class: 'text-center' },
               { mDataProp: "create_date",class: 'text-center' },
+              { mDataProp: "path", class: 'text-center', width: "10%" },
               { mDataProp: "id", class: 'text-center' },
             ],
             order: [[0, "ASC"]],
             fixedColumns: true,
             aoColumnDefs: [
-                {
-                mRender: function (data, type, row) {
-                  var elem = ''
-                    elem = 'Semester ' + data
-                    return elem ;
-                },
-                aTargets: [3],
-              },
                 {
                 mRender: function (data, type, row) {
                   var elem = ''
@@ -78,30 +68,28 @@ function load(table) {
                   }
                         return elem ;
                 },
-                aTargets: [5],
+                aTargets: [2],
               },
                 {
                 mRender: function (data, type, row) {
-                  var elem = ''
-                  if(data == 1){
-                    elem = '<div class="badge badge-success">Sudah</div>'
-                  }else{
-                    elem = '<div class="badge badge-danger">Belum</div>'
-
-                  }
+                    var elem = `<figure class="col-lg-6" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                  <a href="#!" onclick="viewimage('${data}')" itemprop="contentUrl" >
+                                      <img class="img-thumbnail img-fluid" src="${data}" itemprop="thumbnail" alt="Image description" />
+                                  </a>
+                                </figure>`
                         return elem ;
                 },
-                aTargets: [6],
+                aTargets: [4],
               },
               {
               mRender: function (data, type, row) {
                   var elem = '<div class="btn-group" role="group" aria-label="Basic example">'
                       elem += `<button class="btn btn-icon btn-info btn-sm" onclick="action('update', ${row.id})"><i class="la la-edit"></i></button>`
-                      elem += `<button class="btn btn-icon btn-danger btn-sm" onclick="action('delete', ${row.id})"><i class="la la-trash"></i></button>`
+                      elem += `<button class="btn btn-icon btn-danger btn-sm" onclick="action('delete', ${row.id}, '${row.path}')"><i class="la la-trash"></i></button>`
                       elem += '</div>'
                       return elem ;
               },
-              aTargets: [8],
+              aTargets: [5],
             }
             ],
             fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -127,11 +115,16 @@ function load(table) {
             },
         });
       }else{
-        var table = $("#all_mahasiswa").DataTable()
+        var table = $("#all_slider").DataTable()
         table.clear().draw();
       }
     },
   });
+}
+
+function viewimage(url) {
+  $('#modal_image').modal('show')
+  $('#url-image').attr('src', url)
 }
 
 function action(mode, id, path) {
@@ -155,11 +148,11 @@ function action(mode, id, path) {
                   data: {
                       id: id,
                       path: path,
-                      table: 'mahasiswa'
+                      table: 'slider'
                   },
                   url: "/deletedata",
                   success: function (result) {
-                      load('mahasiswa')
+                      load('slider')
                   }
               })
           }
@@ -171,27 +164,22 @@ function action(mode, id, path) {
           url: "/getdata",
           data: {
               id: id,
-              table: 'mahasiswa'
+              table: 'slider'
           },
           success: function (result) {
               var data = result.data 
-              $('#modal_add_mahasiswa').modal('show')
+              $('#modal_add_slider').modal('show')
               $('#id').val(id)
-              for (let item in data) {
-                if($(`#${item}`).length){
-                  if(item == 'status_mahasiswa' || item == 'status_perwalian'){
-                    if(data[item] == 1){
-                      $(`#${item}`).prop('checked', true)
-                    }else{
-                      $(`#${item}`).prop('checked', false)
-                    }
-
-                  }else{
-                    $(`#${item}`).val(data[item]).trigger('change');
-                  }
-                }
-              }
+              $('#title').val(data.title)
               $('wrd').html('Update')
+
+              let preloaded = [
+                {id: 1, src: data.path},
+              ];
+            $('.file').empty()
+            $('.file').imageUploader({
+              preloaded: preloaded
+            });
           }
       })
   }

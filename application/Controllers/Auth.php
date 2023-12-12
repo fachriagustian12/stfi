@@ -39,7 +39,8 @@ class Auth extends \CodeIgniter\Controller
 			if($dataemail && $datastatus){
 				$pass = $dataemail->password;
 				// $hash =  substr_replace($pass, "$2y$10", 0, 1);
-				$verify_pass = password_verify($password, $pass);
+				// $verify_pass = password_verify($password, $pass);
+				$verify_pass = md5($password) == $pass ? 1 : 0;
 				if($verify_pass){
 					$ses_data = [							
 							'username' 		=> $dataemail->username,

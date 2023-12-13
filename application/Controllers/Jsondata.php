@@ -718,7 +718,7 @@ class Jsondata extends \CodeIgniter\Controller
 						'nama' 				=> $request->getVar('nama'),
 						'npm' 				=> $request->getVar('npm'),
 						'semester' 			=> $request->getVar('semester'),
-						'jurusan' 			=> $request->getVar('jurusan'),
+						'prodi' 			=> $request->getVar('prodi'),
 						'status_mahasiswa' => ($request->getVar('status_mahasiswa') == 'on') ? 1 : 0,
 						'status_perwalian' => ($request->getVar('status_perwalian') == 'on') ? 1 : 0,
 						'update_date' 	=> $this->now,
@@ -733,7 +733,7 @@ class Jsondata extends \CodeIgniter\Controller
 						'nama' => $request->getVar('nama'),
 						'npm' => $request->getVar('npm'),
 						'semester' => $request->getVar('semester'),
-						'jurusan' => $request->getVar('jurusan'),
+						'prodi' => $request->getVar('prodi'),
 						'status_mahasiswa' => ($request->getVar('status_mahasiswa') == 'on') ? 1 : 0,
 						'status_perwalian' => ($request->getVar('status_perwalian') == 'on') ? 1 : 0,
 						'create_date' 	=> $this->now,
@@ -984,6 +984,57 @@ class Jsondata extends \CodeIgniter\Controller
 	}
   }
 
+  public function addkelas()
+  {
+	try {
+		$request	= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method		= $request->getMethod();
+		$kelas 		= new \App\Models\KelasModel();
+		
+		if($method == 'post'){
+				if($request->getVar('id')){
+					$tanggal = $request->getVar('tanggal');
+					$tanggal .= ' 00:00:00.000000';
+
+					$data = [
+						'nama'			=> $request->getVar('nama'),
+						'no_kelas'		=> $request->getVar('no_kelas'),
+						'matkul'		=> $request->getVar('matkul'),
+						'status'		=> $request->getVar('status'),
+						'jam_mulai'		=> $request->getVar('jam_mulai'),
+						'jam_akhir'		=> $request->getVar('jam_akhir'),
+						'tanggal'		=> $tanggal,
+						'updated_at'	=> $this->now,
+						'updated_by'		=> $this->session->get('id'),
+					];
+					$kelas->update($request->getVar('id'), $data);
+				}else{
+					$tanggal = $request->getVar('tanggal');
+					$tanggal .= ' 00:00:00.000000';
+
+					$data = [
+						'nama' 			=> $request->getVar('nama'),
+						'no_kelas' 		=> $request->getVar('no_kelas'),
+						'matkul' 		=> $request->getVar('matkul'),
+						'status' 		=> $request->getVar('status'),
+						'jam_mulai' 	=> $request->getVar('jam_mulai'),
+						'jam_akhir' 	=> $request->getVar('jam_akhir'),
+						'tanggal' 		=> $tanggal,
+						'created_at'	=> $this->now,
+						'created_by'	=> $this->session->get('id'),
+					];
+					$kelas->insert($data);
+					$lastid = $kelas->insertID();
+				}
+		}
+		redirect('data_kelas','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
   public function addbuku()
   {
 	try {
@@ -991,16 +1042,21 @@ class Jsondata extends \CodeIgniter\Controller
 		$param		= $request->getVar('param');
 		
 		$method			= $request->getMethod();
+
+		$tanggalString = $this->now;
+        $tanggal_saja = date("Y-m-d", strtotime($tanggalString));
+
 		$buku = new \App\Models\BukuModel();
 		if($method == 'post'){
 				
 				if($request->getVar('id')){
 					$data = [
 						'title' => $request->getVar('title'),
-						'keterangan' => $request->getVar('redaksi'),
+						'keterangan' => $request->getVar('keterangan'),
 						'ketersediaan' => $request->getVar('ketersediaan'),
-						'update_date' => $this->now,
-						'update_by' => $this->session->get('id'),
+						'tanggal' => $tanggal_saja,
+						'updated_at' => $this->now,
+						'updated_by' => $this->session->get('id'),
 						'status' => 1
 
 					];
@@ -1036,14 +1092,13 @@ class Jsondata extends \CodeIgniter\Controller
 				}else{
 
 					$data = [
-						'title' => $request->getVar('title'),
-						'keterangan' => $request->getVar('keterangan'),
-						'ketersediaan' => $request->getVar('ketersediaan'),
-						'create_date' 	=> $this->now,
-						'update_date' => $this->now,
-						'create_by' 	=> $this->session->get('id'),
-						'update_by' => $this->session->get('id'),
-						'status' => 1
+						'title' 		=> $request->getVar('title'),
+						'keterangan' 	=> $request->getVar('keterangan'),
+						'ketersediaan' 	=> $request->getVar('ketersediaan'),
+						'tanggal'		=> $tanggal_saja,
+						'created_at' 	=> $this->now,
+						'created_by' 	=> $this->session->get('id'),
+						'status' 		=> 1
 					];
 					$buku->insert($data);
 					$lastid = $buku->insertID();

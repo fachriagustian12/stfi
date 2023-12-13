@@ -8,8 +8,8 @@ use CodeIgniter\Model;
 class MhsModel extends Model
 {
     protected $table = 'data_mahasiswa';
-    protected $column_order = ['id', 'nama', 'npm', 'semester', 'jurusan', 'status_mahasiswa'];
-    protected $column_search = ['nama', 'npm', 'jurusan'];
+    protected $column_order = ['id', 'nama', 'npm', 'semester', 'prodi', 'status_mahasiswa'];
+    protected $column_search = ['nama', 'npm', 'prodi'];
     protected $order = ['id' => 'DESC'];
     protected $request;
     protected $db;

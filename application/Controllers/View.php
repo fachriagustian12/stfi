@@ -141,12 +141,17 @@ class View extends \CodeIgniter\Controller
 	{
 		helper('url');
 		$uri = current_url(true);
-
+		$get = $this->request->getVar('kegiatan');
 		$model = new KegiatanModel();
 
-		// Menyimpan hasil paginasi ke dalam variabel data
-		$this->data['results'] = $model->paginate(10, 'new_pagination');
+		if ($get != "") {
+			$this->data['results'] = $model->like('kegiatan', $get)->paginate(10, 'new_pagination');
+		} else {
+			$this->data['results'] = $model->paginate(10, 'new_pagination');
+		}
 
+		// Menyimpan hasil paginasi ke dalam variabel data
+		var_dump($this->data['results']);
 		// Menampilkan link pagination
 		$this->data['pager'] = $model->pager;
 		$this->data['links'] = $this->data['pager']->links('new_pagination', 'new_pagination');
@@ -245,7 +250,7 @@ class View extends \CodeIgniter\Controller
 			return redirect('login');
 		}
 	}
-	
+
 	public function data_kelas()
 	{
 		if ($this->logged) {

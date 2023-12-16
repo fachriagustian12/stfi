@@ -18,11 +18,12 @@
         <div class="row">
           <div class="col-xl-8"></div>
           <div class="col-xl-4">
-            <form>
+            <form action="" method="GET">
               <div class="input-group">
                 <input
                   type="text"
                   class="form-control"
+                  name="kegiatan"
                   placeholder="Masukan Judul Agenda Yang Dicari"
                   required
                 />
@@ -34,10 +35,12 @@
           </div>
         </div>
       </div>
-      {% for item in results %}
+      {% if results is empty %}
+      <h5 class="text-center">Data Tidak Tersedia</h5>
+      {% endif %} {% for item in results %}
       <div class="col-lg-4 col-md-4 col-sm-12 col-12">
         <div class="service-card-4">
-          <img src="{{item.path}}" alt="image" />
+          <img src="http://stfi.bios-stack/{{item.path}}" alt="image" />
           <div class="service-card-4-text">
             <span>{{item.keterangan}}</span>
             <h5>

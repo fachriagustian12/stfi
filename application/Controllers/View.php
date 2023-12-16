@@ -151,7 +151,7 @@ class View extends \CodeIgniter\Controller
 		}
 
 		// Menyimpan hasil paginasi ke dalam variabel data
-		var_dump($this->data['results']);
+		// var_dump($this->data['results']);
 		// Menampilkan link pagination
 		$this->data['pager'] = $model->pager;
 		$this->data['links'] = $this->data['pager']->links('new_pagination', 'new_pagination');

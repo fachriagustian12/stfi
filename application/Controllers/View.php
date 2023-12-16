@@ -245,6 +245,16 @@ class View extends \CodeIgniter\Controller
 			return redirect('login');
 		}
 	}
+	
+	public function data_kelas()
+	{
+		if ($this->logged) {
+			$this->data['script'] = $this->data['baseURL'] . '/action-js/admin/content/data_kelas.js';
+			return \Twig::instance()->display('admin/content/data_kelas.html', $this->data);
+		} else {
+			return redirect('login');
+		}
+	}
 
 	public function pnbp()
 	{

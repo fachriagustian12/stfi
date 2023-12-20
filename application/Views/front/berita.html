@@ -23,6 +23,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  name="search"
                   placeholder="Masukan Judul Berita Yang Dicari"
                   required
                 />
@@ -38,7 +39,9 @@
           </div>
         </div>
       </div>
-      {% for item in results %}
+      {% if results is empty %}
+      <h4 class="text-center mt-4">Data Tidak Tersedia !</h4>
+      {% endif %} {% for item in results %}
       <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="blog-card">
           <div class="blog-card-img">
@@ -63,10 +66,8 @@
               <a href="{{baseURL}}detailberita/{{item.id}}">{{ item.title }}</a>
             </h4>
             <p>{{item.redaksi[:50]}} ...</p>
-            <a
-              class="read-more-btn"
-              href="{{baseURL}}detailberita/slug-judul-berita"
-              >Read More</a
+            <a class="read-more-btn" href="{{baseURL}}detailberita/{{item.id}}"
+              >Selengkapnya</a
             >
           </div>
         </div>

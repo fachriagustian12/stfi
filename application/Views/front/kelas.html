@@ -39,15 +39,16 @@
       prevent them from engaging in certain Site related activities.
     </p> -->
     <!-- <div class="table-responsive"> -->
-    <table class="table table-bordered" id="table-mhs">
+    <table class="table table-bordered" id="table-kelas">
       <thead class="table-active">
         <th width="3%">No.</th>
+        <th>Kode</th>
+        <th>No. Kelas</th>
         <th>Mata Kuliah</th>
-        <th>Dosen</th>
-        <th>Semester</th>
-        <th>Kelas</th>
-        <th>Jam</th>
         <th>Status</th>
+        <th>Jam Mulai</th>
+        <th>Jam Selesai</th>
+        <th>Tanggal</th>
       </thead>
     </table>
     <!-- <div class="paginations mt-30">
@@ -87,12 +88,12 @@
     $("#dropdown-layanan").addClass("active");
     $("#page-layanan_mahasiswa").addClass("active");
 
-    var table = $("#table-mhs").DataTable({
-      // processing: true,
+    var table = $("#table-kelas").DataTable({
+      processing: true,
       serverSide: true,
       language: {
-        searchPlaceholder: "Masukan Mata Kuliah",
-        search: "Cari Data Jadwal Kuliah :",
+        searchPlaceholder: "Masukan Kode, Matkul, Kelas dan Jam",
+        search: "Cari Data Informasi Kelas :",
         info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ Data",
         lengthMenu: "Menampilkan _MENU_ Data",
         paginate: {

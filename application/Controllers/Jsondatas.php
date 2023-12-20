@@ -33,7 +33,6 @@ class Jsondatas extends ControllersBaseController
                 $row[] = $list->npm;
                 $row[] = $list->semester;
                 $row[] = $list->prodi;
-                $row[] = $list->prodi;
                 $row[] = $list->status_mahasiswa == 1 ? '<span class="badge bg-success p-2"> AKTIF </span>' : '<span class="badge bg-danger p-2"> TIDAK AKTIF </span>';
                 $data[] = $row;
             }
@@ -51,13 +50,69 @@ class Jsondatas extends ControllersBaseController
 
     public function getKelas()
     {
-        $output = [
-            'draw' => 0,
-            'recordsTotal' => 0,
-            'recordsFiltered' => 0,
-            'data' => []
-        ];
+        $request = $this->request;
+        $mhsmodel = new \App\Models\KelasModel();
 
-        echo json_encode($output);
+        if ($request->getMethod(true) === 'POST') {
+            $lists = $mhsmodel->getDatatables($request->getPost());
+            $data = [];
+            $no = $request->getPost('start');
+
+            foreach ($lists as $list) {
+                $no++;
+                $row = [];
+                $row[] = $no;
+                $row[] = $list->nama;
+                $row[] = $list->no_kelas;
+                $row[] = $list->matkul;
+                $row[] = '<span class="badge bg-success p-2">' . $list->status . '</span>';
+                $row[] = $list->jam_mulai;
+                $row[] = $list->jam_akhir;
+                $row[] = date('d M Y', strtotime($list->tanggal));
+                $data[] = $row;
+            }
+
+            $output = [
+                'draw' => $request->getPost('draw'),
+                'recordsTotal' => $mhsmodel->countAll(),
+                'recordsFiltered' => $mhsmodel->countFiltered($request->getPost()),
+                'data' => $data
+            ];
+
+            echo json_encode($output);
+        }
+    }
+    public function getDsn()
+    {
+        $request = $this->request;
+        $dsnmodel = new \App\Models\DosenModel();
+
+        if ($request->getMethod(true) === 'POST') {
+            $lists = $dsnmodel->getDatatables($request->getPost());
+            $data = [];
+            $no = $request->getPost('start');
+
+            foreach ($lists as $list) {
+                $no++;
+                $row = [];
+                $row[] = $no;
+                $row[] = $list->nama;
+                $row[] = $list->mata_kuliah;
+                $row[] = $list->jadwal;
+                $row[] = $list->kelas;
+                $row[] = $list->perkuliahan == 'online' ? '<span class="badge bg-success p-2">Online</span>' : '<span class="badge bg-secondary p-2">Offline</span>';
+                $row[] = $list->tugas;
+                $data[] = $row;
+            }
+
+            $output = [
+                'draw' => $request->getPost('draw'),
+                'recordsTotal' => $dsnmodel->countAll(),
+                'recordsFiltered' => $dsnmodel->countFiltered($request->getPost()),
+                'data' => $data
+            ];
+
+            echo json_encode($output);
+        }
     }
 }

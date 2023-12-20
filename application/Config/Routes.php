@@ -88,14 +88,15 @@ $routes->add('layanan_informasi_buku', 'View::layanan_informasi_buku');
 $routes->add('layanan_informasi_kelas', 'View::layanan_informasi_kelas');
 // BERITA
 $routes->add('layanan_berita', 'View::layanan_berita');
-$routes->add('detailberita/(:any)', 'View::detail_berita');
+$routes->get('detailberita/(:num)', 'View::detail_berita/$1');
 // AGENDA
 $routes->add('layanan_agenda', 'View::layanan_agenda');
-$routes->add('detailagenda/(:any)', 'View::detail_agenda');
+$routes->get('detailagenda/(:num)', 'View::detail_agenda/$1');
 
 // GETDATA
 $routes->post('getMhs', 'Jsondatas::getMhs');
 $routes->post('getKelas', 'Jsondatas::getKelas');
+$routes->post('getDsn', 'Jsondatas::getDsn');
 
 
 // LOGIN

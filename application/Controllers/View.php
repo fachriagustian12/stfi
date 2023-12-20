@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\BeritaModel;
+use App\Models\BukuModel;
 use App\Models\FrontModel;
 use App\Models\KegiatanModel;
 use CodeIgniter\HTTP\RequestInterface;
@@ -109,7 +110,18 @@ class View extends \CodeIgniter\Controller
 	{
 		helper('url');
 		$uri = current_url(true);
+		$model = new BukuModel();
+		$get = $this->request->getVar('search');
 
+		if ($get != "") {
+			$this->data['results'] = $model->like('title', $get)->paginate(10, 'new_pagination');
+		} else {
+			$this->data['results'] = $model->paginate(10, 'new_pagination');
+		}
+
+		// Menampilkan link pagination
+		$this->data['pager'] = $model->pager;
+		$this->data['links'] = $this->data['pager']->links('new_pagination', 'new_pagination');
 		return \Twig::instance()->display('front/buku_digital.html', $this->data);
 	}
 
@@ -119,9 +131,13 @@ class View extends \CodeIgniter\Controller
 		$uri = current_url(true);
 
 		$model = new BeritaModel();
+		$get = $this->request->getVar('search');
 
-		// Menyimpan hasil paginasi ke dalam variabel data
-		$this->data['results'] = $model->paginate(10, 'new_pagination');
+		if ($get != "") {
+			$this->data['results'] = $model->where('status', 1)->like('title', $get)->paginate(10, 'new_pagination');
+		} else {
+			$this->data['results'] = $model->where('status', 1)->paginate(10, 'new_pagination');
+		}
 
 		// Menampilkan link pagination
 		$this->data['pager'] = $model->pager;
@@ -129,10 +145,13 @@ class View extends \CodeIgniter\Controller
 		return \Twig::instance()->display('front/berita.html', $this->data);
 	}
 
-	public function detail_berita()
+	public function detail_berita($id)
 	{
 		helper('url');
 		$uri = current_url(true);
+		$model = new BeritaModel();
+		$this->data['berita'] = $model->find($id);
+		$this->data['allberita'] = $model->where('id !=', $id)->findAll(5, 0);
 
 		return \Twig::instance()->display('front/detailberita.html', $this->data);
 	}
@@ -158,11 +177,13 @@ class View extends \CodeIgniter\Controller
 		return \Twig::instance()->display('front/agenda.html', $this->data);
 	}
 
-	public function detail_agenda()
+	public function detail_agenda($id)
 	{
 		helper('url');
 		$uri = current_url(true);
-
+		$model = new KegiatanModel();
+		$this->data['kegiatan'] = $model->find($id);
+		$this->data['allkegiatan'] = $model->where('id !=', $id)->findAll(5, 0);
 		return \Twig::instance()->display('front/detailagenda.html', $this->data);
 	}
 

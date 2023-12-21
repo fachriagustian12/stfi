@@ -1,6 +1,6 @@
 {% extends "front/layout.html" %} {% block content %}
 
-<section class="events pt-70 pb-70">
+<section class="team pt-70 pb-70">
   <div class="container">
     <nav aria-label="breadcrumb" class="fw-bold">
       <ol class="breadcrumb">
@@ -49,7 +49,36 @@
       {% if results is empty %}
       <h4 class="text-center">Data Tidak Tersedia !</h4>
       {% endif %} {% for item in results %} {% if item.status == 1 %}
-      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+        <div class="team-card">
+          <div class="team-card-img">
+            <img src="{{baseURL}}{{item.cover_path}}" alt="image" />
+            <div class="team-social-icons">
+              <ul>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    class="readbook"
+                    data-url="{{baseURL}}{{item.path}}"
+                    data-title="{{item.title}}"
+                    ><i class="fa fa-file-pdf"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="team-card-text">
+            <h4>{{ item.title }}</h4>
+            <h5>{{ item.keterangan }}</h5>
+            {% if item.ketersediaan > 0 %}
+            <span class="badge bg-success p-2">Tersedia</span>
+            {% else %}
+            <span class="badge bg-danger p-2">Tidak Tersedia</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="events-card">
           <img src="{{item.path}}" alt="image" />
           <div class="events-card-text">
@@ -65,33 +94,69 @@
             <p>
               <a>{{ item.keterangan }}</a>
             </p>
-            <!-- <a class="read-more-btn" href="event-details.html">Read More</a> -->
           </div>
         </div>
-      </div>
+      </div> -->
       {% endif %} {% endfor %}
     </div>
     {{links|raw}}
   </div>
 </section>
-<div class="popup">
-  <div class="popup-content">
-    <button class="close-btn" id="popup-close">
-      <i class="fas fa-times"></i>
-    </button>
-    <form>
-      <div class="input-group search-box">
-        <input type="text" class="form-control" placeholder="Search" />
-        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+<div class="modal fade" tabindex="-1" id="myModal">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="title-book"></h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
-    </form>
+      <div class="modal-body">
+        <iframe
+          src=""
+          frameborder="0"
+          id="iframe-readbook"
+          style="width: 100%; height: 100%"
+        ></iframe>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-success btn-sm"
+          data-bs-dismiss="modal"
+        >
+          <i class="fa fa-times"></i>
+          Tutup
+        </button>
+      </div>
+    </div>
   </div>
 </div>
+
+<button
+  type="button"
+  class="d-none btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#myModal"
+  id="btn-modal"
+></button>
 
 {% endblock %} {% block js %}
 <script>
   $(() => {
     $("#page-layanan_buku").addClass("active");
+
+    $(".readbook").click(function () {
+      var url = $(this).data("url");
+      var title = $(this).data("title");
+      $("#btn-modal").click();
+      $("#title-book").html(title);
+
+      $("#iframe-readbook").attr("src", url);
+    });
   });
 </script>
 {% endblock %}

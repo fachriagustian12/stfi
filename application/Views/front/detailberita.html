@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-lg-8">
         <div class="blog-details-text-area details-text-area">
-          <img src="{{berita.path}}" alt="image" />
+          <img src="{{baseURL}}{{berita.path}}" alt="image" />
           <div class="blog-date">
             <ul>
               <li>
@@ -42,7 +42,7 @@
             {% endif %} {% for item in allberita %}
             <div class="recent-news-card">
               <a href="{{baseURL}}detailberita/{{item.id}}"
-                ><img src="{{item.path}}" alt="image"
+                ><img src="{{baseURL}}{{item.path}}" alt="image"
               /></a>
               <h5>
                 <a href="{{baseURL}}detailberita/{{item.id}}"

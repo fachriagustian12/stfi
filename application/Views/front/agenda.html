@@ -14,7 +14,7 @@
     <h2>Agenda Kampus</h2>
 
     <div class="row justify-content-center">
-      <div class="col-xl-12">
+      <div class="col-xl-12 mb-5">
         <div class="row">
           <div class="col-xl-8"></div>
           <div class="col-xl-4">
@@ -38,16 +38,24 @@
       {% if results is empty %}
       <h5 class="text-center">Data Tidak Tersedia</h5>
       {% endif %} {% for item in results %}
-      <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-        <div class="service-card-4">
-          <img src="http://stfi.bios-stack/{{item.path}}" alt="image" />
-          <div class="service-card-4-text">
-            <span>{{item.keterangan}}</span>
-            <h5>
+      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="service-card">
+          <div class="service-card-img">
+            <a href="{{baseURL}}detailagenda/{{item.id}}"
+              ><img src="{{baseURL}}{{item.path}}" alt="image"
+            /></a>
+            <i class="fa fa-clipboard"></i>
+          </div>
+          <div class="service-card-text">
+            <h4>
               <a href="{{baseURL}}detailagenda/{{item.id}}"
                 >{{item.kegiatan}}</a
               >
-            </h5>
+            </h4>
+            <p>{{item.keterangan[:50]}} ...</p>
+            <a class="read-more-btn" href="{{baseURL}}detailagenda/{{item.id}}"
+              >Selengkapnya</a
+            >
           </div>
         </div>
       </div>

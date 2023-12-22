@@ -36,6 +36,7 @@
                   <tr>
                     <th>#No</th>
                     <th>Title</th>
+                    <th>Cover</th>
                     <th>Download</th>
                     <th>Tanggal</th>
                     <th>Ketersediaan</th>
@@ -73,7 +74,12 @@
         <!--end::Close-->
       </div>
 
-      <form action="addbuku" method="POST" enctype="multipart/form-data">
+      <form
+        action="addbuku"
+        method="POST"
+        enctype="multipart/form-data"
+        id="myForm"
+      >
         <input type="hidden" name="id" id="id" />
         <div class="modal-body">
           <fieldset>
@@ -133,27 +139,44 @@
             </div>
           </fieldset>
 
-          <!-- <fieldset>
-                  <div class="form-group">
-                    <h5>Tanggal</h5>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id=""><i class="la la-calendar"></i></span>
-                      </div>
-                      <input type="date" class="form-control" placeholder="" name="tanggal" id="tanggal">
-                    </div>
-                  </div>
-                </fieldset> -->
-
+          <fieldset>
+            <div class="form-group">
+              <h5>Cover</h5>
+              <div class="input-group">
+                <input
+                  type="file"
+                  class="form-control"
+                  placeholder="cover"
+                  name="cover"
+                  id="cover"
+                />
+                <input type="hidden" name="cover_hidden" id="cover_hidden" />
+              </div>
+            </div>
+          </fieldset>
           <fieldset>
             <div class="form-group">
               <h5>Upload PDF</h5>
-              <div
+              <!-- <div
                 class="file"
                 style="padding-top: 0.5rem"
                 name="file"
                 id="file"
-              ></div>
+              ></div> -->
+              <input
+                type="file"
+                class="form-control"
+                placeholder="pdf"
+                name="pdf"
+                id="pdf"
+                accept=".pdf"
+              />
+              <input
+                type="hidden"
+                name="path_hidden"
+                id="path_hidden"
+                value=""
+              />
             </div>
           </fieldset>
         </div>

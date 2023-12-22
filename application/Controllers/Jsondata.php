@@ -2,6 +2,7 @@
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use App\Controller\BaseController;
+use CodeIgniter\Files\File;
 
 class Jsondata extends \CodeIgniter\Controller
 {
@@ -1039,13 +1040,15 @@ class Jsondata extends \CodeIgniter\Controller
   {
 	try {
 		$request		= $this->request;
-		$param		= $request->getVar('param');
-		
+		$param			= $request->getVar('param');
 		$method			= $request->getMethod();
+		$tanggalString 	= $this->now;
+        $tanggal_saja 	= date("Y-m-d", strtotime($tanggalString));
 
-		$tanggalString = $this->now;
-        $tanggal_saja = date("Y-m-d", strtotime($tanggalString));
+		$image = $request->getFile('cover');
+		$pdf = $request->getFile('pdf');
 
+		
 		$buku = new \App\Models\BukuModel();
 		if($method == 'post'){
 				
@@ -1058,36 +1061,71 @@ class Jsondata extends \CodeIgniter\Controller
 						'updated_at' => $this->now,
 						'updated_by' => $this->session->get('id'),
 						'status' => 1
-
 					];
 					
 					$buku->update($request->getVar('id'), $data);
-					if(array_key_exists("images",$_FILES)){
 
-						foreach ($_FILES as $key => $value) {
-							
-							$basepath = './uploads/buku/'.$request->getVar('id').'/';
-							if(!is_dir($basepath)){
-								mkdir($basepath, 0777, true);
-							}
-							
-							$tmp_name = $value['tmp_name'][0];
-							if($tmp_name){
-								$files = glob("$basepath*"); // get all file names
-								foreach($files as $file){ // iterate files
-									if(is_file($file)) {
-										unlink($file); // delete file
-									}
-								}
-								$path = $value['name'][0];
-								$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-								$imgname = "buku-".$request->getVar('id')."-".$path;
-								$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
-								$buku->update($request->getVar('id'), ['path' => $basepath.$imgname]);
-							}
+					if (!empty($image->getTempName()) && file_exists($image->getTempName())) {
+						$path = $image->getTempName();
+						$fi = finfo_open(FILEINFO_MIME_TYPE);
+						$originalMimeType = finfo_file($fi, $path);
+						finfo_close($fi);
+						
+						$originalName = $image->getName();
+						$gambarFileName	= './uploads/cover/cover-'.$request->getVar('id').'-'.$originalName;
+						
+						$basepath = './uploads/cover/'.$request->getVar('id').'/';
+						if(!is_dir($basepath)){
+							mkdir($basepath, 0777, true);
 						}
-
+						$gambarFileName	= $basepath.'cover-'.$request->getVar('id').'-'.$originalName;
+						$terupload = move_uploaded_file($path,$gambarFileName);
+						$buku->update($request->getVar('id'), ['cover' => $gambarFileName]);
+					} else {
+						$cover_hidden = $request->getVar('cover_hidden');
+						$buku->update($request->getVar('id'), ['cover' => $cover_hidden]);
 					};
+
+					if (!empty($pdf->getTempName()) && file_exists($pdf->getTempName())) {
+						$path = $pdf->getTempName();
+						$fi = finfo_open(FILEINFO_MIME_TYPE);
+						$originalMimeType = finfo_file($fi, $path);
+						finfo_close($fi);
+						
+						$originalName = $pdf->getName();
+						$pdfFileName	= './uploads/buku/buku-'.$request->getVar('id').'-'.$originalName;
+						
+						$basepath = './uploads/buku/'.$request->getVar('id').'/';
+						if(!is_dir($basepath)){
+							mkdir($basepath, 0777, true);
+						}
+						$pdfFileName	= $basepath.'buku-'.$request->getVar('id').'-'.$originalName;
+						$terupload = move_uploaded_file($path,$pdfFileName);
+						$buku->update($request->getVar('id'), ['path' => $pdfFileName]);
+					} else {
+						$path_hidden = $request->getVar('path_hidden');
+						$buku->update($request->getVar('id'), ['path' => $path_hidden]);
+					};
+					// if(array_key_exists("images",$_FILES)){
+					// 	foreach ($_FILES as $key => $value) {
+					// 		if (!empty($value['tmp_name'])) {
+					// 			var_dump($value);die;
+					// 			$basepath = './uploads/buku/'.$request->getVar('id').'/';
+					// 			if(!is_dir($basepath)){
+					// 				mkdir($basepath, 0777, true);
+					// 			}
+					// 			$tmp_name = $value['tmp_name'][0];
+					// 			$path = $value['name'][0];
+					// 			$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+					// 			$imgname = "buku-".$request->getVar('id')."-".$path;
+					// 			$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+					// 			$buku->update($request->getVar('id'), ['path' => $basepath.$imgname]);
+					// 		}else{
+					// 			var_dump($pathe);die;
+					// 			$buku->update($request->getVar('id'), ['path' => $pathe]);
+					// 		}
+					// 	}
+					// };
 					
 				}else{
 
@@ -1102,24 +1140,56 @@ class Jsondata extends \CodeIgniter\Controller
 					];
 					$buku->insert($data);
 					$lastid = $buku->insertID();
+
+					$path = $image->getTempName();
+					$fi = finfo_open(FILEINFO_MIME_TYPE);
+					$originalMimeType = finfo_file($fi, $path);
+					finfo_close($fi);
+
+					$originalName = $image->getName();
+					$gambarFileName	= './uploads/cover/cover-'.$lastid.'-'.$originalName;
+
+					$basepath = './uploads/cover/'.$lastid.'/';
+					if(!is_dir($basepath)){
+						mkdir($basepath, 0777, true);
+					}
+					$gambarFileName	= $basepath.'cover-'.$lastid.'-'.$originalName;
+					$terupload = move_uploaded_file($path, $gambarFileName);
+					$buku->update($lastid, ['cover' => $gambarFileName]);
+
+
 					
-					if(array_key_exists("images",$_FILES)){
+					$pathpdf = $pdf->getTempName();
+					$fipdf = finfo_open(FILEINFO_MIME_TYPE);
+					$originalMimeTypepdf = finfo_file($fipdf, $pathpdf);
+					finfo_close($fipdf);
+					
+					$originalNamepdf = $pdf->getName();
+					$pdfFileName	= './uploads/buku/buku-'.$lastid.'-'.$originalNamepdf;
+					
+					$basepathpdf = './uploads/buku/'.$lastid.'/';
+					if(!is_dir($basepathpdf)){
+						mkdir($basepathpdf, 0777, true);
+					}
+					$pdfFileName	= $basepathpdf.'buku-'.$lastid.'-'.$originalNamepdf;
+					$teruploadpdf = move_uploaded_file($pathpdf,$pdfFileName);
+					$buku->update($lastid, ['path' => $pdfFileName]);
+				
+					// if(array_key_exists("images",$_FILES)){
+					// 	foreach ($_FILES as $key => $value) {
+					// 		$basepath = './uploads/buku/'.$lastid.'/';
+					// 		if(!is_dir($basepath)){
+					// 			mkdir($basepath, 0777, true);
+					// 		}
+					// 		$tmp_name = $value['tmp_name'][0];
+					// 		$path = $value['name'][0];
+					// 		$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+					// 		$imgname = "buku-".$lastid."-".$path;
+					// 		$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+					// 		$buku->update($lastid, ['path' => $basepath.$imgname]);
+					// 	}
 
-						foreach ($_FILES as $key => $value) {
-							$basepath = './uploads/buku/'.$lastid.'/';
-							if(!is_dir($basepath)){
-								mkdir($basepath, 0777, true);
-							}
-							
-							$tmp_name = $value['tmp_name'][0];
-							$path = $value['name'][0];
-							$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-							$imgname = "buku-".$lastid."-".$path;
-							$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
-							$buku->update($lastid, ['path' => $basepath.$imgname]);
-						}
-
-					};
+					// };
 				}
 		}
 		redirect('data_buku','refresh');

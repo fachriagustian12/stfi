@@ -1198,6 +1198,41 @@ class Jsondata extends \CodeIgniter\Controller
 	}
   }
 
+  public function getBuku(){
+	try {
+		$table = 'buku';
+		$user = new \App\Models\UserModel();
+		$data = $user->getData($table);
+        $response = [
+			'status'   => 'sukses',
+			'code'     => 200,
+			'data' 	 => $data
+		];
+		header('Content-Type: application/json');
+	  echo json_encode($response);
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function getDetailBuku($id = null){
+	try {
+		$table	= 'buku';
+		$user 	= new \App\Models\UserModel();
+		$data 	= $user->getData($table, $id);
+
+        $response = [
+			'status'   => 'sukses',
+			'code'     => 200,
+			'data' 	 => $data
+		];
+		header('Content-Type: application/json');
+	  echo json_encode($response);
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
   public function getdata()
   {
 	  try {

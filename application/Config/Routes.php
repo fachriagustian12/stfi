@@ -160,6 +160,14 @@ $routes->post('addkegiatan', 'Jsondata::addkegiatan');
 $routes->post('addberita', 'Jsondata::addberita');
 $routes->post('addkelas', 'Jsondata::addkelas');
 $routes->post('addbuku', 'Jsondata::addbuku');
+
+// API
+$routes->group('api', ['namespace' => 'App\Controllers'], function($routes)
+{
+    $routes->get('buku', 'Jsondata::getBuku');
+    $routes->get('buku/(:segment)', 'Jsondata::getDetailBuku/$1');
+});
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing

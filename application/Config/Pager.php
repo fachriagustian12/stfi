@@ -1,4 +1,6 @@
-<?php namespace Config;
+<?php
+
+namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 
@@ -19,7 +21,8 @@ class Pager extends BaseConfig
 	*/
 	public $templates = [
 		'default_full'   => 'CodeIgniter\Pager\Views\default_full',
-		'default_simple' => 'CodeIgniter\Pager\Views\default_simple'
+		'default_simple' => 'CodeIgniter\Pager\Views\default_simple',
+		'new_pagination' => 'App\Views\Pagers\new_pagination'
 	];
 
 	/*
@@ -30,5 +33,5 @@ class Pager extends BaseConfig
 	| The default number of results shown in a single page.
 	|
 	*/
-	public $perPage = 20;
+	public $perPage = 10;
 }

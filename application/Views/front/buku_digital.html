@@ -1,110 +1,162 @@
 {% extends "front/layout.html" %} {% block content %}
 
-<section class="uni-banner">
+<section class="team pt-70 pb-70">
   <div class="container">
-    <div class="uni-banner-text-area">
-      <h1>Layanan Buku Digital</h1>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li>Layanan Buku Digital</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="events pt-70 pb-100">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-        <div class="events-card">
-          <img src="{{baseURL}}assets/images/book-1.png" alt="image" />
-          <div class="events-card-text">
-            <ul>
-              <li>Report</li>
-              <li>Oct 12, 2022</li>
-            </ul>
-            <h4><a href="event-details.html">Title Of The Report</a></h4>
-            <p>
-              <!-- <i class="fas fa-map-marker-alt"></i> -->
-              <!-- <a href="https://goo.gl/maps/QTg39qSWoB5fdndT7"
-                >At City Center, 27 Division Street, USA</a
-              > -->
-            </p>
-            <a class="read-more-btn" href="event-details.html">Read More</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-        <div class="events-card">
-          <img src="{{baseURL}}assets/images/book-2.png" alt="image" />
-          <div class="events-card-text">
-            <ul>
-              <li>Cover</li>
-              <li>Oct 13, 2022</li>
-            </ul>
-            <h4>
-              <a href="event-details.html">Japanese Pattern Book Cover</a>
-            </h4>
-            <p>
-              <!-- <i class="fas fa-map-marker-alt"></i>
-              <a href="https://goo.gl/maps/QTg39qSWoB5fdndT7"
-                >At City Center, 27 Division Street, USA</a
-              > -->
-            </p>
-            <a class="read-more-btn" href="event-details.html">Read More</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-        <div class="events-card">
-          <img src="{{baseURL}}assets/images/book-3.png" alt="image" />
-          <div class="events-card-text">
-            <ul>
-              <li>Design</li>
-              <li>Oct 14, 2022</li>
-            </ul>
-            <h4><a href="event-details.html">Magazine Design</a></h4>
-            <p>
-              <!-- <i class="fas fa-map-marker-alt"></i>
-              <a href="https://goo.gl/maps/QTg39qSWoB5fdndT7"
-                >At City Center, 27 Division Street, USA</a
-              > -->
-            </p>
-            <a class="read-more-btn" href="event-details.html">Read More</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="paginations mt-30">
-      <ul>
-        <li><a class="active" href="events.html">1</a></li>
-        <li><a href="events.html">2</a></li>
-        <li><a href="events.html">3</a></li>
-        <li>
-          <a href="events.html"><i class="fas fa-chevron-right"></i></a>
+    <nav aria-label="breadcrumb" class="fw-bold">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Layanan Perpustakaan Digital
         </li>
-      </ul>
+      </ol>
+    </nav>
+    <h2>Perpustakaan Digital</h2>
+
+    <div class="row justify-content-center">
+      <div class="col-xl-12">
+        <div class="row">
+          <div class="col-xl-8">
+            <!-- BUTTON API REPOSITORY -->
+            <a
+              href="#"
+              class="btn btn-success"
+              style="background-color: var(--mainColor)"
+              >Repository Buku Digital <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+          <div class="col-xl-4">
+            <form>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="search"
+                  placeholder="Masukan Nama Buku Yang Dicari"
+                  required
+                />
+                <button
+                  class="btn btn-success"
+                  style="background-color: var(--mainColor)"
+                  type="submit"
+                >
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% if results is empty %}
+      <h4 class="text-center">Data Tidak Tersedia !</h4>
+      {% endif %} {% for item in results %} {% if item.status == 1 %}
+      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+        <div class="team-card">
+          <div class="team-card-img">
+            <img src="{{baseURL}}{{item.cover_path}}" alt="image" />
+            <div class="team-social-icons">
+              <ul>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    class="readbook"
+                    data-url="{{baseURL}}{{item.path}}"
+                    data-title="{{item.title}}"
+                    ><i class="fa fa-file-pdf"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="team-card-text">
+            <h4>{{ item.title }}</h4>
+            <h5>{{ item.keterangan }}</h5>
+            {% if item.ketersediaan > 0 %}
+            <span class="badge bg-success p-2">Tersedia</span>
+            {% else %}
+            <span class="badge bg-danger p-2">Tidak Tersedia</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="events-card">
+          <img src="{{item.path}}" alt="image" />
+          <div class="events-card-text">
+            <ul>
+              {% if item.ketersediaan > 0 %}
+              <li>Tersedia</li>
+              {% else %}
+              <li>Tidak Tersedia</li>
+              {% endif %}
+              <li>{{ item.created_at | date('d F Y') }}</li>
+            </ul>
+            <h4><a>{{ item.title }}</a></h4>
+            <p>
+              <a>{{ item.keterangan }}</a>
+            </p>
+          </div>
+        </div>
+      </div> -->
+      {% endif %} {% endfor %}
     </div>
+    {{links|raw}}
   </div>
 </section>
-<div class="popup">
-  <div class="popup-content">
-    <button class="close-btn" id="popup-close">
-      <i class="fas fa-times"></i>
-    </button>
-    <form>
-      <div class="input-group search-box">
-        <input type="text" class="form-control" placeholder="Search" />
-        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+<div class="modal fade" tabindex="-1" id="myModal">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="title-book"></h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
-    </form>
+      <div class="modal-body">
+        <iframe
+          src=""
+          frameborder="0"
+          id="iframe-readbook"
+          style="width: 100%; height: 100%"
+        ></iframe>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-success btn-sm"
+          data-bs-dismiss="modal"
+        >
+          <i class="fa fa-times"></i>
+          Tutup
+        </button>
+      </div>
+    </div>
   </div>
 </div>
+
+<button
+  type="button"
+  class="d-none btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#myModal"
+  id="btn-modal"
+></button>
 
 {% endblock %} {% block js %}
 <script>
   $(() => {
     $("#page-layanan_buku").addClass("active");
+
+    $(".readbook").click(function () {
+      var url = $(this).data("url");
+      var title = $(this).data("title");
+      $("#btn-modal").click();
+      $("#title-book").html(title);
+
+      $("#iframe-readbook").attr("src", url);
+    });
   });
 </script>
 {% endblock %}

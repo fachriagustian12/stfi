@@ -1,0 +1,120 @@
+{% extends "front/layout.html" %} {% block content %}
+<div class="terms ptb-50">
+  <div class="container">
+    <nav aria-label="breadcrumb" class="fw-bold">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Layanan Informasi Kelas
+        </li>
+      </ol>
+    </nav>
+    <h1>Informasi Kelas</h1>
+    <!-- <div class="sidebar-card search-box mb-3">
+      <form>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Masukan Nama / NPM Mahasiswa"
+            required
+          />
+          <button class="btn" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
+    </div> -->
+
+    <!-- <p>
+      We may collect personal identification information from Users in a variety
+      of ways, including, but not limited to, when Users visit our site,
+      subscribe to the newsletter, fill out a form, and in connection with other
+      activities, services, features or <a href="index.html">resources</a> we
+      make available on our Site. Users may be asked for, as appropriate, name,
+      email address, mailing address, phone number, company name. We will
+      collect personal <strong>identification</strong> information from Users
+      only if they voluntarily consent such information to us. Users can always
+      refuse to supply personally identification information, except that it may
+      prevent them from engaging in certain Site related activities.
+    </p> -->
+    <!-- <div class="table-responsive"> -->
+    <table class="table table-bordered" id="table-kelas">
+      <thead class="table-active">
+        <th width="3%">No.</th>
+        <th>Kode</th>
+        <th>No. Kelas</th>
+        <th>Mata Kuliah</th>
+        <th>Status</th>
+        <th>Jam Mulai</th>
+        <th>Jam Selesai</th>
+        <th>Tanggal</th>
+      </thead>
+    </table>
+    <!-- <div class="paginations mt-30">
+      <ul>
+        <li><a class="active" href="blog.html">1</a></li>
+        <li><a href="blog.html">2</a></li>
+        <li><a href="blog.html">3</a></li>
+        <li>
+          <a href="blog.html"><i class="fas fa-chevron-right"></i></a>
+        </li>
+      </ul>
+    </div> -->
+  </div>
+</div>
+<!-- </div> -->
+<!-- <div class="popup">
+  <div class="popup-content">
+    <button class="close-btn" id="popup-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <form>
+      <div class="input-group search-box">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Masukan Nama / NPM Mahasiswa"
+        />
+        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
+  </div>
+</div> -->
+
+{% endblock %} {% block js %}
+<script>
+  $(() => {
+    $("#dropdown-layanan").addClass("active");
+    $("#page-layanan_mahasiswa").addClass("active");
+
+    var table = $("#table-kelas").DataTable({
+      processing: true,
+      serverSide: true,
+      language: {
+        searchPlaceholder: "Masukan Kode, Matkul, Kelas dan Jam",
+        search: "Cari Data Informasi Kelas :",
+        info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ Data",
+        lengthMenu: "Menampilkan _MENU_ Data",
+        paginate: {
+          first: "Awal",
+          last: "Akhir",
+          next: "Selanjutnya",
+          previous: "Sebelumnya",
+        },
+      },
+      order: [],
+      ajax: {
+        url: "getKelas",
+        type: "POST",
+      },
+      columnDefs: [
+        {
+          targets: [],
+          orderable: false,
+        },
+      ],
+    });
+  });
+</script>
+{% endblock %}

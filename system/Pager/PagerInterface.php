@@ -1,4 +1,6 @@
-<?php namespace CodeIgniter\Pager;
+<?php
+
+namespace CodeIgniter\Pager;
 
 interface PagerInterface
 {
@@ -10,7 +12,7 @@ interface PagerInterface
 	 *
 	 * @return string
 	 */
-	public function links(string $template = 'default', string $group = null): string;
+	public function links(string $template = 'default_full', string $group = 'default'): string;
 
 	//--------------------------------------------------------------------
 

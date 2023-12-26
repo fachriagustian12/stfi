@@ -3,8 +3,11 @@
 :root {
   --fontFamily: "Montserrat", sans-serif;
   --fontFamily2: "Roboto", sans-serif;
-  --mainColor: #00aa55;
-  --secondColor: #00aa5530;
+  --mainColor: #264653;
+  --secondColor: #e9c46a;
+  --thirdColor: #e76f51;
+  --forthColor: #2a9d8f;
+  --fifthColor: #f4a261;
   --whiteColor: #ffffff;
   --blackColor: #1f2428;
   --paragraphColor: #666666;
@@ -76,6 +79,10 @@ p:last-child {
 .ptb-70 {
   padding-top: 70px;
   padding-bottom: 70px;
+}
+.ptb-50 {
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 .pt-70 {
   padding-top: 70px;
@@ -1675,6 +1682,14 @@ a.meanmenu-reveal {
 .events-card {
   position: relative;
   margin-top: 30px;
+  width: 100%;
+  height: 500px;
+}
+
+.events-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .events-card::before {
   content: "";

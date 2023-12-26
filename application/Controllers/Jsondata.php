@@ -2,6 +2,7 @@
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use App\Controller\BaseController;
+use CodeIgniter\Files\File;
 
 class Jsondata extends \CodeIgniter\Controller
 {
@@ -105,72 +106,41 @@ class Jsondata extends \CodeIgniter\Controller
 		$user = new \App\Models\UserModel();
 
 		if($method == 'post'){
-			if($param){
+				
 				if($request->getVar('id')){
 					$data = [
-						'nama'			=> $request->getVar('nama'),
-						'email'			=> $request->getVar('email'),
-						'usernm'		=> $request->getVar('usernm'),
-						'pass'			=> $request->getVar('pass'),
-						'kontak'		=> $request->getVar('kontak'),
-						'id_provinsi'	=> $request->getVar('id_provinsi'),
-						'updated_at'	=> date('Y-m-d H:i:s'),
-						'updated_by'	=> $this->session->get('id'),
-					];
-					$user->updateSimponi($request->getVar('id'), $data);
-				}else{
-					$data = [
-						'nama'			=> $request->getVar('nama'),
-						'email'			=> $request->getVar('email'),
-						'usernm'		=> $request->getVar('usernm'),
-						'pass'			=> $request->getVar('pass'),
-						'kontak'		=> $request->getVar('kontak'),
-						'id_provinsi'	=> $request->getVar('id_provinsi'),
-						'created_at'	=> date('Y-m-d H:i:s'),
-						'created_by'	=> $this->session->get('id'),
-					];
-
-					$user->insertSimponi($data);
-				}
-			}else{
-				if($request->getVar('id')){
-					$data = [
+						'name' 		=> $request->getVar('name'),	
+						'email' 		=> $request->getVar('email'),	
 						'username' 		=> $request->getVar('username'),	
 						'id_role' 		=> $request->getVar('id_role'),
-						'id_provinsi' 	=> $request->getVar('id_provinsi'),
-						'status' 		=> 1
+						'status' 		=> 1,
+						'update_date' 	=> $this->now,
+						'update_by' 	=> $this->session->get('id')
 					];
 					
 					if($request->getVar('password')){
-						$data['password'] = password_hash($request->getVar('password'), PASSWORD_DEFAULT);
+						$data['password'] = md5($request->getVar('password'));
 					}
+					
 					$user->update($request->getVar('id'), $data);
-					$this->logModel->insert([
-						'tgl' => date('Y-m-d H:i:s'), 
-						'username' => $this->session->get('username'), 
-						'keterangan' => "Mengubah data user ".$request->getVar('username'),
-					]);
 					
 				}else{
 					$data = [
+						'name' 			=> $request->getVar('name'),	
+						'email' 		=> $request->getVar('email'),	
 						'username' 		=> $request->getVar('username'),	
-						'password' 		=> password_hash($request->getVar('password'), PASSWORD_DEFAULT),
+						'password' 		=> md5($request->getVar('password')),
 						'id_role' 		=> $request->getVar('id_role'),
-						'id_provinsi' 	=> $request->getVar('id_provinsi'),
-						'status' 		=> 1
+						'status' 		=> 1,
+						'create_date' 	=> $this->now,
+						'update_date' 	=> $this->now,
+						'create_by' 	=> $this->session->get('id'),
+						'update_by' 	=> $this->session->get('id')
 					];
-
-
 					$user->insert($data);
-					$this->logModel->insert([
-						'tgl' => date('Y-m-d H:i:s'), 
-						'username' => $this->session->get('username'), 
-						'keterangan' => "Menambah data user ".$request->getVar('username'),
-					]);
 				}
-			}
 		}
-		redirect($param?'usersimponi':'user','refresh');
+		redirect('user','refresh');
 	} catch (\Exception $e) {
 		die($e->getMessage());
 	}
@@ -183,16 +153,9 @@ class Jsondata extends \CodeIgniter\Controller
 		$param		= $request->getVar('param');
 		$method			= $request->getMethod();
 		$user = new \App\Models\UserModel();
-		if($param){
-			$user->deleteSimponi($request->getVar('id'));
-		}else{
-			$user->delete($request->getVar('id'));
-			$this->logModel->insert([
-				'tgl' => date('Y-m-d H:i:s'), 
-				'username' => $this->session->get('username'), 
-				'keterangan' => "Menghapus data user ".$request->getVar('username'),
-			]);
-		}
+
+		$user->deleteUser($request->getVar('id'));
+		
 		$response = [
 			'status'   => 'success',
 			'code'     => 200,
@@ -650,6 +613,676 @@ class Jsondata extends \CodeIgniter\Controller
 
 		header('Content-Type: application/json');
 		echo json_encode($response);
+		exit;
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function addslider()
+  {
+	try {
+		$request		= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method			= $request->getMethod();
+		$image = new \App\Models\ImageModel();
+		if($method == 'post'){
+				
+				if($request->getVar('id')){
+					$data = [
+						'title' 		=> $request->getVar('title'),	
+						'status' 		=> 1,
+						'update_date' 	=> $this->now,
+						'update_by' 	=> $this->session->get('id'),
+						'type' 			=> 'slider'
+					];
+					
+					$image->updateImage($request->getVar('id'), $data);
+					if(array_key_exists("images",$_FILES)){
+
+						foreach ($_FILES as $key => $value) {
+							
+							$basepath = './uploads/slider/'.$request->getVar('id').'/';
+							if(!is_dir($basepath)){
+								mkdir($basepath, 0777, true);
+							}
+							
+							$tmp_name = $value['tmp_name'][0];
+							if($tmp_name){
+								$files = glob("$basepath*"); // get all file names
+								foreach($files as $file){ // iterate files
+									if(is_file($file)) {
+										unlink($file); // delete file
+									}
+								}
+								$path = $value['name'][0];
+								$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+								$imgname = "slider-".$request->getVar('id')."-".$path;
+								$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+								$image->updateImage($request->getVar('id'), ['path' => $basepath.$imgname]);
+							}
+						}
+
+					};
+					
+				}else{
+					$data = [
+						'title' 		=> $request->getVar('title'),	
+						'status' 		=> 1,
+						'create_date' 	=> $this->now,
+						'update_date' 	=> $this->now,
+						'create_by' 	=> $this->session->get('id'),
+						'update_by' 	=> $this->session->get('id'),
+						'type' 			=> 'slider'
+					];
+					$image->insertImage($data);
+					$lastid = $image->insertID();
+
+					if(array_key_exists("images",$_FILES)){
+
+						foreach ($_FILES as $key => $value) {
+							$basepath = './uploads/slider/'.$lastid.'/';
+							if(!is_dir($basepath)){
+								mkdir($basepath, 0777, true);
+							}
+							
+							$tmp_name = $value['tmp_name'][0];
+							$path = $value['name'][0];
+							$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+							$imgname = "slider-".$lastid."-".$path;
+							$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+							$image->updateImage($lastid, ['path' => $basepath.$imgname]);
+						}
+
+					};
+				}
+		}
+		redirect('data_slider','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function addmahasiswa()
+  {
+	try {
+		$request		= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method			= $request->getMethod();
+		$mahasiswa = new \App\Models\MahasiswaModel();
+		if($method == 'post'){
+				
+				if($request->getVar('id')){
+					$data = [
+						'nama' 				=> $request->getVar('nama'),
+						'npm' 				=> $request->getVar('npm'),
+						'semester' 			=> $request->getVar('semester'),
+						'prodi' 			=> $request->getVar('prodi'),
+						'status_mahasiswa' => ($request->getVar('status_mahasiswa') == 'on') ? 1 : 0,
+						'status_perwalian' => ($request->getVar('status_perwalian') == 'on') ? 1 : 0,
+						'update_date' 	=> $this->now,
+						'update_by' 	=> $this->session->get('id')
+					];
+					
+					$mahasiswa->update($request->getVar('id'), $data);
+
+					
+				}else{
+					$data = [
+						'nama' => $request->getVar('nama'),
+						'npm' => $request->getVar('npm'),
+						'semester' => $request->getVar('semester'),
+						'prodi' => $request->getVar('prodi'),
+						'status_mahasiswa' => ($request->getVar('status_mahasiswa') == 'on') ? 1 : 0,
+						'status_perwalian' => ($request->getVar('status_perwalian') == 'on') ? 1 : 0,
+						'create_date' 	=> $this->now,
+						'update_date' 	=> $this->now,
+						'create_by' 	=> $this->session->get('id'),
+						'update_by' 	=> $this->session->get('id')
+					];
+					
+					$mahasiswa->insert($data);
+					$lastid = $mahasiswa->insertID();
+
+				}
+		}
+		redirect('data_mahasiswa','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function adddosen()
+  {
+	try {
+		$request		= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method			= $request->getMethod();
+		$dosen = new \App\Models\DosenModel();
+		if($method == 'post'){
+				
+				if($request->getVar('id')){
+					$data = [
+						'nama' 			=> $request->getVar('nama'),
+						'mata_kuliah' 	=> $request->getVar('mata_kuliah'),
+						'jadwal' 		=> $request->getVar('jadwal'),
+						'kelas' 		=> $request->getVar('kelas'),
+						'perkuliahan' 	=> ($request->getVar('perkuliahan') == 'on') ? 'online' : 'offline',
+						'status' 		=> 1,
+						'tugas' 		=> $request->getVar('tugas'),
+						'update_by' 	=> $this->session->get('id'),
+						'update_date' 	=> $this->now
+					];
+					
+					$dosen->update($request->getVar('id'), $data);
+
+					
+				}else{
+					$data = [
+						'nama' 			=> $request->getVar('nama'),
+						'mata_kuliah' 	=> $request->getVar('mata_kuliah'),
+						'jadwal' 		=> $request->getVar('jadwal'),
+						'kelas' 		=> $request->getVar('kelas'),
+						'perkuliahan' 	=> ($request->getVar('perkuliahan') == 'on') ? 'online' : 'offline',
+						'status' 		=> 1,
+						'tugas' 		=> $request->getVar('tugas'),
+						'create_by' 	=> $this->session->get('id'),
+						'create_date' 	=> $this->now,
+						'update_by' 	=> $this->session->get('id'),
+						'update_date' 	=> $this->now
+					];
+					
+					
+					$dosen->insert($data);
+					$lastid = $dosen->insertID();
+
+				}
+		}
+		redirect('data_dosen','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function addkegiatan()
+  {
+	try {
+		$request		= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method			= $request->getMethod();
+		$kegiatan = new \App\Models\KegiatanModel();
+		if($method == 'post'){
+				
+				if($request->getVar('id')){
+					$data = [
+						'kegiatan' => $request->getVar('kegiatan'),
+						'tanggal_kegiatan' => $request->getVar('tanggal_kegiatan'),
+						'keterangan' => $request->getVar('keterangan'),
+						'update_date' => $this->now,
+						'update_by' => $this->session->get('id'),
+						'status' => 1
+
+					];
+					
+					$kegiatan->update($request->getVar('id'), $data);
+					if(array_key_exists("images",$_FILES)){
+
+						foreach ($_FILES as $key => $value) {
+							
+							$basepath = './uploads/kegiatan/'.$request->getVar('id').'/';
+							if(!is_dir($basepath)){
+								mkdir($basepath, 0777, true);
+							}
+							
+							$tmp_name = $value['tmp_name'][0];
+							if($tmp_name){
+								$files = glob("$basepath*"); // get all file names
+								foreach($files as $file){ // iterate files
+									if(is_file($file)) {
+										unlink($file); // delete file
+									}
+								}
+								$path = $value['name'][0];
+								$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+								$imgname = "kegiatan-".$request->getVar('id')."-".$path;
+								$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+								$kegiatan->update($request->getVar('id'), ['path' => $basepath.$imgname]);
+							}
+						}
+
+					};
+					
+				}else{
+
+					$data = [
+						'kegiatan' => $request->getVar('kegiatan'),
+						'tanggal_kegiatan' => $request->getVar('tanggal_kegiatan'),
+						'keterangan' => $request->getVar('keterangan'),
+						'create_date' 	=> $this->now,
+						'update_date' => $this->now,
+						'create_by' 	=> $this->session->get('id'),
+						'update_by' => $this->session->get('id'),
+						'status' => 1
+					];
+					$kegiatan->insert($data);
+					$lastid = $kegiatan->insertID();
+					
+					if(array_key_exists("images",$_FILES)){
+
+						foreach ($_FILES as $key => $value) {
+							$basepath = './uploads/kegiatan/'.$lastid.'/';
+							if(!is_dir($basepath)){
+								mkdir($basepath, 0777, true);
+							}
+							
+							$tmp_name = $value['tmp_name'][0];
+							$path = $value['name'][0];
+							$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+							$imgname = "kegiatan-".$lastid."-".$path;
+							$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+							$kegiatan->update($lastid, ['path' => $basepath.$imgname]);
+						}
+
+					};
+				}
+		}
+		redirect('data_kampus','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function addberita()
+  {
+	try {
+		$request		= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method			= $request->getMethod();
+		$berita = new \App\Models\BeritaModel();
+		if($method == 'post'){
+				
+				if($request->getVar('id')){
+					$data = [
+						'title' => $request->getVar('title'),
+						'redaksi' => $request->getVar('redaksi'),
+						'tanggal' => $request->getVar('tanggal'),
+						'update_date' => $this->now,
+						'update_by' => $this->session->get('id'),
+						'status' => 1
+
+					];
+					
+					$berita->update($request->getVar('id'), $data);
+					if(array_key_exists("images",$_FILES)){
+
+						foreach ($_FILES as $key => $value) {
+							
+							$basepath = './uploads/berita/'.$request->getVar('id').'/';
+							if(!is_dir($basepath)){
+								mkdir($basepath, 0777, true);
+							}
+							
+							$tmp_name = $value['tmp_name'][0];
+							if($tmp_name){
+								$files = glob("$basepath*"); // get all file names
+								foreach($files as $file){ // iterate files
+									if(is_file($file)) {
+										unlink($file); // delete file
+									}
+								}
+								$path = $value['name'][0];
+								$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+								$imgname = "berita-".$request->getVar('id')."-".$path;
+								$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+								$berita->update($request->getVar('id'), ['path' => $basepath.$imgname]);
+							}
+						}
+
+					};
+					
+				}else{
+
+					$data = [
+						'title' => $request->getVar('title'),
+						'redaksi' => $request->getVar('redaksi'),
+						'tanggal' => $request->getVar('tanggal'),
+						'create_date' 	=> $this->now,
+						'update_date' => $this->now,
+						'create_by' 	=> $this->session->get('id'),
+						'update_by' => $this->session->get('id'),
+						'status' => 1
+					];
+					$berita->insert($data);
+					$lastid = $berita->insertID();
+					
+					if(array_key_exists("images",$_FILES)){
+
+						foreach ($_FILES as $key => $value) {
+							$basepath = './uploads/berita/'.$lastid.'/';
+							if(!is_dir($basepath)){
+								mkdir($basepath, 0777, true);
+							}
+							
+							$tmp_name = $value['tmp_name'][0];
+							$path = $value['name'][0];
+							$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+							$imgname = "berita-".$lastid."-".$path;
+							$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+							$berita->update($lastid, ['path' => $basepath.$imgname]);
+						}
+
+					};
+				}
+		}
+		redirect('data_berita','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function addkelas()
+  {
+	try {
+		$request	= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method		= $request->getMethod();
+		$kelas 		= new \App\Models\KelasModel();
+		
+		if($method == 'post'){
+				if($request->getVar('id')){
+					$tanggal = $request->getVar('tanggal');
+					$tanggal .= ' 00:00:00.000000';
+
+					$data = [
+						'nama'			=> $request->getVar('nama'),
+						'no_kelas'		=> $request->getVar('no_kelas'),
+						'matkul'		=> $request->getVar('matkul'),
+						'status'		=> $request->getVar('status'),
+						'jam_mulai'		=> $request->getVar('jam_mulai'),
+						'jam_akhir'		=> $request->getVar('jam_akhir'),
+						'tanggal'		=> $tanggal,
+						'updated_at'	=> $this->now,
+						'updated_by'		=> $this->session->get('id'),
+					];
+					$kelas->update($request->getVar('id'), $data);
+				}else{
+					$tanggal = $request->getVar('tanggal');
+					$tanggal .= ' 00:00:00.000000';
+
+					$data = [
+						'nama' 			=> $request->getVar('nama'),
+						'no_kelas' 		=> $request->getVar('no_kelas'),
+						'matkul' 		=> $request->getVar('matkul'),
+						'status' 		=> $request->getVar('status'),
+						'jam_mulai' 	=> $request->getVar('jam_mulai'),
+						'jam_akhir' 	=> $request->getVar('jam_akhir'),
+						'tanggal' 		=> $tanggal,
+						'created_at'	=> $this->now,
+						'created_by'	=> $this->session->get('id'),
+					];
+					$kelas->insert($data);
+					$lastid = $kelas->insertID();
+				}
+		}
+		redirect('data_kelas','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function addbuku()
+  {
+	try {
+		$request		= $this->request;
+		$param			= $request->getVar('param');
+		$method			= $request->getMethod();
+		$tanggalString 	= $this->now;
+        $tanggal_saja 	= date("Y-m-d", strtotime($tanggalString));
+
+		$image = $request->getFile('cover');
+		$pdf = $request->getFile('pdf');
+
+		
+		$buku = new \App\Models\BukuModel();
+		if($method == 'post'){
+				
+				if($request->getVar('id')){
+					$data = [
+						'title' => $request->getVar('title'),
+						'keterangan' => $request->getVar('keterangan'),
+						'ketersediaan' => $request->getVar('ketersediaan'),
+						'tanggal' => $tanggal_saja,
+						'updated_at' => $this->now,
+						'updated_by' => $this->session->get('id'),
+						'status' => 1
+					];
+					
+					$buku->update($request->getVar('id'), $data);
+
+					if (!empty($image->getTempName()) && file_exists($image->getTempName())) {
+						$path = $image->getTempName();
+						$fi = finfo_open(FILEINFO_MIME_TYPE);
+						$originalMimeType = finfo_file($fi, $path);
+						finfo_close($fi);
+						
+						$originalName = $image->getName();
+						$gambarFileName	= './uploads/cover/cover-'.$request->getVar('id').'-'.$originalName;
+						
+						$basepath = './uploads/cover/'.$request->getVar('id').'/';
+						if(!is_dir($basepath)){
+							mkdir($basepath, 0777, true);
+						}
+						$gambarFileName	= $basepath.'cover-'.$request->getVar('id').'-'.$originalName;
+						$terupload = move_uploaded_file($path,$gambarFileName);
+						$buku->update($request->getVar('id'), ['cover' => $gambarFileName]);
+					} else {
+						$cover_hidden = $request->getVar('cover_hidden');
+						$buku->update($request->getVar('id'), ['cover' => $cover_hidden]);
+					};
+
+					if (!empty($pdf->getTempName()) && file_exists($pdf->getTempName())) {
+						$path = $pdf->getTempName();
+						$fi = finfo_open(FILEINFO_MIME_TYPE);
+						$originalMimeType = finfo_file($fi, $path);
+						finfo_close($fi);
+						
+						$originalName = $pdf->getName();
+						$pdfFileName	= './uploads/buku/buku-'.$request->getVar('id').'-'.$originalName;
+						
+						$basepath = './uploads/buku/'.$request->getVar('id').'/';
+						if(!is_dir($basepath)){
+							mkdir($basepath, 0777, true);
+						}
+						$pdfFileName	= $basepath.'buku-'.$request->getVar('id').'-'.$originalName;
+						$terupload = move_uploaded_file($path,$pdfFileName);
+						$buku->update($request->getVar('id'), ['path' => $pdfFileName]);
+					} else {
+						$path_hidden = $request->getVar('path_hidden');
+						$buku->update($request->getVar('id'), ['path' => $path_hidden]);
+					};
+					// if(array_key_exists("images",$_FILES)){
+					// 	foreach ($_FILES as $key => $value) {
+					// 		if (!empty($value['tmp_name'])) {
+					// 			var_dump($value);die;
+					// 			$basepath = './uploads/buku/'.$request->getVar('id').'/';
+					// 			if(!is_dir($basepath)){
+					// 				mkdir($basepath, 0777, true);
+					// 			}
+					// 			$tmp_name = $value['tmp_name'][0];
+					// 			$path = $value['name'][0];
+					// 			$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+					// 			$imgname = "buku-".$request->getVar('id')."-".$path;
+					// 			$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+					// 			$buku->update($request->getVar('id'), ['path' => $basepath.$imgname]);
+					// 		}else{
+					// 			var_dump($pathe);die;
+					// 			$buku->update($request->getVar('id'), ['path' => $pathe]);
+					// 		}
+					// 	}
+					// };
+					
+				}else{
+
+					$data = [
+						'title' 		=> $request->getVar('title'),
+						'keterangan' 	=> $request->getVar('keterangan'),
+						'ketersediaan' 	=> $request->getVar('ketersediaan'),
+						'tanggal'		=> $tanggal_saja,
+						'created_at' 	=> $this->now,
+						'created_by' 	=> $this->session->get('id'),
+						'status' 		=> 1
+					];
+					$buku->insert($data);
+					$lastid = $buku->insertID();
+
+					$path = $image->getTempName();
+					$fi = finfo_open(FILEINFO_MIME_TYPE);
+					$originalMimeType = finfo_file($fi, $path);
+					finfo_close($fi);
+
+					$originalName = $image->getName();
+					$gambarFileName	= './uploads/cover/cover-'.$lastid.'-'.$originalName;
+
+					$basepath = './uploads/cover/'.$lastid.'/';
+					if(!is_dir($basepath)){
+						mkdir($basepath, 0777, true);
+					}
+					$gambarFileName	= $basepath.'cover-'.$lastid.'-'.$originalName;
+					$terupload = move_uploaded_file($path, $gambarFileName);
+					$buku->update($lastid, ['cover' => $gambarFileName]);
+
+
+					
+					$pathpdf = $pdf->getTempName();
+					$fipdf = finfo_open(FILEINFO_MIME_TYPE);
+					$originalMimeTypepdf = finfo_file($fipdf, $pathpdf);
+					finfo_close($fipdf);
+					
+					$originalNamepdf = $pdf->getName();
+					$pdfFileName	= './uploads/buku/buku-'.$lastid.'-'.$originalNamepdf;
+					
+					$basepathpdf = './uploads/buku/'.$lastid.'/';
+					if(!is_dir($basepathpdf)){
+						mkdir($basepathpdf, 0777, true);
+					}
+					$pdfFileName	= $basepathpdf.'buku-'.$lastid.'-'.$originalNamepdf;
+					$teruploadpdf = move_uploaded_file($pathpdf,$pdfFileName);
+					$buku->update($lastid, ['path' => $pdfFileName]);
+				
+					// if(array_key_exists("images",$_FILES)){
+					// 	foreach ($_FILES as $key => $value) {
+					// 		$basepath = './uploads/buku/'.$lastid.'/';
+					// 		if(!is_dir($basepath)){
+					// 			mkdir($basepath, 0777, true);
+					// 		}
+					// 		$tmp_name = $value['tmp_name'][0];
+					// 		$path = $value['name'][0];
+					// 		$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+					// 		$imgname = "buku-".$lastid."-".$path;
+					// 		$terupload = move_uploaded_file($tmp_name, $basepath.$imgname);
+					// 		$buku->update($lastid, ['path' => $basepath.$imgname]);
+					// 	}
+
+					// };
+				}
+		}
+		redirect('data_buku','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function getBuku(){
+	try {
+		$table = 'buku';
+		$user = new \App\Models\UserModel();
+		$data = $user->getData($table);
+        $response = [
+			'status'   => 'sukses',
+			'code'     => 200,
+			'data' 	 => $data
+		];
+		header('Content-Type: application/json');
+	  echo json_encode($response);
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function getDetailBuku($id = null){
+	try {
+		$table	= 'buku';
+		$user 	= new \App\Models\UserModel();
+		$data 	= $user->getData($table, $id);
+
+        $response = [
+			'status'   => 'sukses',
+			'code'     => 200,
+			'data' 	 => $data
+		];
+		header('Content-Type: application/json');
+	  echo json_encode($response);
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function getdata()
+  {
+	  try {
+		  $request	= $this->request;
+		  $table	= $request->getVar('table');
+		  $id	= $request->getVar('id');
+		  $user = new \App\Models\UserModel();
+		  $data = $user->getData($table, $id);
+		  
+		  if($data){
+			  $response = [
+				  'status'   => 'sukses',
+				  'code'     => 200,
+				  'data' 	 => $data
+			  ];
+		  }else{
+			  $response = [
+				  'status'   => 'gagal',
+				  'code'     => '0',
+				  'data'     => 'tidak ada data',
+			  ];
+		  }
+
+	  header('Content-Type: application/json');
+	  echo json_encode($response);
+	  exit;
+	  } catch (\Exception $e) {
+		  die($e->getMessage());
+	  }
+  }
+
+  public function deletedata()
+  {
+	try {
+		$request		= $this->request;
+		$method			= $request->getMethod();
+		$user = new \App\Models\UserModel();
+
+		$user->deleteData($request->getVar('id'), $request->getVar('table'));
+		if (file_exists($request->getVar('path'))) {
+			unlink($request->getVar('path'));
+		}
+
+		$response = [
+			'status'   => 'success',
+			'code'     => 200,
+		];
+
+		header('Content-Type: application/json');
+	  	echo json_encode($response);
 		exit;
 	} catch (\Exception $e) {
 		die($e->getMessage());

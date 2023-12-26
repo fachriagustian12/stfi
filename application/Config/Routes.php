@@ -63,11 +63,12 @@ $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('View');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
-$routes->set404Override();
-// $routes->set404Override(function() {
-// 	echo view('404');die;
-// });
-$routes->setAutoRoute(true);
+// $routes->set404Override();
+$routes->set404Override(function () {
+	echo view('error_404');
+	die;
+});
+$routes->setAutoRoute(false);
 
 /**
  * --------------------------------------------------------------------
@@ -81,9 +82,23 @@ $routes->setAutoRoute(true);
 // FRONT END
 $routes->add('/', 'View::home');
 $routes->add('home', 'View::home');
+$routes->add('menu', 'View::menu');
 $routes->add('layanan_informasi_mahasiswa', 'View::layanan_informasi_mahasiswa');
 $routes->add('layanan_informasi_dosen', 'View::layanan_informasi_dosen');
 $routes->add('layanan_informasi_buku', 'View::layanan_informasi_buku');
+$routes->add('layanan_informasi_kelas', 'View::layanan_informasi_kelas');
+// BERITA
+$routes->add('layanan_berita', 'View::layanan_berita');
+$routes->get('detailberita/(:num)', 'View::detail_berita/$1');
+// AGENDA
+$routes->add('layanan_agenda', 'View::layanan_agenda');
+$routes->get('detailagenda/(:num)', 'View::detail_agenda/$1');
+
+// GETDATA
+$routes->post('getMhs', 'Jsondatas::getMhs');
+$routes->post('getKelas', 'Jsondatas::getKelas');
+$routes->post('getDsn', 'Jsondatas::getDsn');
+
 
 // LOGIN
 $routes->add('login', 'View::login');
@@ -95,6 +110,10 @@ $routes->add('data_dosen', 'View::data_dosen');
 $routes->add('data_kampus', 'View::data_kampus');
 $routes->add('data_jadwal', 'View::data_jadwal');
 $routes->add('data_buku', 'View::data_buku');
+$routes->add('data_user', 'View::user');
+$routes->add('data_slider', 'View::data_slider');
+$routes->add('data_berita', 'View::data_berita');
+$routes->add('data_kelas', 'View::data_kelas');
 
 
 // $routes->add('/', 'View::login');
@@ -111,7 +130,7 @@ $routes->add('wasdal/(:any)', 'View::wasdal');
 $routes->add('cicilan', 'View::cicilan');
 $routes->add('detailcicilan/(:any)', 'View::cicilan');
 $routes->add('detailbilling/(:any)', 'View::cicilan');
- 
+
 $routes->add('auth', 'Auth::auth');
 $routes->add('reg', 'Auth::reg');
 $routes->add('logout', 'Auth::logout');
@@ -131,6 +150,23 @@ $routes->post('getwilayah', 'Jsondata::getwilayah');
 $routes->post('ubahpembayaran', 'Jsondata::ubahpembayaran');
 $routes->post('pembayaran', 'Jsondata::pembayaran');
 $routes->post('kodebilling', 'Jsondata::kodebilling');
+
+$routes->post('getdata', 'Jsondata::getdata');
+$routes->post('deletedata', 'Jsondata::deletedata');
+$routes->post('addslider', 'Jsondata::addslider');
+$routes->post('addmahasiswa', 'Jsondata::addmahasiswa');
+$routes->post('adddosen', 'Jsondata::adddosen');
+$routes->post('addkegiatan', 'Jsondata::addkegiatan');
+$routes->post('addberita', 'Jsondata::addberita');
+$routes->post('addkelas', 'Jsondata::addkelas');
+$routes->post('addbuku', 'Jsondata::addbuku');
+
+// API
+$routes->group('api', ['namespace' => 'App\Controllers'], function($routes)
+{
+    $routes->get('buku', 'Jsondata::getBuku');
+    $routes->get('buku/(:segment)', 'Jsondata::getDetailBuku/$1');
+});
 
 /**
  * --------------------------------------------------------------------

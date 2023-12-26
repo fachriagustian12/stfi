@@ -1,10 +1,4 @@
-{% extends "admin/layout.html" %} {% block css %}
-<link
-  rel="stylesheet"
-  type="text/css"
-  href="{{baseURL}}app-assets/vendors/css/tables/datatable/datatables.min.css"
-/>
-{% endblock %} {% block content %}
+{% extends "admin/layout.html" %} {% block content %}
 <div class="content-header row"></div>
 <div class="content-body">
   <div class="row">
@@ -17,85 +11,40 @@
           ></a>
           <div class="heading-elements">
             <ul class="list-inline mb-0">
-              <!-- <li>
-                <a data-action="collapse"><i class="ft-minus"></i></a>
-              </li> -->
               <li>
-                <a data-action="reload"><i class="ft-rotate-cw"></i></a>
+                <button
+                  type="button"
+                  class="btn btn-success btn-min-width mr-1 mb-1"
+                  id="add_mahasiswa"
+                  data-toggle="modal"
+                  data-target="#modal_add_mahasiswa"
+                >
+                  <i class="la la-plus"></i> Tambah Mahasiswa
+                </button>
               </li>
-              <li>
-                <a data-action="expand"><i class="ft-maximize"></i></a>
-              </li>
-              <!-- <li>
-                <a data-action="close"><i class="ft-x"></i></a>
-              </li> -->
             </ul>
           </div>
         </div>
         <div class="card-content collapse show">
           <div class="card-body card-dashboard">
             <div class="table-responsive">
-              <table class="table table-striped table-bordered bootstrap-3">
+              <table
+                id="all_mahasiswa"
+                class="table table-striped table-bordered bootstrap-3"
+              >
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>#No</th>
+                    <th>Nama Mahasiswa</th>
+                    <th>NPM</th>
+                    <th>Semester</th>
+                    <th>Prodi</th>
+                    <th>Status</th>
+                    <th>Perwalian</th>
+                    <th>Tanggal</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>$320,800</td>
-                  </tr>
-                  <tr>
-                    <td>Garrett Winters</td>
-                    <td>Accountant</td>
-                    <td>Tokyo</td>
-                    <td>63</td>
-                    <td>2011/07/25</td>
-                    <td>$170,750</td>
-                  </tr>
-                  <tr>
-                    <td>Ashton Cox</td>
-                    <td>Junior Technical Author</td>
-                    <td>San Francisco</td>
-                    <td>66</td>
-                    <td>2009/01/12</td>
-                    <td>$86,000</td>
-                  </tr>
-                  <tr>
-                    <td>Cedric Kelly</td>
-                    <td>Senior Javascript Developer</td>
-                    <td>Edinburgh</td>
-                    <td>22</td>
-                    <td>2012/03/29</td>
-                    <td>$433,060</td>
-                  </tr>
-                  <tr>
-                    <td>Airi Satou</td>
-                    <td>Accountant</td>
-                    <td>Tokyo</td>
-                    <td>33</td>
-                    <td>2008/11/28</td>
-                    <td>$162,700</td>
-                  </tr>
-                  <tr>
-                    <td>Brielle Williamson</td>
-                    <td>Integration Specialist</td>
-                    <td>New York</td>
-                    <td>61</td>
-                    <td>2012/12/02</td>
-                    <td>$372,000</td>
-                  </tr>
-                </tbody>
               </table>
             </div>
           </div>
@@ -104,7 +53,164 @@
     </div>
   </div>
 </div>
-{% endblock %} {% block js %}
-<script src="{{baseURL}}app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
-<script src="{{baseURL}}app-assets/js/scripts/tables/datatables/datatable-styling.min.js"></script>
+
+<div
+  class="modal fade"
+  tabindex="-1"
+  id="modal_add_mahasiswa"
+  data-backdrop="static"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data
+          Mahasiswa
+        </h5>
+
+        <!--begin::Close-->
+        <a class="btn btn-icon" data-dismiss="modal" aria-label="Close">
+          <span class="la la-times"></span>
+        </a>
+        <!--end::Close-->
+      </div>
+
+      <form action="addmahasiswa" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" id="id" />
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <fieldset>
+                <div class="form-group">
+                  <h5>Nama Mahasiswa</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id=""
+                        ><i class="la la-user"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      name="nama"
+                      id="nama"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-sm-12">
+              <fieldset>
+                <div class="form-group">
+                  <h5>NPM</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id=""
+                        ><i class="la la-info"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder=""
+                      name="npm"
+                      id="npm"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-sm-12">
+              <fieldset>
+                <div class="form-group">
+                  <h5>Prodi</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="prodi"
+                    ><i class="la la-info"></i
+                  ></label>
+                    </div>
+                    <select class="custom-select" id="prodi" name="prodi">
+                      <option value="pilih">-Pilih-</option>
+                      <option value="d3farmasi">D3 Farmasi</option>
+                      <option value="s1farmasi">S1 Farmasi</option>
+                    </select>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-sm-12">
+              <fieldset>
+                <div class="form-group">
+                  <h5>Semester</h5>
+                  <div class="input-group">
+                    <select
+                      class="from-control select2"
+                      style="width: 100%"
+                      id="semester"
+                      name="semester"
+                    >
+                      <option value="0">Pilih..</option>
+                      {% for i in 1..8 %}
+                      <option value="{{i}}">Semester&nbsp;{{i}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-sm-6">
+              <fieldset>
+                <div class="form-group">
+                  <h5>Status Mahasiswa</h5>
+                  <div class="input-group">
+                    <input
+                      type="checkbox"
+                      class="switch"
+                      data-on-label="Aktif"
+                      data-off-label="Tidak"
+                      id="status_mahasiswa"
+                      name="status_mahasiswa"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-sm-6">
+              <fieldset>
+                <div class="form-group">
+                  <h5>Status Perwalian</h5>
+                  <div class="input-group">
+                    <input
+                      type="checkbox"
+                      class="switch"
+                      data-on-label="Sudah"
+                      data-off-label="Belum"
+                      id="status_perwalian"
+                      name="status_perwalian"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary btn-sm mr-1 mb-1"
+            data-dismiss="modal"
+          >
+            <i class="la la-times"></i> Batal
+          </button>
+          <button type="submit" class="btn btn-success btn-sm mr-1 mb-1">
+            <i class="la la-check"></i> Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

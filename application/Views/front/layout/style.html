@@ -6,6 +6,60 @@
   .navbar-brand img {
     width: 55%;
   }
+
+  .link-menu .card:hover {
+    color: #fff;
+    transform: scale(1.1);
+  }
+
+  .link-menu .card {
+    /* width: 24rem; */
+    height: 13rem;
+    transition: transform 0.2s ease-in-out;
+    box-shadow: 0 4px 6px 0 rgba(22, 22, 26, 0.18);
+    border-radius: 0;
+    border: 0;
+    margin-bottom: 1.5em;
+  }
+
+  .link-menu #imahasiswa {
+    background-color: var(--mainColor);
+    border-radius: 10px;
+    /* transform: scale(1.1); */
+  }
+  .link-menu #idosen {
+    background-color: var(--secondColor);
+    border-radius: 10px;
+    /* transform: scale(1.1); */
+  }
+  .link-menu #ikelas {
+    background-color: var(--thirdColor);
+    border-radius: 10px;
+    /* transform: scale(1.1); */
+  }
+  .link-menu #iagenda {
+    background-color: var(--forthColor);
+    border-radius: 10px;
+    /* transform: scale(1.1); */
+  }
+  .link-menu #ibuku {
+    background-color: var(--fifthColor);
+    border-radius: 10px;
+    /* transform: scale(1.1); */
+  }
+  .link-menu #iberita {
+    background-color: brown;
+    border-radius: 10px;
+    /* transform: scale(1.1); */
+  }
+
+  .link-menu {
+    color: #fff;
+  }
+
+  .breadcumb li.active {
+    color: var(--mainColor);
+  }
   /* .banner {
     position: absolute;
     top: 0;
@@ -30,4 +84,20 @@
     color: #fff;
     font-size: 24px;
   } */
+
+  .active > .page-link,
+  .page-link.active {
+    z-index: 3;
+    color: var(--secondColor);
+    background-color: var(--mainColor);
+    border-color: var(--mainColor);
+  }
+  .service-card-4 .service-card-4-text span {
+    color: var(--secondColor);
+    /* display: inline-block;
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--fontFamily2); */
+  }
 </style>

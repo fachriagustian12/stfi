@@ -1,0 +1,88 @@
+{% extends "front/layout.html" %} {% block content %}
+
+<section class="blog-details pt-70 pb-100">
+  <div class="container">
+    <nav aria-label="breadcrumb" class="fw-bold">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Agenda Kampus
+        </li>
+      </ol>
+    </nav>
+
+    <h2>Agenda Kampus</h2>
+
+    <div class="row justify-content-center">
+      <div class="col-xl-12 mb-5">
+        <div class="row">
+          <div class="col-xl-8"></div>
+          <div class="col-xl-4">
+            <form action="" method="GET">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="kegiatan"
+                  placeholder="Masukan Judul Agenda Yang Dicari"
+                  required
+                />
+                <button class="btn" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% if results is empty %}
+      <h5 class="text-center">Data Tidak Tersedia</h5>
+      {% endif %} {% for item in results %}
+      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="service-card">
+          <div class="service-card-img">
+            <a href="{{baseURL}}detailagenda/{{item.id}}"
+              ><img src="{{baseURL}}{{item.path}}" alt="image"
+            /></a>
+            <i class="fa fa-clipboard"></i>
+          </div>
+          <div class="service-card-text">
+            <h4>
+              <a href="{{baseURL}}detailagenda/{{item.id}}"
+                >{{item.kegiatan}}</a
+              >
+            </h4>
+            <p>{{item.keterangan[:50]}} ...</p>
+            <a class="read-more-btn" href="{{baseURL}}detailagenda/{{item.id}}"
+              >Selengkapnya</a
+            >
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {{links|raw}}
+  </div>
+</section>
+
+<div class="popup">
+  <div class="popup-content">
+    <button class="close-btn" id="popup-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <form>
+      <div class="input-group search-box">
+        <input type="text" class="form-control" placeholder="Search" />
+        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %} {% block js %}
+<script>
+  $(() => {
+    $("#page-layanan_buku").addClass("active");
+  });
+</script>
+{% endblock %}

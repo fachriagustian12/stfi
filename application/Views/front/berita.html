@@ -1,0 +1,111 @@
+{% extends "front/layout.html" %} {% block content %}
+
+<section class="blog-details pt-70 pb-70">
+  <div class="container">
+    <nav aria-label="breadcrumb" class="fw-bold">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Berita Kampus
+        </li>
+      </ol>
+    </nav>
+
+    <h2>Berita Kampus</h2>
+
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="row">
+          <div class="col-xl-8"></div>
+          <div class="col-xl-4">
+            <form>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="search"
+                  placeholder="Masukan Judul Berita Yang Dicari"
+                  required
+                />
+                <button
+                  class="btn btn-success"
+                  style="background-color: var(--mainColor)"
+                  type="submit"
+                >
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% if results is empty %}
+      <h4 class="text-center mt-4">Data Tidak Tersedia !</h4>
+      {% endif %} {% for item in results %}
+      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="blog-card">
+          <div class="blog-card-img">
+            <a href="{{baseURL}}detailberita/{{item.id}}"
+              ><img src="{{baseURL}}{{item.path}}" alt="image"
+            /></a>
+          </div>
+          <div class="blog-card-text-area">
+            <div class="blog-date">
+              <ul>
+                <li>
+                  <i class="fas fa-user"></i> By
+                  <a href="posted-by.html">Admin</a>
+                </li>
+                <li>
+                  <i class="far fa-calendar-alt"></i> {{item.tanggal | date('d M
+                  Y') }}
+                </li>
+              </ul>
+            </div>
+            <h4>
+              <a href="{{baseURL}}detailberita/{{item.id}}">{{ item.title }}</a>
+            </h4>
+            <p>{{item.redaksi[:50]}} ...</p>
+            <a class="read-more-btn" href="{{baseURL}}detailberita/{{item.id}}"
+              >Selengkapnya</a
+            >
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {{links|raw}}
+    <!-- <div class="paginations mt-30">
+      <ul>
+        <li><a class="active" href="blog.html">1</a></li>
+        <li><a href="blog.html">2</a></li>
+        <li><a href="blog.html">3</a></li>
+        <li>
+          <a href="blog.html"><i class="fas fa-chevron-right"></i></a>
+        </li>
+      </ul>
+    </div> -->
+  </div>
+</section>
+
+<div class="popup">
+  <div class="popup-content">
+    <button class="close-btn" id="popup-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <form>
+      <div class="input-group search-box">
+        <input type="text" class="form-control" placeholder="Search" />
+        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %} {% block js %}
+<script>
+  $(() => {
+    $("#page-layanan_buku").addClass("active");
+  });
+</script>
+{% endblock %}

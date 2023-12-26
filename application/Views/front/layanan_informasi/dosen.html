@@ -1,320 +1,119 @@
 {% extends "front/layout.html" %} {% block content %}
-<section class="uni-banner">
+<div class="terms ptb-50">
   <div class="container">
-    <div class="uni-banner-text-area">
-      <h1>Layanan Informasi Dosen</h1>
+    <nav aria-label="breadcrumb" class="fw-bold">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Layanan Informasi Dosen
+        </li>
+      </ol>
+    </nav>
+    <h1>Informasi Dosen</h1>
+    <!-- <div class="sidebar-card search-box mb-3">
+      <form>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Masukan Nama / NPM Mahasiswa"
+            required
+          />
+          <button class="btn" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
+    </div> -->
+
+    <!-- <p>
+      We may collect personal identification information from Users in a variety
+      of ways, including, but not limited to, when Users visit our site,
+      subscribe to the newsletter, fill out a form, and in connection with other
+      activities, services, features or <a href="index.html">resources</a> we
+      make available on our Site. Users may be asked for, as appropriate, name,
+      email address, mailing address, phone number, company name. We will
+      collect personal <strong>identification</strong> information from Users
+      only if they voluntarily consent such information to us. Users can always
+      refuse to supply personally identification information, except that it may
+      prevent them from engaging in certain Site related activities.
+    </p> -->
+    <!-- <div class="table-responsive"> -->
+    <table class="table table-bordered" id="table-dsn">
+      <thead class="table-active">
+        <th width="3%">No.</th>
+        <th>Nama</th>
+        <th>Mata Kuliah</th>
+        <th>Jadwal</th>
+        <th>Kelas</th>
+        <th>Perkuliahan</th>
+        <th>Tugas</th>
+      </thead>
+    </table>
+    <!-- <div class="paginations mt-30">
       <ul>
-        <li><a href="/">Home</a></li>
-        <li>Layanan Informasi Dosen</li>
+        <li><a class="active" href="blog.html">1</a></li>
+        <li><a href="blog.html">2</a></li>
+        <li><a href="blog.html">3</a></li>
+        <li>
+          <a href="blog.html"><i class="fas fa-chevron-right"></i></a>
+        </li>
       </ul>
-    </div>
+    </div> -->
   </div>
-</section>
-<section class="team pt-70 pb-100">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-        <div class="team-card">
-          <div class="team-card-img">
-            <img src="assets/images/team/t1.jpg" alt="image" />
-            <div class="team-social-icons">
-              <ul>
-                <li>
-                  <a href="https://www.facebook.com/" target="_blank"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/" target="_blank"
-                    ><i class="fab fa-linkedin-in"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://twitter.com/" target="_blank"
-                    ><i class="fab fa-twitter"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/" target="_blank"
-                    ><i class="fab fa-instagram"></i
-                  ></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="team-card-text">
-            <h4>Mila Wilson</h4>
-            <p>City Secretary</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-        <div class="team-card">
-          <div class="team-card-img">
-            <img src="assets/images/team/t2.jpg" alt="image" />
-            <div class="team-social-icons">
-              <ul>
-                <li>
-                  <a href="https://www.facebook.com/" target="_blank"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/" target="_blank"
-                    ><i class="fab fa-linkedin-in"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://twitter.com/" target="_blank"
-                    ><i class="fab fa-twitter"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/" target="_blank"
-                    ><i class="fab fa-instagram"></i
-                  ></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="team-card-text">
-            <h4>Bren Stork</h4>
-            <p>Counsil President</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-        <div class="team-card">
-          <div class="team-card-img">
-            <img src="assets/images/team/t3.jpg" alt="image" />
-            <div class="team-social-icons">
-              <ul>
-                <li>
-                  <a href="https://www.facebook.com/" target="_blank"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/" target="_blank"
-                    ><i class="fab fa-linkedin-in"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://twitter.com/" target="_blank"
-                    ><i class="fab fa-twitter"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/" target="_blank"
-                    ><i class="fab fa-instagram"></i
-                  ></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="team-card-text">
-            <h4>Mukesh Sarkar</h4>
-            <p>City Mayor</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-        <div class="team-card">
-          <div class="team-card-img">
-            <img src="assets/images/team/t4.jpg" alt="image" />
-            <div class="team-social-icons">
-              <ul>
-                <li>
-                  <a href="https://www.facebook.com/" target="_blank"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/" target="_blank"
-                    ><i class="fab fa-linkedin-in"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://twitter.com/" target="_blank"
-                    ><i class="fab fa-twitter"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/" target="_blank"
-                    ><i class="fab fa-instagram"></i
-                  ></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="team-card-text">
-            <h4>David Jon</h4>
-            <p>Assistant Mayor</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-        <div class="team-card">
-          <div class="team-card-img">
-            <img src="assets/images/team/t5.jpg" alt="image" />
-            <div class="team-social-icons">
-              <ul>
-                <li>
-                  <a href="https://www.facebook.com/" target="_blank"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/" target="_blank"
-                    ><i class="fab fa-linkedin-in"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://twitter.com/" target="_blank"
-                    ><i class="fab fa-twitter"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/" target="_blank"
-                    ><i class="fab fa-instagram"></i
-                  ></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="team-card-text">
-            <h4>Lipford Paul</h4>
-            <p>Task Force Secretary</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-        <div class="team-card">
-          <div class="team-card-img">
-            <img src="assets/images/team/t6.jpg" alt="image" />
-            <div class="team-social-icons">
-              <ul>
-                <li>
-                  <a href="https://www.facebook.com/" target="_blank"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/" target="_blank"
-                    ><i class="fab fa-linkedin-in"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://twitter.com/" target="_blank"
-                    ><i class="fab fa-twitter"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/" target="_blank"
-                    ><i class="fab fa-instagram"></i
-                  ></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="team-card-text">
-            <h4>Carter Lisa</h4>
-            <p>Health Director</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-        <div class="team-card">
-          <div class="team-card-img">
-            <img src="assets/images/team/t7.jpg" alt="image" />
-            <div class="team-social-icons">
-              <ul>
-                <li>
-                  <a href="https://www.facebook.com/" target="_blank"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/" target="_blank"
-                    ><i class="fab fa-linkedin-in"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://twitter.com/" target="_blank"
-                    ><i class="fab fa-twitter"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/" target="_blank"
-                    ><i class="fab fa-instagram"></i
-                  ></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="team-card-text">
-            <h4>Thomas Muller</h4>
-            <p>Task Force Chief</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-        <div class="team-card">
-          <div class="team-card-img">
-            <img src="assets/images/team/t8.jpg" alt="image" />
-            <div class="team-social-icons">
-              <ul>
-                <li>
-                  <a href="https://www.facebook.com/" target="_blank"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/" target="_blank"
-                    ><i class="fab fa-linkedin-in"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://twitter.com/" target="_blank"
-                    ><i class="fab fa-twitter"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/" target="_blank"
-                    ><i class="fab fa-instagram"></i
-                  ></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="team-card-text">
-            <h4>Steven Karnes</h4>
-            <p>City Mayor</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="popup">
+</div>
+<!-- </div> -->
+<!-- <div class="popup">
   <div class="popup-content">
     <button class="close-btn" id="popup-close">
       <i class="fas fa-times"></i>
     </button>
     <form>
       <div class="input-group search-box">
-        <input type="text" class="form-control" placeholder="Search" />
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Masukan Nama / NPM Mahasiswa"
+        />
         <button class="btn" type="submit"><i class="fas fa-search"></i></button>
       </div>
     </form>
   </div>
-</div>
+</div> -->
 
 {% endblock %} {% block js %}
 <script>
   $(() => {
     $("#dropdown-layanan").addClass("active");
-    $("#page-layanan_dosen").addClass("active");
+    $("#page-layanan_mahasiswa").addClass("active");
+
+    var table = $("#table-dsn").DataTable({
+      processing: true,
+      serverSide: true,
+      language: {
+        searchPlaceholder: "Masukan Nama Dosen",
+        search: "Cari Data Dosen :",
+        info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ Data",
+        lengthMenu: "Menampilkan _MENU_ Data",
+        paginate: {
+          first: "Awal",
+          last: "Akhir",
+          next: "Selanjutnya",
+          previous: "Sebelumnya",
+        },
+      },
+      order: [],
+      ajax: {
+        url: "getDsn",
+        type: "POST",
+      },
+      columnDefs: [
+        {
+          targets: [],
+          orderable: false,
+        },
+      ],
+    });
   });
 </script>
 {% endblock %}

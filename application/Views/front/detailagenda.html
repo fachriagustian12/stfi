@@ -1,0 +1,96 @@
+{% extends "front/layout.html" %} {% block content %}
+
+<section class="blog-details ptb-70">
+  <div class="container">
+    <nav aria-label="breadcrumb" class="fw-bold">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+        <li class="breadcrumb-item">
+          <a href="{{baseURL}}layanan_agenda">Agenda Kampus</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {{ kegiatan.kegiatan }}
+        </li>
+      </ol>
+    </nav>
+    <div class="details-img-area mb-30">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-30">
+          <img src="{{baseURL}}{{ kegiatan.path }}" alt="image" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="event-details details-text-area">
+          <h3 class="mt-0 text-uppercase">{{kegiatan.kegiatan}}</h3>
+          {{ kegiatan.keterangan | raw }}
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="sidebar-area pl-20 pt-30 events-details-sidebar">
+          <div class="sidebar-card event-info">
+            <h3>Agenda Informasi</h3>
+            <div class="event-info-card mt-0">
+              <i class="far fa-calendar-alt"></i>
+              <h5>Tanggal:</h5>
+              <span>{{ kegiatan.tanggal_kegiatan | date('d F Y') }}</span>
+            </div>
+            <!-- <div class="event-info-card">
+              <i class="far fa-clock"></i>
+              <h5>Waktu:</h5>
+              <span>08 : 00 am - 04 : 00 pm</span>
+            </div>
+            <div class="event-info-card">
+              <i class="fas fa-map-marker-alt"></i>
+              <h5>Lokasi:</h5>
+              <span>18 Quiet Valley Lane, USA</span>
+            </div> -->
+            <!-- <div class="event-info-card">
+              <i class="fas fa-dollar-sign"></i>
+              <h5>:</h5>
+              <span>160</span>
+            </div> -->
+            <!-- <div class="event-info-card">
+              <i class="fas fa-phone-alt"></i>
+              <h5>Nomor Telepon:</h5>
+              <span><a href="tel:+021234567894">+02 123 456 7894</a></span>
+            </div>
+            <div class="event-info-card">
+              <i class="fas fa-envelope"></i>
+              <h5>Email :</h5>
+              <span>stfi@gmail.com</span>
+            </div> -->
+            <div class="event-info-card">
+              <i class="fas fa-globe"></i>
+              <h5>Website:</h5>
+              <span><a href="index.html">stfi.com</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="popup">
+  <div class="popup-content">
+    <button class="close-btn" id="popup-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <form>
+      <div class="input-group search-box">
+        <input type="text" class="form-control" placeholder="Search" />
+        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %} {% block js %}
+<script>
+  $(() => {
+    $("#page-layanan_buku").addClass("active");
+  });
+</script>
+{% endblock %}

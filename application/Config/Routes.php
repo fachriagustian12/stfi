@@ -164,6 +164,9 @@ $routes->group('api', ['namespace' => 'App\Controllers'], function($routes)
 {
     $routes->get('buku', 'Jsondata::getBuku');
     $routes->get('buku/(:segment)', 'Jsondata::getDetailBuku/$1');
+
+    $routes->get('berita', 'Jsondata::getBerita');
+    $routes->get('berita/(:segment)', 'Jsondata::getDetailBerita/$1');
 });
 
 /**

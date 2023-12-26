@@ -911,6 +911,7 @@ class Jsondata extends \CodeIgniter\Controller
 						'title' => $request->getVar('title'),
 						'redaksi' => $request->getVar('redaksi'),
 						'tanggal' => $request->getVar('tanggal'),
+						'kategori' => $request->getVar('kategori'),
 						'update_date' => $this->now,
 						'update_by' => $this->session->get('id'),
 						'status' => 1
@@ -951,6 +952,7 @@ class Jsondata extends \CodeIgniter\Controller
 						'title' => $request->getVar('title'),
 						'redaksi' => $request->getVar('redaksi'),
 						'tanggal' => $request->getVar('tanggal'),
+						'kategori' => $request->getVar('kategori'),
 						'create_date' 	=> $this->now,
 						'update_date' => $this->now,
 						'create_by' 	=> $this->session->get('id'),
@@ -980,6 +982,41 @@ class Jsondata extends \CodeIgniter\Controller
 				}
 		}
 		redirect('data_berita','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function getBerita(){
+	try {
+		$table = 'berita';
+		$user = new \App\Models\UserModel();
+		$data = $user->getData($table);
+        $response = [
+			'status'	=> 'sukses',
+			'code'		=> 200,
+			'data'		=> $data
+		];
+		header('Content-Type: application/json');
+	  echo json_encode($response);
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function getDetailBerita($id = null){
+	try {
+		$table	= 'berita';
+		$user 	= new \App\Models\UserModel();
+		$data 	= $user->getData($table, $id);
+
+        $response = [
+			'status'   	=> 'sukses',
+			'code'     	=> 200,
+			'data' 	 	=> $data
+		];
+		header('Content-Type: application/json');
+	  echo json_encode($response);
 	} catch (\Exception $e) {
 		die($e->getMessage());
 	}

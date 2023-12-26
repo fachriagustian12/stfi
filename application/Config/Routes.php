@@ -94,6 +94,9 @@ $routes->get('detailberita/(:num)', 'View::detail_berita/$1');
 $routes->add('layanan_agenda', 'View::layanan_agenda');
 $routes->get('detailagenda/(:num)', 'View::detail_agenda/$1');
 
+// TEMP LOGIN
+$routes->post("temp_login", 'Jsondatas::temp_login');
+
 // GETDATA
 $routes->post('getMhs', 'Jsondatas::getMhs');
 $routes->post('getKelas', 'Jsondatas::getKelas');

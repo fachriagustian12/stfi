@@ -8,6 +8,7 @@ use App\Controller\BaseController;
 use App\Controllers\BaseController as ControllersBaseController;
 use App\Models\FrontModel;
 use App\Models\MhsModel;
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\Response;
 use CodeIgniter\HTTP\Request;
@@ -114,5 +115,84 @@ class Jsondatas extends ControllersBaseController
 
             echo json_encode($output);
         }
+    }
+
+    public function temp_login()
+    {
+        try
+			{
+			$model = new UserModel();
+			$userModel = new \App\Models\UserModel();
+
+			$email = $this->request->getVar('username');
+			$password = $this->request->getVar('password');
+			$dataemail = $model->getWhereis(['username' => $email]);
+			if(!$dataemail){
+                $res = array(
+                    'code' => 500,
+                    'msg'  => 'User Belum Terdaftar'
+                );
+                echo json_encode($res);
+                exit;
+			}
+			
+			$dataactive = $model->getWhere(['m_user.username' => $email, 'm_user.status' => 0])->getRow();
+			
+			if($dataactive){
+                $res = array(
+                    'code' => 500,
+                    'msg'  => 'User Tidak Aktif'
+                );
+                echo json_encode($res);
+                exit;
+			}
+
+			$datastatus = $model->getWhere(['m_user.username' => $email, 'm_user.status' => 1])->getRow();
+			
+			if(!$datastatus){
+                $res = array(
+                    'code' => 500,
+                    'msg'  => 'User Belum diverifikasi'
+                );
+                echo json_encode($res);
+                exit;
+			}
+			
+			if($dataemail && $datastatus){
+				$pass = $dataemail->password;
+				// $hash =  substr_replace($pass, "$2y$10", 0, 1);
+				// $verify_pass = password_verify($password, $pass);
+				$verify_pass = md5($password) == $pass ? 1 : 0;
+				if($verify_pass){
+					$ses_data = [			
+                            'code'          => 200,			
+                            'msg'           => 'Login Berhasil !',	
+							'username' 		=> $dataemail->username,
+							'id' 			=> $dataemail->id,
+							'role' 			=> $dataemail->id_role,
+							'rolename' 		=> $dataemail->role,
+							'logged_in'     => TRUE,
+					];
+					
+                    echo json_encode($ses_data);
+				}else{
+                    $res = array(
+                        'code' => 500,
+                        'msg'  => 'Username atau Password salah'
+                    );
+                    echo json_encode($res);
+				}
+			}else{
+                $res = array(
+                    'code' => 500,
+                    'msg'  => 'Username Belum Terdaftar'
+                );
+                echo json_encode($res);
+			}
+		}
+		catch (\Exception $e)
+		{
+			die($e->getMessage());
+		}
     }
 }

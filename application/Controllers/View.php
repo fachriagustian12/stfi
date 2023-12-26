@@ -132,13 +132,24 @@ class View extends \CodeIgniter\Controller
 
 		$model = new BeritaModel();
 		$get = $this->request->getVar('search');
+		$kat = $this->request->getVar('kategori');
 
-		if ($get != "") {
-			$this->data['results'] = $model->where('status', 1)->like('title', $get)->paginate(10, 'new_pagination');
+		if ($get != "" || $kat != '') {
+			if ($kat == "") {
+				$this->data['results'] = $model->where('status', 1)->like('title', $get)->paginate(10, 'new_pagination');
+			}else{
+				$this->data['results'] = $model->where('status', 1)->where('kategori', $kat)->like('title', $get)->paginate(10, 'new_pagination');
+			}
+			$getval = $get;
+			$getkat = $kat;
 		} else {
 			$this->data['results'] = $model->where('status', 1)->paginate(10, 'new_pagination');
+			$getval = '';
+			$getkat = '';
 		}
 
+		$this->data['getval'] = $getval;
+		$this->data['getkat'] = $getkat;
 		// Menampilkan link pagination
 		$this->data['pager'] = $model->pager;
 		$this->data['links'] = $this->data['pager']->links('new_pagination', 'new_pagination');

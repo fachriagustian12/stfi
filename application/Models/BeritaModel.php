@@ -8,7 +8,7 @@ class BeritaModel extends Model
 {
     protected $table = 'data_berita';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['title', 'redaksi', 'tanggal', 'status', 'path', 'create_by', 'create_date', 'update_by', 'update_date', 'update_date'];
+    protected $allowedFields = ['title', 'redaksi', 'kategori', 'tanggal', 'status', 'path', 'create_by', 'create_date', 'update_by', 'update_date', 'update_date'];
 
     public function getPagination(?int $perPage = null): array
     {

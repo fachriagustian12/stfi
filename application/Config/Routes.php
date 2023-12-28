@@ -112,6 +112,7 @@ $routes->add('data_user', 'View::user');
 $routes->add('data_slider', 'View::data_slider');
 $routes->add('data_berita', 'View::data_berita');
 $routes->add('data_kelas', 'View::data_kelas');
+$routes->add('data_jadwal_praktikum', 'View::data_jadwal_praktikum');
 
 
 // $routes->add('/', 'View::login');
@@ -150,6 +151,7 @@ $routes->post('pembayaran', 'Jsondata::pembayaran');
 $routes->post('kodebilling', 'Jsondata::kodebilling');
 
 $routes->post('getdata', 'Jsondata::getdata');
+$routes->post('getdataPraktikum', 'Jsondata::getPraktikum');
 $routes->post('deletedata', 'Jsondata::deletedata');
 $routes->post('addslider', 'Jsondata::addslider');
 $routes->post('addmahasiswa', 'Jsondata::addmahasiswa');
@@ -157,6 +159,7 @@ $routes->post('adddosen', 'Jsondata::adddosen');
 $routes->post('addkegiatan', 'Jsondata::addkegiatan');
 $routes->post('addberita', 'Jsondata::addberita');
 $routes->post('addkelas', 'Jsondata::addkelas');
+$routes->post('addjadwalpraktikum', 'Jsondata::addjadwalpraktikum');
 $routes->post('addbuku', 'Jsondata::addbuku');
 
 // API
@@ -167,6 +170,12 @@ $routes->group('api', ['namespace' => 'App\Controllers'], function($routes)
 
     $routes->get('berita', 'Jsondata::getBerita');
     $routes->get('berita/(:segment)', 'Jsondata::getDetailBerita/$1');
+
+    $routes->get('perkuliahan', 'Jsondata::getPerkuliahan');
+    $routes->get('perkuliahan/(:segment)', 'Jsondata::getDetailPerkuliahan/$1');
+
+    $routes->get('praktikum', 'Jsondata::getPraktikum');
+    $routes->get('praktikum/(:segment)', 'Jsondata::getDetailPraktikum/$1');
 });
 
 /**

@@ -255,6 +255,16 @@ class View extends \CodeIgniter\Controller
 			return redirect('login');
 		}
 	}
+	
+	public function data_jadwal_praktikum()
+	{
+		if ($this->logged) {
+			$this->data['script'] = $this->data['baseURL'] . '/action-js/admin/content/data_jadwal_praktikum.js';
+			return \Twig::instance()->display('admin/content/data_jadwal_praktikum.html', $this->data);
+		} else {
+			return redirect('login');
+		}
+	}
 
 	public function pnbp()
 	{

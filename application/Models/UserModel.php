@@ -138,7 +138,6 @@ class UserModel extends Model{
 
     public function getData($table = null, $id = null)
     {
-
         $builder = $this->db->table("data_$table");
         $builder->select("*");
         if($id){
@@ -148,9 +147,21 @@ class UserModel extends Model{
           $query   = $builder->get();
           return $query->getResult();
         }
-      
-      
-      
+    }
+
+    public function getDosenPraktik($table = null, $id = null)
+    {
+
+      $builder = $this->db->table("data_$table");
+      $builder->select("data_$table.id, data_$table.ruangan_praktikum, data_$table.mata_kuliah_praktikum, data_$table.status, data_$table.jam_mulai, data_$table.jam_akhir, data_$table.tanggal, data_dosen.nama");
+      $builder->join('data_dosen', 'data_dosen.id = data_jadwal_praktikum.nama_dosen', 'INNER');
+      if($id){
+        $query  = $builder->getWhere(['data_jadwal_praktikum.id' => $id]);
+        return $query->getRow();
+      }else{
+        $query   = $builder->get();
+        return $query->getResult();
+      }
     }
 
     public function deleteData($id = null, $table = null)

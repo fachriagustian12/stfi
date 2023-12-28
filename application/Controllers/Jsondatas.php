@@ -9,6 +9,7 @@ use App\Controllers\BaseController as ControllersBaseController;
 use App\Models\FrontModel;
 use App\Models\MhsModel;
 use App\Models\UserModel;
+use App\Models\PraktikumModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\Response;
 use CodeIgniter\HTTP\Request;
@@ -119,7 +120,7 @@ class Jsondatas extends ControllersBaseController
     public function getPraktikum()
     {
         $request = $this->request;
-        $dsnmodel = new \App\Models\DosenModel();
+        $dsnmodel = new \App\Models\PraktikumModel();
 
         if ($request->getMethod(true) === 'POST') {
             $lists = $dsnmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
@@ -130,12 +131,13 @@ class Jsondatas extends ControllersBaseController
                 $no++;
                 $row = [];
                 $row[] = $no;
+                $row[] = $list->ruangan_praktikum;
+                $row[] = $list->mata_kuliah_praktikum;
                 $row[] = $list->nama;
-                $row[] = $list->mata_kuliah;
-                $row[] = $list->jadwal;
-                $row[] = $list->kelas;
-                $row[] = $list->perkuliahan == 'online' ? '<span class="badge bg-success p-2">Online</span>' : '<span class="badge bg-secondary p-2">Offline</span>';
-                $row[] = $list->tugas;
+                $row[] = $list->status == 'Ada' ? '<span class="badge bg-success p-2">Ada</span>' : '<span class="badge bg-secondary p-2">Ditiadakan</span>';
+                $row[] = $list->jam_mulai;
+                $row[] = $list->jam_akhir;
+                $row[] = date('d M Y', strtotime($list->tanggal));
                 $data[] = $row;
             }
 

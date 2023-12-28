@@ -1,6 +1,6 @@
 {% extends "front/layout.html" %} {% block content %}
 
-<section class="team pt-70 pb-70">
+<section class="team pt-70 pb-70" id="content_buku">
   <div class="container">
     <nav aria-label="breadcrumb" class="fw-bold">
       <ol class="breadcrumb">
@@ -284,6 +284,7 @@
               sessionStorage.setItem("Logged_in", 1);
               sessionStorage.setItem("id", res.id);
               sessionStorage.setItem("rolename", res.rolename);
+              $("#content_buku").removeClass("d-none");
               ceklogin();
             } else {
               Toastify({
@@ -305,7 +306,7 @@
   function ceklogin() {
     if (sessionStorage.length == 0) {
       $("#btn-login-temp").click();
-      console.log("gaada");
+      $("#content_buku").addClass("d-none");
     } else {
       console.log("masuk");
       if (sessionStorage.getItem("Logged_in") == 0) {

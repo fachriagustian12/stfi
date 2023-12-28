@@ -49,22 +49,27 @@
         aria-labelledby="pills-home-tab"
         tabindex="0"
       >
-        <div class="card shadow border-0">
-          <div class="card-body">
-            <table class="table table-bordered" id="table-kelas">
-              <thead class="table-active">
-                <th width="3%">No.</th>
-                <th>Kode</th>
-                <th>No. Kelas</th>
-                <th>Mata Kuliah</th>
-                <th>Status</th>
-                <th>Jam Mulai</th>
-                <th>Jam Selesai</th>
-                <th>Tanggal</th>
-              </thead>
-            </table>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card shadow border-0">
+              <div class="card-body">
+                <table class="table table-bordered" id="table-kelas">
+                  <thead class="table-active">
+                    <th width="3%">No.</th>
+                    <th>Kode</th>
+                    <th>No. Kelas</th>
+                    <th>Mata Kuliah</th>
+                    <th>Status</th>
+                    <th>Jam Mulai</th>
+                    <th>Jam Selesai</th>
+                    <th>Tanggal</th>
+                  </thead>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
       </div>
       <div
         class="tab-pane fade"
@@ -73,20 +78,24 @@
         aria-labelledby="pills-profile-tab"
         tabindex="0"
       >
-        <div class="card shadow border-0">
-          <div class="card-body">
-            <table class="table table-bordered" id="table-praktikum">
-              <thead class="table-active">
-                <th width="3%">No.</th>
-                <th>Kode</th>
-                <th>No. Kelas</th>
-                <th>Mata Kuliah</th>
-                <th>Status</th>
-                <th>Jam Mulai</th>
-                <th>Jam Selesai</th>
-                <th>Tanggal</th>
-              </thead>
-            </table>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card shadow border-0">
+              <div class="card-body">
+                <table class="table table-bordered" id="table-praktikum">
+                  <thead class="table-active">
+                    <th width="3%">No.</th>
+                    <th>Ruangan</th>
+                    <th>Mata Kuliah</th>
+                    <th>Dosen</th>
+                    <th>Status</th>
+                    <th>Jam Mulai</th>
+                    <th>Jam Selesai</th>
+                    <th>Tanggal</th>
+                  </thead>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -164,7 +173,7 @@
       serverSide: true,
       language: {
         searchPlaceholder: "Masukan Kode, Matkul, Kelas dan Jam",
-        search: "Cari Data Informasi Kelas :",
+        search: "Cari Data Jadwal Perkuliahan :",
         info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ Data",
         lengthMenu: "Menampilkan _MENU_ Data",
         paginate: {
@@ -177,6 +186,34 @@
       order: [],
       ajax: {
         url: "getKelas",
+        type: "POST",
+      },
+      columnDefs: [
+        {
+          targets: [],
+          orderable: false,
+        },
+      ],
+    });
+    var tablepraktikum = $("#table-praktikum").DataTable({
+      searching: true,
+      processing: true,
+      serverSide: true,
+      language: {
+        searchPlaceholder: "Masukan Ruangan atau Matkul",
+        search: "Cari Data Jadwal Praktikum :",
+        info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ Data",
+        lengthMenu: "Menampilkan _MENU_ Data",
+        paginate: {
+          first: "Awal",
+          last: "Akhir",
+          next: "Selanjutnya",
+          previous: "Sebelumnya",
+        },
+      },
+      order: [],
+      ajax: {
+        url: "getPraktikum",
         type: "POST",
       },
       columnDefs: [

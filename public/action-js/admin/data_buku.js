@@ -52,6 +52,7 @@ function load(table) {
           aoColumns: [
             { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "title", class: "text-center" },
+            { mDataProp: "cover", class: "text-center" },
             { mDataProp: "path", class: "text-center" },
             { mDataProp: "tanggal", class: "text-center" },
             { mDataProp: "ketersediaan", class: "text-center", width: "10%" },
@@ -71,6 +72,14 @@ function load(table) {
             },
             {
               mRender: function (data, type, row) {
+                var elem = `
+                                  <button class="btn btn-sm btn-info" onclick="viewimage('${data}')"><i class="la la-image"></i></button>`;
+                return elem;
+              },
+              aTargets: [3],
+            },
+            {
+              mRender: function (data, type, row) {
                 var elem =
                   '<div class="btn-group" role="group" aria-label="Basic example">';
                 elem += `<button class="btn btn-icon btn-info btn-sm" onclick="action('update', ${row.id})"><i class="la la-edit"></i></button>`;
@@ -78,7 +87,7 @@ function load(table) {
                 elem += "</div>";
                 return elem;
               },
-              aTargets: [6],
+              aTargets: [7],
             },
           ],
           fnRowCallback: function (

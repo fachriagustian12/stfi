@@ -1428,15 +1428,15 @@ a.meanmenu-reveal {
 .service-card .service-card-img {
   position: relative;
 }
-.service-card .service-card-img::before {
+/* .service-card .service-card-img::before {
   content: "";
-  width: 100%;
-  height: 30px;
+  width: 500px;
+  height: 500px;
   background-color: var(--whiteColor);
   position: absolute;
   left: 0;
   bottom: -2px;
-}
+} */
 .service-card .service-card-img i {
   width: 60px;
   height: 60px;

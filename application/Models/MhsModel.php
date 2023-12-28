@@ -15,17 +15,17 @@ class MhsModel extends Model
     protected $db;
     protected $dt;
 
-    private function getDatatablesQuery($postData)
+    private function getDatatablesQuery($postData, $search = "")
     {
         $this->dt = $this->db->table($this->table);
         $i = 0;
         foreach ($this->column_search as $item) {
-            if (isset($postData['search']['value'])) {
+            if (isset($search) && $search != "") {
                 if ($i === 0) {
                     $this->dt->groupStart();
-                    $this->dt->like($item, $postData['search']['value']);
+                    $this->dt->like($item, $search);
                 } else {
-                    $this->dt->orLike($item, $postData['search']['value']);
+                    $this->dt->orLike($item, $search);
                 }
                 if (count($this->column_search) - 1 == $i)
                     $this->dt->groupEnd();
@@ -41,20 +41,20 @@ class MhsModel extends Model
         // }
     }
 
-    public function getDatatables($postData)
+    public function getDatatables($postData, $search ="")
     {
         $this->dt = $this->db->table($this->table);
-        $this->getDatatablesQuery($postData);
+        $this->getDatatablesQuery($postData, $search);
         if ($postData['length'] != -1)
             $this->dt->limit($postData['length'], $postData['start']);
         $query = $this->dt->get();
         return $query->getResult();
     }
 
-    public function countFiltered($postData)
+    public function countFiltered($postData, $search ="")
     {
         $this->dt = $this->db->table($this->table);
-        $this->getDatatablesQuery($postData);
+        $this->getDatatablesQuery($postData, $search);
         return $this->dt->countAllResults();
     }
 

@@ -5,11 +5,92 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Beranda</a></li>
         <li class="breadcrumb-item active" aria-current="page">
-          Layanan Informasi Kelas
+          Layanan Jadwal Perkuliahan
         </li>
       </ol>
     </nav>
-    <h1>Informasi Kelas</h1>
+    <h1>Jadwal Perkuliahan</h1>
+
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link active"
+          id="pills-home-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-home"
+          type="button"
+          role="tab"
+          aria-controls="pills-home"
+          aria-selected="true"
+        >
+          Jadwal Perkuliahan
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="pills-profile-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-profile"
+          type="button"
+          role="tab"
+          aria-controls="pills-profile"
+          aria-selected="false"
+        >
+          Jadwal Praktikum
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+      <div
+        class="tab-pane fade show active"
+        id="pills-home"
+        role="tabpanel"
+        aria-labelledby="pills-home-tab"
+        tabindex="0"
+      >
+        <div class="card shadow border-0">
+          <div class="card-body">
+            <table class="table table-bordered" id="table-kelas">
+              <thead class="table-active">
+                <th width="3%">No.</th>
+                <th>Kode</th>
+                <th>No. Kelas</th>
+                <th>Mata Kuliah</th>
+                <th>Status</th>
+                <th>Jam Mulai</th>
+                <th>Jam Selesai</th>
+                <th>Tanggal</th>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="pills-profile"
+        role="tabpanel"
+        aria-labelledby="pills-profile-tab"
+        tabindex="0"
+      >
+        <div class="card shadow border-0">
+          <div class="card-body">
+            <table class="table table-bordered" id="table-praktikum">
+              <thead class="table-active">
+                <th width="3%">No.</th>
+                <th>Kode</th>
+                <th>No. Kelas</th>
+                <th>Mata Kuliah</th>
+                <th>Status</th>
+                <th>Jam Mulai</th>
+                <th>Jam Selesai</th>
+                <th>Tanggal</th>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- <div class="sidebar-card search-box mb-3">
       <form>
         <div class="input-group">
@@ -39,18 +120,7 @@
       prevent them from engaging in certain Site related activities.
     </p> -->
     <!-- <div class="table-responsive"> -->
-    <table class="table table-bordered" id="table-kelas">
-      <thead class="table-active">
-        <th width="3%">No.</th>
-        <th>Kode</th>
-        <th>No. Kelas</th>
-        <th>Mata Kuliah</th>
-        <th>Status</th>
-        <th>Jam Mulai</th>
-        <th>Jam Selesai</th>
-        <th>Tanggal</th>
-      </thead>
-    </table>
+
     <!-- <div class="paginations mt-30">
       <ul>
         <li><a class="active" href="blog.html">1</a></li>
@@ -89,6 +159,7 @@
     $("#page-layanan_mahasiswa").addClass("active");
 
     var table = $("#table-kelas").DataTable({
+      searching: true,
       processing: true,
       serverSide: true,
       language: {

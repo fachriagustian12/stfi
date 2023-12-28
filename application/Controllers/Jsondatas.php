@@ -22,7 +22,7 @@ class Jsondatas extends ControllersBaseController
         $mhsmodel = new \App\Models\MhsModel();
 
         if ($request->getMethod(true) === 'POST') {
-            $lists = $mhsmodel->getDatatables($request->getPost());
+            $lists = $mhsmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
             $data = [];
             $no = $request->getPost('start');
 
@@ -41,7 +41,7 @@ class Jsondatas extends ControllersBaseController
             $output = [
                 'draw' => $request->getPost('draw'),
                 'recordsTotal' => $mhsmodel->countAll(),
-                'recordsFiltered' => $mhsmodel->countFiltered($request->getPost()),
+                'recordsFiltered' => $mhsmodel->countFiltered($request->getPost(), $request->getPost('search')['value']),
                 'data' => $data
             ];
 
@@ -55,7 +55,7 @@ class Jsondatas extends ControllersBaseController
         $mhsmodel = new \App\Models\KelasModel();
 
         if ($request->getMethod(true) === 'POST') {
-            $lists = $mhsmodel->getDatatables($request->getPost());
+            $lists = $mhsmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
             $data = [];
             $no = $request->getPost('start');
 
@@ -76,7 +76,7 @@ class Jsondatas extends ControllersBaseController
             $output = [
                 'draw' => $request->getPost('draw'),
                 'recordsTotal' => $mhsmodel->countAll(),
-                'recordsFiltered' => $mhsmodel->countFiltered($request->getPost()),
+                'recordsFiltered' => $mhsmodel->countFiltered($request->getPost(),$request->getPost('search')['value']),
                 'data' => $data
             ];
 
@@ -89,7 +89,7 @@ class Jsondatas extends ControllersBaseController
         $dsnmodel = new \App\Models\DosenModel();
 
         if ($request->getMethod(true) === 'POST') {
-            $lists = $dsnmodel->getDatatables($request->getPost());
+            $lists = $dsnmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
             $data = [];
             $no = $request->getPost('start');
 
@@ -109,7 +109,40 @@ class Jsondatas extends ControllersBaseController
             $output = [
                 'draw' => $request->getPost('draw'),
                 'recordsTotal' => $dsnmodel->countAll(),
-                'recordsFiltered' => $dsnmodel->countFiltered($request->getPost()),
+                'recordsFiltered' => $dsnmodel->countFiltered($request->getPost(), $request->getPost('search')['value']),
+                'data' => $data
+            ];
+
+            echo json_encode($output);
+        }
+    }
+    public function getPraktikum()
+    {
+        $request = $this->request;
+        $dsnmodel = new \App\Models\DosenModel();
+
+        if ($request->getMethod(true) === 'POST') {
+            $lists = $dsnmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
+            $data = [];
+            $no = $request->getPost('start');
+
+            foreach ($lists as $list) {
+                $no++;
+                $row = [];
+                $row[] = $no;
+                $row[] = $list->nama;
+                $row[] = $list->mata_kuliah;
+                $row[] = $list->jadwal;
+                $row[] = $list->kelas;
+                $row[] = $list->perkuliahan == 'online' ? '<span class="badge bg-success p-2">Online</span>' : '<span class="badge bg-secondary p-2">Offline</span>';
+                $row[] = $list->tugas;
+                $data[] = $row;
+            }
+
+            $output = [
+                'draw' => $request->getPost('draw'),
+                'recordsTotal' => $dsnmodel->countAll(),
+                'recordsFiltered' => $dsnmodel->countFiltered($request->getPost(), $request->getPost('search')['value']),
                 'data' => $data
             ];
 

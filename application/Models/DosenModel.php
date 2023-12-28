@@ -12,44 +12,47 @@ class DosenModel extends Model
     protected $column_search = ['nama', 'mata_kuliah', 'kelas', 'jadwal', 'perkuliahan'];
     protected $order = ['id' => 'DESC'];
 
-    private function getDatatablesQuery($postData)
+    private function getDatatablesQuery($postData, $search = "")
     {
+        $this->dt = $this->db->table($this->table);
         $i = 0;
         foreach ($this->column_search as $item) {
-            if (isset($postData['search']['value'])) {
+            if (isset($search) && $search != "") {
                 if ($i === 0) {
-                    $this->db->table($this->table)->groupStart();
-                    $this->db->table($this->table)->like($item, $postData['search']['value']);
+                    $this->dt->groupStart();
+                    $this->dt->like($item, $search);
                 } else {
-                    $this->db->table($this->table)->orLike($item, $postData['search']['value']);
+                    $this->dt->orLike($item, $search);
                 }
                 if (count($this->column_search) - 1 == $i)
-                    $this->db->table($this->table)->groupEnd();
+                    $this->dt->groupEnd();
             }
             $i++;
         }
 
         // if ($postData['order']) {
-        //     $this->db->table($this->table)->orderBy($this->column_order[$postData['order']['0']['column']], $postData['order']['0']['dir']);
+        //     $this->dt->orderBy($this->column_order[$postData['order']['0']['column']], $postData['order']['0']['dir']);
         // } else if (isset($this->order)) {
         //     $order = $this->order;
-        //     $this->db->table($this->table)->orderBy(key($order), $order[key($order)]);
+        //     $this->dt->orderBy(key($order), $order[key($order)]);
         // }
     }
 
-    public function getDatatables($postData)
+    public function getDatatables($postData, $search = "")
     {
-        $this->getDatatablesQuery($postData);
+        $this->dt = $this->db->table($this->table);
+        $this->getDatatablesQuery($postData, $search);
         if ($postData['length'] != -1)
-            $this->db->table($this->table)->limit($postData['length'], $postData['start']);
-        $query = $this->db->table($this->table)->get();
+            $this->dt->limit($postData['length'], $postData['start']);
+        $query = $this->dt->get();
         return $query->getResult();
     }
 
-    public function countFiltered($postData)
+    public function countFiltered($postData, $search = "")
     {
+        $this->dt = $this->db->table($this->table);
         $this->getDatatablesQuery($postData);
-        return $this->db->table($this->table)->countAllResults();
+        return $this->dt->countAllResults();
     }
 
     public function countAll()

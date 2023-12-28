@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use CodeIgniter\Model;
@@ -8,6 +7,9 @@ class PraktikumModel extends Model
 {
     protected $table = 'data_jadwal_praktikum';
     protected $primaryKey = 'id';
+
+//     protected $allowedFields = ['ruangan_praktikum', 'mata_kuliah_praktikum', 'nama_dosen', 'status', 'tanggal', 'jam_mulai', 'jam_akhir', 'created_by', 'created_at', 'updated_by', 'updated_at'];
+
     protected $allowedFields = ['nama_dosen', 'ruangan_praktikum', 'tanggal', 'status', 'mata_kuliah_praktikum', 'jam_mulai', 'jam_akhir', 'created_by', 'created_at', 'updated_by', 'updated_at'];
     protected $column_search = ['data_dosen.nama','data_jadwal_praktikum.ruangan_praktikum', 'data_jadwal_praktikum.tanggal', 'data_jadwal_praktikum.status', 'data_jadwal_praktikum.mata_kuliah_praktikum', 'data_jadwal_praktikum.jam_mulai', 'data_jadwal_praktikum.jam_akhir'];
     protected $order = ['id' => 'DESC'];
@@ -63,4 +65,5 @@ class PraktikumModel extends Model
         $tbl_storage = $this->db->table($this->table);
         return $tbl_storage->countAllResults();
     }
+
 }

@@ -16,34 +16,57 @@
     <div class="row">
       <div class="col-xl-12">
         <div class="row">
-          <div class="col-xl-8"></div>
-          <div class="col-xl-4">
-            <form>
+          <div class="col-xl-6"></div>
+          <div class="col-xl-6">
+            <form id="form-search">
               <div class="input-group">
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Masukan Judul Berita Yang Dicari"
-                  required
+                  name="search"
+                  value="{{getval}}"
+                  placeholder="Masukan Judul Berita"
                 />
                 <button
-                  class="btn btn-success"
+                  class="btn btn-success me-4"
                   style="background-color: var(--mainColor)"
                   type="submit"
                 >
                   <i class="fas fa-search"></i>
                 </button>
+                {% set pen = "" %} {% set pel = "" %} {% set peng = "" %} {% set
+                ber = "" %} {% if getkat == "Pendidikan" %} {% set pen =
+                "selected" %} {% elseif getkat == "Penelitian" %} {% set pel =
+                "selected" %} {% elseif getkat == "Pengabdian Kepada Masyarakat"
+                %} {% set peng = "selected" %} {% elseif getkat == "Berita" %}
+                {% set ber = "selected" %} {% endif %}
+                <select
+                  name="kategori"
+                  id="kategori"
+                  onclick="selectkategori()"
+                  class="form-select"
+                >
+                  <option value="">Pilih Kategori</option>
+                  <option value="Pendidikan" {{pen}}>Pendidikan</option>
+                  <option value="Penelitian" {{pel}}>Penelitian</option>
+                  <option value="Pengabdian Kepada Masyarakat" {{peng}}>
+                    Pengabdian Kepada Masyarakat
+                  </option>
+                  <option value="Berita" {{ber}}>Berita</option>
+                </select>
               </div>
             </form>
           </div>
         </div>
       </div>
-      {% for item in results %}
+      {% if results is empty %}
+      <h4 class="text-center mt-4">Data Tidak Tersedia !</h4>
+      {% endif %} {% for item in results %}
       <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="blog-card">
           <div class="blog-card-img">
             <a href="{{baseURL}}detailberita/{{item.id}}"
-              ><img src="{{item.path}}" alt="image"
+              ><img src="{{baseURL}}{{item.path}}" alt="image"
             /></a>
           </div>
           <div class="blog-card-text-area">
@@ -57,16 +80,15 @@
                   <i class="far fa-calendar-alt"></i> {{item.tanggal | date('d M
                   Y') }}
                 </li>
+                <li><i class="far fa-list-alt"></i> {{ item.kategori }}</li>
               </ul>
             </div>
             <h4>
               <a href="{{baseURL}}detailberita/{{item.id}}">{{ item.title }}</a>
             </h4>
             <p>{{item.redaksi[:50]}} ...</p>
-            <a
-              class="read-more-btn"
-              href="{{baseURL}}detailberita/slug-judul-berita"
-              >Read More</a
+            <a class="read-more-btn" href="{{baseURL}}detailberita/{{item.id}}"
+              >Selengkapnya</a
             >
           </div>
         </div>
@@ -105,6 +127,10 @@
 <script>
   $(() => {
     $("#page-layanan_buku").addClass("active");
+
+    $("#kategori").change(function () {
+      $("#form-search").submit();
+    });
   });
 </script>
 {% endblock %}

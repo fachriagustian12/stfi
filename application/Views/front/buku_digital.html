@@ -1,6 +1,6 @@
 {% extends "front/layout.html" %} {% block content %}
 
-<section class="events pt-70 pb-70">
+<section class="team pt-70 pb-70 d-none" id="content_buku">
   <div class="container">
     <nav aria-label="breadcrumb" class="fw-bold">
       <ol class="breadcrumb">
@@ -10,7 +10,21 @@
         </li>
       </ol>
     </nav>
-    <h2>Perpustakaan Digital</h2>
+    <div class="row">
+      <div class="col-lg-8">
+        <h2>Perpustakaan Digital</h2>
+      </div>
+      <div class="col-lg-4">
+        <a
+          href="javascript:void()"
+          class="text-success float-end"
+          onclick="logout()"
+          title="Keluar"
+        >
+          <i class="fa fa-door-open"></i> Keluar dari akun anda</a
+        >
+      </div>
+    </div>
 
     <div class="row justify-content-center">
       <div class="col-xl-12">
@@ -30,6 +44,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  name="search"
                   placeholder="Masukan Nama Buku Yang Dicari"
                   required
                 />
@@ -45,96 +60,286 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-        <div class="events-card">
-          <img src="{{baseURL}}assets/images/book-1.png" alt="image" />
-          <div class="events-card-text">
-            <ul>
-              <li>Report</li>
-              <li>Oct 12, 2022</li>
-            </ul>
-            <h4><a href="event-details.html">Title Of The Report</a></h4>
-            <p>
-              <!-- <i class="fas fa-map-marker-alt"></i> -->
-              <!-- <a href="https://goo.gl/maps/QTg39qSWoB5fdndT7"
-                >At City Center, 27 Division Street, USA</a
-              > -->
-            </p>
-            <a class="read-more-btn" href="event-details.html">Read More</a>
+      {% if results is empty %}
+      <h4 class="text-center">Data Tidak Tersedia !</h4>
+      {% endif %} {% for item in results %} {% if item.status == 1 %}
+      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+        <div class="team-card">
+          <div class="team-card-img">
+            <img src="{{baseURL}}{{item.cover_path}}" alt="image" />
+            <div class="team-social-icons">
+              <ul>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    class="readbook"
+                    data-url="{{baseURL}}{{item.path}}"
+                    data-title="{{item.title}}"
+                    ><i class="fa fa-file-pdf"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="team-card-text">
+            <h4>{{ item.title }}</h4>
+            <h5>{{ item.keterangan }}</h5>
+            {% if item.ketersediaan > 0 %}
+            <span class="badge bg-success p-2">Tersedia</span>
+            {% else %}
+            <span class="badge bg-danger p-2">Tidak Tersedia</span>
+            {% endif %}
           </div>
         </div>
       </div>
-      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+      <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="events-card">
-          <img src="{{baseURL}}assets/images/book-2.png" alt="image" />
+          <img src="{{item.path}}" alt="image" />
           <div class="events-card-text">
             <ul>
-              <li>Cover</li>
-              <li>Oct 13, 2022</li>
+              {% if item.ketersediaan > 0 %}
+              <li>Tersedia</li>
+              {% else %}
+              <li>Tidak Tersedia</li>
+              {% endif %}
+              <li>{{ item.created_at | date('d F Y') }}</li>
             </ul>
-            <h4>
-              <a href="event-details.html">Japanese Pattern Book Cover</a>
-            </h4>
+            <h4><a>{{ item.title }}</a></h4>
             <p>
-              <!-- <i class="fas fa-map-marker-alt"></i>
-              <a href="https://goo.gl/maps/QTg39qSWoB5fdndT7"
-                >At City Center, 27 Division Street, USA</a
-              > -->
+              <a>{{ item.keterangan }}</a>
             </p>
-            <a class="read-more-btn" href="event-details.html">Read More</a>
           </div>
         </div>
-      </div>
-      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-        <div class="events-card">
-          <img src="{{baseURL}}assets/images/book-3.png" alt="image" />
-          <div class="events-card-text">
-            <ul>
-              <li>Design</li>
-              <li>Oct 14, 2022</li>
-            </ul>
-            <h4><a href="event-details.html">Magazine Design</a></h4>
-            <p>
-              <!-- <i class="fas fa-map-marker-alt"></i>
-              <a href="https://goo.gl/maps/QTg39qSWoB5fdndT7"
-                >At City Center, 27 Division Street, USA</a
-              > -->
-            </p>
-            <a class="read-more-btn" href="event-details.html">Read More</a>
-          </div>
-        </div>
-      </div>
+      </div> -->
+      {% endif %} {% endfor %}
     </div>
-    <div class="paginations mt-30">
-      <ul>
-        <li><a class="active" href="events.html">1</a></li>
-        <li><a href="events.html">2</a></li>
-        <li><a href="events.html">3</a></li>
-        <li>
-          <a href="events.html"><i class="fas fa-chevron-right"></i></a>
-        </li>
-      </ul>
-    </div>
+    <div class="mt-5">{{links|raw}}</div>
   </div>
 </section>
-<div class="popup">
-  <div class="popup-content">
-    <button class="close-btn" id="popup-close">
-      <i class="fas fa-times"></i>
-    </button>
-    <form>
-      <div class="input-group search-box">
-        <input type="text" class="form-control" placeholder="Search" />
-        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+<div class="modal fade" tabindex="-1" id="myModal">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="title-book"></h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
-    </form>
+      <div class="modal-body">
+        <iframe
+          src=""
+          frameborder="0"
+          id="iframe-readbook"
+          style="width: 100%; height: 100%"
+        ></iframe>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-success btn-sm"
+          data-bs-dismiss="modal"
+        >
+          <i class="fa fa-times"></i>
+          Tutup
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
+<button
+  type="button"
+  class="btn btn-primary d-none"
+  id="btn-login-temp"
+  data-bs-toggle="modal"
+  data-bs-target="#staticBackdrop"
+>
+  Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="form-temp-login">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="staticBackdropLabel">
+            Login Untuk Melanjutkan
+          </h5>
+        </div>
+        <div class="modal-body">
+          <div class="form-group mb-3">
+            <label for="" class="form-control-label">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              class="form-control"
+              placeholder="Masukan Username"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="" class="form-control-label">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="form-control"
+              placeholder="Masukan Password"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="d-none"
+            data-bs-dismiss="modal"
+            id="button-dismiss-login"
+          ></button>
+          <a href="/" class="btn btn-secondary btn-sm"> Kembali Ke Menu </a>
+          <button type="submit" class="btn btn-success btn-sm">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<button
+  type="button"
+  class="d-none btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#myModal"
+  id="btn-modal"
+></button>
+
+<button
+  type="button"
+  class="d-none btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#modal-notif"
+  id="btn-modal-notif"
+></button>
+
 {% endblock %} {% block js %}
 <script>
+  ceklogin();
   $(() => {
     $("#page-layanan_buku").addClass("active");
+
+    $(".readbook").click(function () {
+      var url = $(this).data("url");
+      var title = $(this).data("title");
+      $("#btn-modal").click();
+      $("#title-book").html(title);
+
+      $("#iframe-readbook").attr("src", url);
+    });
+
+    $("#form-temp-login").submit(function (e) {
+      e.preventDefault();
+      // $("#button-dismiss-login").click();
+      var uname = $("#username").val();
+      var pass = $("#password").val();
+
+      if (uname == "" || pass == "") {
+        Toastify({
+          text: "Username atau Password perlu diisi",
+          gravity: "bottom",
+          position: "left",
+          style: {
+            background: "#d62828",
+          },
+          duration: 3000,
+        }).showToast();
+      } else {
+        let fd = new FormData();
+        fd.append("username", uname);
+        fd.append("password", pass);
+        $.ajax({
+          type: "post",
+          dataType: "json",
+          data: fd,
+          processData: false,
+          contentType: false,
+          url: "temp_login",
+          beforeSend: function () {
+            Toastify({
+              text: "Mohon Tunggu ...",
+              gravity: "bottom",
+              position: "left",
+              style: {
+                background: "#00b4d8",
+              },
+              duration: 1000,
+            }).showToast();
+          },
+          success: function (res) {
+            if (res.code == 200) {
+              Toastify({
+                text: res.msg,
+                gravity: "bottom",
+                position: "left",
+                style: {
+                  background: "#198754",
+                },
+                duration: 3000,
+              }).showToast();
+              sessionStorage.setItem("Logged_in", 1);
+              sessionStorage.setItem("id", res.id);
+              sessionStorage.setItem("rolename", res.rolename);
+              $("#content_buku").removeClass("d-none");
+              ceklogin();
+            } else {
+              Toastify({
+                text: res.msg,
+                gravity: "bottom",
+                position: "left",
+                style: {
+                  background: "#d62828",
+                },
+                duration: 3000,
+              }).showToast();
+            }
+          },
+        });
+      }
+    });
   });
+
+  function ceklogin() {
+    if (sessionStorage.length == 0) {
+      $("#btn-login-temp").click();
+      $("#content_buku").addClass("d-none");
+    } else {
+      if (sessionStorage.getItem("Logged_in") == 0) {
+        $("#btn-login-temp").click();
+      } else {
+        $("#button-dismiss-login").click();
+        $("#content_buku").removeClass("d-none");
+      }
+    }
+  }
+
+  function logout() {
+    if (confirm("Keluar dari akun anda ? ")) {
+      sessionStorage.removeItem("Logged_in");
+      sessionStorage.removeItem("id");
+      sessionStorage.removeItem("rolename");
+      ceklogin();
+      $("#username").val("");
+      $("#password").val("");
+    }
+  }
 </script>
 {% endblock %}

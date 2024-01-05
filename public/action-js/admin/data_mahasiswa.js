@@ -53,7 +53,7 @@ function load(table) {
             { mDataProp: "status_mahasiswa", class: "text-center" },
             { mDataProp: "status_perwalian", class: "text-center" },
             { mDataProp: "create_date", class: "text-center" },
-            { mDataProp: "id", class: "text-center" },
+            // { mDataProp: "id", class: "text-center" },
           ],
           order: [[0, "ASC"]],
           fixedColumns: true,
@@ -90,17 +90,17 @@ function load(table) {
               },
               aTargets: [6],
             },
-            {
-              mRender: function (data, type, row) {
-                var elem =
-                  '<div class="btn-group" role="group" aria-label="Basic example">';
-                elem += `<button class="btn btn-icon btn-info btn-sm" onclick="action('update', ${row.id})"><i class="la la-edit"></i></button>`;
-                elem += `<button class="btn btn-icon btn-danger btn-sm" onclick="action('delete', ${row.id})"><i class="la la-trash"></i></button>`;
-                elem += "</div>";
-                return elem;
-              },
-              aTargets: [8],
-            },
+            // {
+            //   mRender: function (data, type, row) {
+            //     var elem =
+            //       '<div class="btn-group" role="group" aria-label="Basic example">';
+            //     elem += `<button class="btn btn-icon btn-info btn-sm" onclick="action('update', ${row.id})"><i class="la la-edit"></i></button>`;
+            //     elem += `<button class="btn btn-icon btn-danger btn-sm" onclick="action('delete', ${row.id})"><i class="la la-trash"></i></button>`;
+            //     elem += "</div>";
+            //     return elem;
+            //   },
+            //   aTargets: [8],
+            // },
           ],
           fnRowCallback: function (
             nRow,

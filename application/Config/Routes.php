@@ -184,7 +184,8 @@ $routes->group('api', ['namespace' => 'App\Controllers'], function($routes)
     $routes->get('praktikum/(:segment)', 'Jsondata::getDetailPraktikum/$1');
 
     $routes->post('getmahasiswa', 'Signage::get_mahasiswa');
-    
+    $routes->post('getdosen', 'Signage::get_dosen');
+    $routes->post('getperkuliahan', 'Signage::getjadwal');
 });
 
 /**

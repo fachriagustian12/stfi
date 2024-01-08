@@ -33,22 +33,5 @@ class GeneralHelpers
 
         return json_decode($response, true);
     }
-
-    public function get_data($tabel){
-        try {
-            $table = $tabel;
-            $user = new \App\Models\UserModel();
-            $data = $user->getData($table);
-            $response = [
-                'status'	=> 'sukses',
-                'code'		=> 200,
-                'data'		=> $data
-            ];
-            header('Content-Type: application/json');
-          return $response;
-        } catch (\Exception $e) {
-            die($e->getMessage());
-        }
-      }
 }
 ?>

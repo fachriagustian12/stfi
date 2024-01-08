@@ -8,7 +8,51 @@ class DosenModel extends Model
 {
     protected $table = 'data_dosen';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['nama', 'mata_kuliah', 'jadwal', 'kelas', 'perkuliahan', 'status', 'tugas', 'create_by', 'create_date', 'update_by', 'update_date'];
+    protected $allowedFields = [
+        'id',
+        'nama', 
+        'mata_kuliah', 
+        'jadwal', 
+        'kelas', 
+        'perkuliahan', 
+        'status', 
+        'tugas', 
+        'create_by', 
+        'create_date', 
+        'update_by', 
+        'update_date',
+        'kd_dosen',
+        'nm_dosen',
+        'gelar_depan',
+        'gelar_belakang',
+        'nidn',
+        'a_dosen_homebase',
+        'id_kat_dosen',
+        'kategori_dosen',
+        'tmp_lahir',
+        'tgl_lahir',
+        'tgl_lahir_fmt',
+        'jenis_kelamin',
+        'id_agama',
+        'nm_agama',
+        'id_kwn',
+        'nm_kwn',
+        'aktif',
+        'alamat',
+        'kota',
+        'nik',
+        'kontak',
+        'email_kampus',
+        'email_lain',
+        'id_jab',
+        'nm_jab',
+        'id_pangkat',
+        'nm_pangkat',
+        'sys_password',
+        'sys_aktif',
+        'a_dosen_wali',
+        'golongan'
+    ];
     protected $column_search = ['nama', 'mata_kuliah', 'kelas', 'jadwal', 'perkuliahan'];
     protected $order = ['id' => 'DESC'];
 

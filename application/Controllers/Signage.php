@@ -183,7 +183,6 @@ class Signage extends \CodeIgniter\Controller
         $response   = $this->http->post($endpoint, $this->Data, 'POST');
         foreach ($response['data'] as $item) {
             $data = [
-                'id' => $item['kd_periode'],
                 'nama' => $item['nm_ruangan'], 
                 'no_kelas' => $item['kd_ruangan'], 
                 'matkul' => $item['nm_mk'], 
@@ -237,5 +236,52 @@ class Signage extends \CodeIgniter\Controller
         ];
         header('Content-Type: application/json');
         echo json_encode($response);
-    }   
+    }
+
+    public function getjadwal_praktikum(){
+        $jadwal_praktikum = new \App\Models\PraktikumModel();
+        $jadwal_praktikum->truncate();
+        $endpoint = 'getjadwalpraktikum';
+
+        $response   = $this->http->post($endpoint, $this->Data, 'POST');
+        foreach ($response['data'] as $item) {
+            $data = [
+                'ruangan_praktikum' => $item['nama_laboratorium'], 
+                'mata_kuliah_praktikum' => $item['nama_mata_kuliah'], 
+                'nama_dosen' => $item['nama_dosen'],
+                'jam_mulai' => $item['start_time'], 
+                'jam_akhir' => $item['end_time'], 
+                'created_at' => $this->now,
+                'kode_periode_akademik' => $item['kode_periode_akademik'],
+                'id_hari' => $item['id_hari'],
+                'nama_hari' => $item['nama_hari'],
+                'id_slot' => $item['id_slot'],
+                'start_time' => $item['start_time'],
+                'end_time' => $item['end_time'],
+                'id_laboratorium' => $item['id_laboratorium'],
+                'nama_laboratorium' => $item['nama_laboratorium'],
+                'kapasitas' => $item['kapasitas'],
+                'id_kelompok' => $item['id_kelompok'],
+                'nama_kelompok' => $item['nama_kelompok'],
+                'kode_paket_kelas' => $item['kode_paket_kelas'],
+                'kode_kelas' => $item['kode_kelas'],
+                'nip_dosen' => $item['nip_dosen'],
+                'nama_dosen' => $item['nama_dosen'],
+                'kode_mata_kuliah' => $item['kode_mata_kuliah'],
+                'nama_mata_kuliah' => $item['nama_mata_kuliah'],
+                'sks' => $item['sks'],
+                'semester_default' => $item['semester_default'],
+                'nm_kelas' => $item['nm_kelas'],
+                'kd_prodi' => $item['kd_prodi'],
+                'nm_prodi' => $item['nm_prodi']
+            ];
+            $jadwal_praktikum->insert($data);
+        }
+        $response = [
+            'status'	=> 'Sukses',
+            'code'		=> 200,
+        ];
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
 }

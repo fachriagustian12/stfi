@@ -10,7 +10,40 @@ class PraktikumModel extends Model
 
 //     protected $allowedFields = ['ruangan_praktikum', 'mata_kuliah_praktikum', 'nama_dosen', 'status', 'tanggal', 'jam_mulai', 'jam_akhir', 'created_by', 'created_at', 'updated_by', 'updated_at'];
 
-    protected $allowedFields = ['nama_dosen', 'ruangan_praktikum', 'tanggal', 'status', 'mata_kuliah_praktikum', 'jam_mulai', 'jam_akhir', 'created_by', 'created_at', 'updated_by', 'updated_at'];
+    protected $allowedFields = [
+        'nama_dosen', 
+        'ruangan_praktikum', 
+        'tanggal', 
+        'status', 
+        'mata_kuliah_praktikum', 
+        'jam_mulai', 
+        'jam_akhir', 
+        'created_by', 
+        'created_at', 
+        'updated_by', 
+        'updated_at',        
+        'kode_periode_akademik',
+        'id_hari',
+        'nama_hari',
+        'id_slot',
+        'start_time',
+        'end_time',
+        'id_laboratorium',
+        'nama_laboratorium',
+        'kapasitas',
+        'id_kelompok',
+        'nama_kelompok',
+        'kode_paket_kelas',
+        'kode_kelas',
+        'nip_dosen',
+        'kode_mata_kuliah',
+        'nama_mata_kuliah',
+        'sks',
+        'semester_default',
+        'nm_kelas',
+        'kd_prodi',
+        'nm_prodi'
+    ];
     protected $column_search = ['data_dosen.nama','data_jadwal_praktikum.ruangan_praktikum', 'data_jadwal_praktikum.tanggal', 'data_jadwal_praktikum.status', 'data_jadwal_praktikum.mata_kuliah_praktikum', 'data_jadwal_praktikum.jam_mulai', 'data_jadwal_praktikum.jam_akhir'];
     protected $order = ['id' => 'DESC'];
 

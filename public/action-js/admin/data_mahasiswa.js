@@ -22,6 +22,7 @@ function load(table) {
     success: function (result) {
       let data = result.data;
       let code = result.code;
+      console.log(data);
       if (code != "0") {
         var dt = $("#all_mahasiswa").DataTable({
           dom:
@@ -47,8 +48,8 @@ function load(table) {
           aoColumns: [
             { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "nama", class: "text-center" },
-            { mDataProp: "npm", class: "text-center" },
-            { mDataProp: "semester", class: "text-center" },
+            { mDataProp: "nim", class: "text-center" },
+            { mDataProp: "id_angkatan", class: "text-center" },
             { mDataProp: "prodi", class: "text-center" },
             { mDataProp: "status_mahasiswa", class: "text-center" },
             { mDataProp: "status_perwalian", class: "text-center" },
@@ -58,26 +59,6 @@ function load(table) {
           order: [[0, "ASC"]],
           fixedColumns: true,
           aoColumnDefs: [
-            {
-              mRender: function (data, type, row) {
-                var elem = "";
-                elem = "Semester " + data;
-                return elem;
-              },
-              aTargets: [3],
-            },
-            {
-              mRender: function (data, type, row) {
-                var elem = "";
-                if (data == 1) {
-                  elem = '<div class="badge badge-success">Aktif</div>';
-                } else {
-                  elem = '<div class="badge badge-danger">Tidak Aktif</div>';
-                }
-                return elem;
-              },
-              aTargets: [5],
-            },
             {
               mRender: function (data, type, row) {
                 var elem = "";

@@ -32,7 +32,7 @@ class Jsondatas extends ControllersBaseController
                 $row = [];
                 $row[] = $no;
                 $row[] = $list->nama;
-                $row[] = $list->npm;
+                $row[] = $list->nim;
                 $row[] = $list->semester;
                 $row[] = $list->prodi;
                 $row[] = $list->status_mahasiswa == 1 ? '<span class="badge bg-success p-2"> AKTIF </span>' : '<span class="badge bg-danger p-2"> TIDAK AKTIF </span>';

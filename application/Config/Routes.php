@@ -187,6 +187,7 @@ $routes->group('api', ['namespace' => 'App\Controllers'], function($routes)
     $routes->post('getdosen', 'Signage::get_dosen');
     $routes->post('getperkuliahan', 'Signage::getjadwal');
     $routes->post('getjadwalpraktikum', 'Signage::getjadwal_praktikum');
+    $routes->post('getskripsi', 'Signage::getdataskripsi');
 });
 
 /**

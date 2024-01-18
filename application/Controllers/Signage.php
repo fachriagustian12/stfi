@@ -284,4 +284,54 @@ class Signage extends \CodeIgniter\Controller
         header('Content-Type: application/json');
         echo json_encode($response);
     }
+
+    public function getdataskripsi(){
+        $skripsi = new \App\Models\SkripsiModel();
+        $skripsi->truncate();
+        $endpoint = 'getskripsi';
+
+        $response   = $this->http->post($endpoint, $this->Data, 'POST');
+        foreach ($response['data'] as $item) {
+            $data = [
+                'no_induk_buku' => $item['no_induk_buku'],
+                'kode_buku' => $item['kode_buku'],
+                'judul_buku' => $item['judul_buku'],
+                'sub_judul_buku' => $item['sub_judul_buku'],
+                'pengarang' => $item['pengarang'],
+                'tempat_terbit' => $item['tempat_terbit'],
+                'penerbit' => $item['penerbit'],
+                'tahun_terbit' => $item['tahun_terbit'],
+                'kolase' => $item['kolase'],
+                'jilid' => $item['jilid'],
+                'edisi' => $item['edisi'],
+                'id_kategori_buku' => $item['id_kategori_buku'],
+                'nama_kategori_buku' => $item['nama_kategori_buku'],
+                'status_boleh_dipinjam' => $item['status_boleh_dipinjam'],
+                'id_klasifikasi' => $item['id_klasifikasi'],
+                'nama_klasifikasi' => $item['nama_klasifikasi'],
+                'id_sumber_buku' => $item['id_sumber_buku'],
+                'sumber_buku' => $item['sumber_buku'],
+                'id_lokasi' => $item['id_lokasi'],
+                'id_tempat_buku' => $item['id_tempat_buku'],
+                'nama_tempat_buku' => $item['nama_tempat_buku'],
+                'kategori_tempat_buku' => $item['kategori_tempat_buku'],
+                'baris' => $item['baris'],
+                'tanggal_masuk' => $item['tanggal_masuk'],
+                'tanggal_masuk_formated' => $item['tanggal_masuk_formated'],
+                'harga_buku' => $item['harga_buku'],
+                'status_ketersediaan' => $item['status_ketersediaan'],
+                'kondisi_buku' => $item['kondisi_buku'],
+                'status_aktif' => $item['status_aktif'],
+                'no_panggil' => $item['no_panggil'],
+                'created_at' => $this->now
+            ];
+            $skripsi->insert($data);
+        }
+        $response = [
+            'status'	=> 'Sukses',
+            'code'		=> 200,
+        ];
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
 }

@@ -157,6 +157,7 @@ $routes->post('pembayaran', 'Jsondata::pembayaran');
 $routes->post('kodebilling', 'Jsondata::kodebilling');
 
 $routes->post('getdata', 'Jsondata::getdata');
+$routes->post('getdatadosen', 'Jsondata::getdatadosen');
 $routes->post('getdataPraktikum', 'Jsondata::getPraktikum');
 $routes->post('deletedata', 'Jsondata::deletedata');
 $routes->post('addslider', 'Jsondata::addslider');
@@ -183,11 +184,14 @@ $routes->group('api', ['namespace' => 'App\Controllers'], function($routes)
     $routes->get('praktikum', 'Jsondata::getPraktikum');
     $routes->get('praktikum/(:segment)', 'Jsondata::getDetailPraktikum/$1');
 
+    $routes->post('login-mhs', 'Signage::login_mhs');
     $routes->post('getmahasiswa', 'Signage::get_mahasiswa');
     $routes->post('getdosen', 'Signage::get_dosen');
     $routes->post('getperkuliahan', 'Signage::getjadwal');
     $routes->post('getjadwalpraktikum', 'Signage::getjadwal_praktikum');
     $routes->post('getskripsi', 'Signage::getdataskripsi');
+    $routes->post('getbook', 'Signage::getdatabuku');
+    $routes->post('getajar', 'Signage::getdatadosen');
 });
 
 /**

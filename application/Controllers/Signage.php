@@ -367,6 +367,22 @@ class Signage extends \CodeIgniter\Controller
                     'a_dosen_wali' => $item['a_dosen_wali'],
                     'golongan' => $item['golongan']
                 ];
+
+                $endpoint = 'getajar';
+                $this->Data['where'] = [
+                    "kd_dosen" => $item['kd_dosen']
+                ];
+
+                $response_ajar   = $this->http->post($endpoint, $this->Data, 'POST');
+                
+                if(!empty($response_ajar['data'])){
+                    
+                    // $data[]$response_ajar['data'][0]['id_mk_kurikulum']
+                    // $data[]$response_ajar['data'][0]['id_mk_kurikulum']
+                    // $data[]$response_ajar['data'][0]['id_mk']
+                    $data['mata_kuliah'] = $response_ajar['data'][0]['nm_mk'];
+                }
+                
                 $dosen->insert($data);
             }
             $response = [

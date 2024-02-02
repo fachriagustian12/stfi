@@ -99,11 +99,11 @@ class Jsondatas extends ControllersBaseController
                 $row = [];
                 $row[] = $no;
                 $row[] = $list->nama;
-                $row[] = $list->mata_kuliah;
-                $row[] = $list->jadwal;
-                $row[] = $list->kelas;
-                $row[] = $list->perkuliahan == 'online' ? '<span class="badge bg-success p-2">Online</span>' : '<span class="badge bg-secondary p-2">Offline</span>';
-                $row[] = $list->tugas;
+                $row[] = $list->nm_jab;
+                $row[] = $list->nm_pangkat;
+                $row[] = $list->kategori_dosen;
+                $row[] = $list->alamat;
+                $row[] = $list->kontak;
                 $data[] = $row;
             }
 

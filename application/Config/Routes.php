@@ -26,7 +26,7 @@ $routes = Services::routes(true);
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
 if (file_exists(BASEPATH . 'Config/Routes.php')) {
-	require BASEPATH . 'Config/Routes.php';
+    require BASEPATH . 'Config/Routes.php';
 }
 
 /**
@@ -65,8 +65,8 @@ $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 // $routes->set404Override();
 $routes->set404Override(function () {
-	echo view('error_404');
-	die;
+    echo view('error_404');
+    die;
 });
 $routes->setAutoRoute(false);
 
@@ -170,8 +170,7 @@ $routes->post('addjadwalpraktikum', 'Jsondata::addjadwalpraktikum');
 $routes->post('addbuku', 'Jsondata::addbuku');
 
 // API
-$routes->group('api', ['namespace' => 'App\Controllers'], function($routes)
-{
+$routes->group('api', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('buku', 'Jsondata::getBuku');
     $routes->get('buku/(:segment)', 'Jsondata::getDetailBuku/$1');
 
@@ -208,5 +207,5 @@ $routes->group('api', ['namespace' => 'App\Controllers'], function($routes)
  * needing to reload it.
  */
 if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
-	require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
+    require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }

@@ -43,12 +43,11 @@ function getajar() {
         aoColumns: [
           { mDataProp: "id", class: "text-center", width: "2%" },
           { mDataProp: "nm_dosen", class: "text-center" },
-          { mDataProp: "nm_mk", class: "text-center" },
-          { mDataProp: "nama_hari", class: "text-center" },
-          { mDataProp: "nm_kelas", class: "text-center" },
-          { mDataProp: "ruangan_praktikum", class: "text-center" },
-          { mDataProp: "jam_mulai", class: "text-center" },
-          { mDataProp: "jam_akhir", class: "text-center" },
+          { mDataProp: "nm_jab", class: "text-center" },
+          { mDataProp: "nm_pangkat", class: "text-center" },
+          { mDataProp: "kategori_dosen", class: "text-center" },
+          { mDataProp: "alamat", class: "text-center" },
+          { mDataProp: "kontak", class: "text-center" },
           { mDataProp: "id", class: "text-center" },
         ],
         order: [[0, "ASC"]],
@@ -66,26 +65,26 @@ function getajar() {
           //   },
           //   aTargets: [5],
           // },
-          {
-            mRender: function (data, type, row) {
-              console.log(row.jadwal);
-              var jadwal = row.jadwal;
-              var length = jadwal.length;
-              var elem = "";
-              for (let index = 0; index < length; index++) {
-                elem = "<td>" + jadwal[index].nama_hari + "</td>";
-              }
-              return elem;
-              // var elem = "";
-              // if (data == 1) {
-              //   elem = '<div class="badge badge-success">aktif</div>';
-              // } else {
-              //   elem = '<div class="badge badge-danger">tidak</div>';
-              // }
-              // return elem;
-            },
-            aTargets: [3],
-          },
+          // {
+          //   mRender: function (data, type, row) {
+          //     console.log(row.jadwal);
+          //     var jadwal = row.jadwal;
+          //     var length = jadwal.length;
+          //     var elem = "";
+          //     for (let index = 0; index < length; index++) {
+          //       elem = "<td>" + jadwal[index].nama_hari + "</td>";
+          //     }
+          //     return elem;
+          //     // var elem = "";
+          //     // if (data == 1) {
+          //     //   elem = '<div class="badge badge-success">aktif</div>';
+          //     // } else {
+          //     //   elem = '<div class="badge badge-danger">tidak</div>';
+          //     // }
+          //     // return elem;
+          //   },
+          //   aTargets: [3],
+          // },
           {
             mRender: function (data, type, row) {
               var elem =
@@ -95,7 +94,7 @@ function getajar() {
               elem += "</div>";
               return elem;
             },
-            aTargets: [8],
+            aTargets: [7],
           },
         ],
         fnRowCallback: function (

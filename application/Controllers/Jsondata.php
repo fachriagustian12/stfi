@@ -1422,25 +1422,55 @@ class Jsondata extends \CodeIgniter\Controller
 	  }
   }
 
+//   public function getdatadosen()
+//   {
+// 	  try {
+// 			$ajarDosen 		= new \App\Models\AjarDosenModel();
+// 		  	$table          = "ajar_dosen";
+// 			$field          = "kd_dosen, nm_dosen, nm_mk";
+// 			$jadwall        = [];
+// 			$jadwal_dosen   = $ajarDosen->getJadwalDosen($field, $table);
+// 			foreach ($jadwal_dosen as $key => $value) {
+// 				$jadwal_praktikum = $ajarDosen->getJadwalDosen("jam_mulai, jam_akhir, nama_hari, nm_kelas, ruangan_praktikum", "jadwal_praktikum", "nip_dosen", $value->kd_dosen);
+// 				$value->jadwal = $jadwal_praktikum;
+//                 $jadwall[] = $value;
+// 			}
+
+// 			if($jadwall){
+// 				$response = [
+// 					'status'   => 'sukses',
+// 					'code'     => 200,
+// 					'data' 	 => $jadwall
+// 				];
+// 			}else{
+// 				$response = [
+// 					'status'   => 'gagal',
+// 					'code'     => '0',
+// 					'data'     => 'tidak ada data',
+// 				];
+// 			}
+// 			header('Content-Type: application/json');
+// 			echo json_encode($response);
+// 			exit;
+// 	  } catch (\Exception $e) {
+// 		  die($e->getMessage());
+// 	  }
+//   }
+
   public function getdatadosen()
   {
 	  try {
 			$ajarDosen 		= new \App\Models\AjarDosenModel();
-		  	$table          = "ajar_dosen";
-			$field          = "kd_dosen, nm_dosen, nm_mk";
+		  	$table          = "dosen";
+			$field          = "*";
 			$jadwall        = [];
 			$jadwal_dosen   = $ajarDosen->getJadwalDosen($field, $table);
-			foreach ($jadwal_dosen as $key => $value) {
-				$jadwal_praktikum = $ajarDosen->getJadwalDosen("jam_mulai, jam_akhir, nama_hari, nm_kelas, ruangan_praktikum", "jadwal_praktikum", "nip_dosen", $value->kd_dosen);
-				$value->jadwal = $jadwal_praktikum;
-                $jadwall[] = $value;
-			}
 
-			if($jadwall){
+			if($jadwal_dosen){
 				$response = [
 					'status'   => 'sukses',
 					'code'     => 200,
-					'data' 	 => $jadwall
+					'data' 	 => $jadwal_dosen
 				];
 			}else{
 				$response = [

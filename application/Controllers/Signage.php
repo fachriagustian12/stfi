@@ -368,12 +368,14 @@ class Signage extends \CodeIgniter\Controller
                     'golongan' => $item['golongan']
                 ];
 
-                $endpoint = 'getajar';
+                $endpoint1 = 'getajar';
+                $endpoint2 = 'getjadwal';
                 $this->Data['where'] = [
                     "kd_dosen" => $item['kd_dosen']
                 ];
 
-                $response_ajar   = $this->http->post($endpoint, $this->Data, 'POST');
+                $response_ajar   = $this->http->post($endpoint1, $this->Data, 'POST');
+                $response_jadwal   = $this->http->post($endpoint2, $this->Data, 'POST');
                 
                 if(!empty($response_ajar['data'])){
                     
@@ -382,7 +384,12 @@ class Signage extends \CodeIgniter\Controller
                     // $data[]$response_ajar['data'][0]['id_mk']
                     $data['mata_kuliah'] = $response_ajar['data'][0]['nm_mk'];
                 }
-                
+                if(!empty($response_jadwal['data'])){
+                    $data['kelas'] = $response_jadwal['data'][0]['nm_kelas'];
+                    $data['jadwal'] = $response_jadwal['data'][0]['nm_hari'].', '.$response_jadwal['data'][0]['start_time'].'-'.$response_jadwal['data'][0]['end_time'];
+                      
+                }
+                // print_r($response_jadwal);
                 $dosen->insert($data);
             }
             $response = [

@@ -253,7 +253,9 @@
             id="button-dismiss-login"
           ></button>
           <a href="/" class="btn btn-secondary btn-sm"> Kembali Ke Menu </a>
-          <button type="submit" class="btn btn-success btn-sm">Login</button>
+          <button type="submit" class="btn btn-success btn-sm" id="btn-login">
+            Login
+          </button>
         </div>
       </form>
     </div>
@@ -308,16 +310,18 @@
           duration: 3000,
         }).showToast();
       } else {
-        let fd = new FormData();
-        fd.append("username", uname);
-        fd.append("password", pass);
+        // let fd = new FormData();
+        // fd.append("username", uname);
+        // fd.append("password", pass);
         $.ajax({
           type: "post",
-          dataType: "json",
-          data: fd,
+          data: JSON.stringify({
+            username_mhs: uname,
+            password_mhs: pass,
+          }),
           processData: false,
-          contentType: false,
-          url: "temp_login",
+          contentType: "application/json",
+          url: "http://stfi.bios-stack.com/api/login-mhs",
           beforeSend: function () {
             Toastify({
               text: "Mohon Tunggu ...",
@@ -326,11 +330,11 @@
               style: {
                 background: "#00b4d8",
               },
-              duration: 1000,
+              duration: 10000,
             }).showToast();
           },
           success: function (res) {
-            if (res.code == 200) {
+            if (res.status == "success") {
               Toastify({
                 text: res.msg,
                 gravity: "bottom",
@@ -341,8 +345,6 @@
                 duration: 3000,
               }).showToast();
               localStorage.setItem("Logged_in", 1);
-              localStorage.setItem("id", res.id);
-              localStorage.setItem("rolename", res.rolename);
               $("#content_buku").removeClass("d-none");
               ceklogin();
             } else {
@@ -352,6 +354,19 @@
                 position: "left",
                 style: {
                   background: "#d62828",
+                },
+                duration: 3000,
+              }).showToast();
+            }
+          },
+          error: function (xhr, textStatus, errorThrown) {
+            if (textStatus == "timeout") {
+              Toastify({
+                text: res.msg,
+                gravity: "bottom",
+                position: "left",
+                style: {
+                  background: "#f50505",
                 },
                 duration: 3000,
               }).showToast();
@@ -379,8 +394,6 @@
   function logout() {
     if (confirm("Keluar dari akun anda ? ")) {
       localStorage.removeItem("Logged_in");
-      localStorage.removeItem("id");
-      localStorage.removeItem("rolename");
       ceklogin();
       $("#username").val("");
       $("#password").val("");

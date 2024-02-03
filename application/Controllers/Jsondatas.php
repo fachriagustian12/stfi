@@ -71,6 +71,7 @@ class Jsondatas extends ControllersBaseController
                 $row[] = $list->jam_mulai;
                 $row[] = $list->jam_akhir;
                 $row[] = $list->nm_hari;
+                $row[] = $list->status == 'Ada' ? '<span class="badge bg-success p-2">Ada</span>' : '<span class="badge bg-secondary p-2">Ditiadakan</span>';
                 $data[] = $row;
             }
 
@@ -134,10 +135,10 @@ class Jsondatas extends ControllersBaseController
                 $row[] = $list->ruangan_praktikum;
                 $row[] = $list->mata_kuliah_praktikum;
                 $row[] = $list->nama_dosen;
-                $row[] = $list->status == 'Ada' ? '<span class="badge bg-success p-2">Ada</span>' : '<span class="badge bg-secondary p-2">Ditiadakan</span>';
                 $row[] = $list->jam_mulai . ' WIB';
                 $row[] = $list->jam_akhir . ' WIB';
                 $row[] = $list->nama_hari;
+                $row[] = $list->status == 'Ada' ? '<span class="badge bg-success p-2">Ada</span>' : '<span class="badge bg-secondary p-2">Ditiadakan</span>';
                 $data[] = $row;
             }
 

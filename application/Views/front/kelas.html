@@ -168,6 +168,9 @@
     $("#dropdown-layanan").addClass("active");
     $("#page-layanan_mahasiswa").addClass("active");
 
+    $(".load").fadeOut();
+    $(".loader").fadeOut();
+
     var table = $("#table-kelas").DataTable({
       searching: true,
       processing: true,

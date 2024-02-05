@@ -198,5 +198,10 @@
   </div>
 </section>
 {% endblock %} {% block js %}
-<script></script>
+<script>
+  $(() => {
+    $(".load").fadeOut();
+    $(".loader").fadeOut();
+  });
+</script>
 {% endblock %}

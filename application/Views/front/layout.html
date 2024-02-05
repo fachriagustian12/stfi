@@ -9,7 +9,10 @@
   </head>
   <body>
     <!-- {% include "front/layout/topbar.html"%}  -->
-    {% include "front/layout/navbar.html"%} {% block content %} {% endblock %}
+    {% include "front/layout/navbar.html"%}
+    <div class="load"></div>
+    <div class="loader"></div>
+    {% block content %} {% endblock %}
     <!-- <div class="popup">
       <div class="popup-content">
         <button class="close-btn" id="popup-close">

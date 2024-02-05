@@ -99,9 +99,9 @@ $routes->post("temp_login", 'Jsondatas::temp_login');
 
 // GETDATA
 $routes->post('getMhs', 'Jsondatas::getMhs');
-$routes->post('getKelas', 'Jsondatas::getKelas');
+$routes->get('getKelas', 'Jsondatas::getKelas');
 $routes->post('getDsn', 'Jsondatas::getDsn');
-$routes->post('getPraktikum', 'Jsondatas::getPraktikum');
+$routes->get('getPraktikum', 'Jsondatas::getPraktikum');
 
 
 // LOGIN

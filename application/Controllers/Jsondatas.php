@@ -55,35 +55,42 @@ class Jsondatas extends ControllersBaseController
         $request = $this->request;
         $mhsmodel = new \App\Models\KelasModel();
 
-        if ($request->getMethod(true) === 'POST') {
-            $lists = $mhsmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
-            $data = [];
-            $no = $request->getPost('start');
+        // if ($request->getMethod(true) === 'POST') {
+        //     $lists = $mhsmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
+        //     $data = [];
+        //     $no = $request->getPost('start');
 
-            foreach ($lists as $list) {
-                $no++;
-                $row = [];
-                $row[] = $no;
-                $row[] = $list->nama;
-                $row[] = $list->no_kelas;
-                $row[] = $list->matkul;
-                $row[] = $list->nm_dosen;
-                $row[] = $list->jam_mulai;
-                $row[] = $list->jam_akhir;
-                $row[] = $list->nm_hari;
-                $row[] = $list->status == 'Ada' ? '<span class="badge bg-success p-2">Ada</span>' : '<span class="badge bg-secondary p-2">Ditiadakan</span>';
-                $data[] = $row;
-            }
+        //     foreach ($lists as $list) {
+        //         $no++;
+        //         $row = [];
+        //         $row[] = $no;
+        //         $row[] = $list->nama;
+        //         $row[] = $list->no_kelas;
+        //         $row[] = $list->matkul;
+        //         $row[] = $list->nm_dosen;
+        //         $row[] = $list->jam_mulai;
+        //         $row[] = $list->jam_akhir;
+        //         $row[] = $list->nm_hari;
+        //         $row[] = $list->status == 'Ada' ? '<span class="badge bg-success p-2">Ada</span>' : '<span class="badge bg-secondary p-2">Ditiadakan</span>';
+        //         $data[] = $row;
+        //     }
 
-            $output = [
-                'draw' => $request->getPost('draw'),
-                'recordsTotal' => $mhsmodel->countAll(),
-                'recordsFiltered' => $mhsmodel->countFiltered($request->getPost(), $request->getPost('search')['value']),
-                'data' => $data
-            ];
+        //     $output = [
+        //         'draw' => $request->getPost('draw'),
+        //         'recordsTotal' => $mhsmodel->countAll(),
+        //         'recordsFiltered' => $mhsmodel->countFiltered($request->getPost(), $request->getPost('search')['value']),
+        //         'data' => $data
+        //     ];
 
-            echo json_encode($output);
-        }
+        $lists = $mhsmodel->getAllData();
+
+        $output = [
+            'code' => 200,
+            'data' => $lists
+        ];
+
+        echo json_encode($output);
+        // }
     }
     public function getDsn()
     {
@@ -123,34 +130,34 @@ class Jsondatas extends ControllersBaseController
         $request = $this->request;
         $dsnmodel = new \App\Models\PraktikumModel();
 
-        if ($request->getMethod(true) === 'POST') {
-            $lists = $dsnmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
-            $data = [];
-            $no = $request->getPost('start');
+        // if ($request->getMethod(true) === 'POST') {
+        //     $lists = $dsnmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
+        //     $data = [];
+        //     $no = $request->getPost('start');
 
-            foreach ($lists as $list) {
-                $no++;
-                $row = [];
-                $row[] = $no;
-                $row[] = $list->ruangan_praktikum;
-                $row[] = $list->mata_kuliah_praktikum;
-                $row[] = $list->nama_dosen;
-                $row[] = $list->jam_mulai . ' WIB';
-                $row[] = $list->jam_akhir . ' WIB';
-                $row[] = $list->nama_hari;
-                $row[] = $list->status == 'Ada' ? '<span class="badge bg-success p-2">Ada</span>' : '<span class="badge bg-secondary p-2">Ditiadakan</span>';
-                $data[] = $row;
-            }
+        //     foreach ($lists as $list) {
+        //         $no++;
+        //         $row = [];
+        //         $row[] = $no;
+        //         $row[] = $list->ruangan_praktikum;
+        //         $row[] = $list->mata_kuliah_praktikum;
+        //         $row[] = $list->nama_dosen;
+        //         $row[] = $list->jam_mulai . ' WIB';
+        //         $row[] = $list->jam_akhir . ' WIB';
+        //         $row[] = $list->nama_hari;
+        //         $row[] = $list->status == 'Ada' ? '<span class="badge bg-success p-2">Ada</span>' : '<span class="badge bg-secondary p-2">Ditiadakan</span>';
+        //         $data[] = $row;
+        //     }
 
-            $output = [
-                'draw' => $request->getPost('draw'),
-                'recordsTotal' => $dsnmodel->countAll(),
-                'recordsFiltered' => $dsnmodel->countFiltered($request->getPost(), $request->getPost('search')['value']),
-                'data' => $data
-            ];
+        $lists = $dsnmodel->getAllData();
 
-            echo json_encode($output);
-        }
+        $output = [
+            'code' => 200,
+            'data' => $lists
+        ];
+
+        echo json_encode($output);
+        // }
     }
 
     public function temp_login()

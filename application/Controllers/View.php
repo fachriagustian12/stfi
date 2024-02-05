@@ -91,6 +91,7 @@ class View extends \CodeIgniter\Controller
 	{
 		helper('url');
 		$uri = current_url(true);
+		$this->data['hari'] = ['SENIN', "SELASA", 'RABU', 'KAMIS', 'JUMAT', 'SABTU', 'MINGGU'];
 		// $mhs = new FrontModel();
 
 		// $this->data['mhs'] = $mhs->get();
@@ -137,7 +138,7 @@ class View extends \CodeIgniter\Controller
 		if ($get != "" || $kat != '') {
 			if ($kat == "") {
 				$this->data['results'] = $model->where('status', 1)->like('title', $get)->paginate(10, 'new_pagination');
-			}else{
+			} else {
 				$this->data['results'] = $model->where('status', 1)->where('kategori', $kat)->like('title', $get)->paginate(10, 'new_pagination');
 			}
 			$getval = $get;
@@ -292,7 +293,7 @@ class View extends \CodeIgniter\Controller
 			return redirect('login');
 		}
 	}
-	
+
 	public function data_jadwal_praktikum()
 	{
 		if ($this->logged) {

@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 class UserModel extends Model{
     protected $table = 'm_user';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['name', 'email', 'username','password','id_role', 'status'];
+    protected $allowedFields = ['name', 'email', 'username','password','id_role', 'status', 'create_date'];
 
     public function getWhereis($where = null)
     {

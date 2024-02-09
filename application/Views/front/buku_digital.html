@@ -295,9 +295,9 @@
                 },
                 duration: 3000,
               }).showToast();
-              sessionStorage.setItem("Logged_in", 1);
-              sessionStorage.setItem("id", res.id);
-              sessionStorage.setItem("rolename", res.rolename);
+              localStorage.setItem("Logged_in", 1);
+              localStorage.setItem("id", res.id);
+              localStorage.setItem("rolename", res.rolename);
               $("#content_buku").removeClass("d-none");
               ceklogin();
             } else {
@@ -318,11 +318,11 @@
   });
 
   function ceklogin() {
-    if (sessionStorage.length == 0) {
+    if (localStorage.length == 0) {
       $("#btn-login-temp").click();
       $("#content_buku").addClass("d-none");
     } else {
-      if (sessionStorage.getItem("Logged_in") == 0) {
+      if (localStorage.getItem("Logged_in") == 0) {
         $("#btn-login-temp").click();
       } else {
         $("#button-dismiss-login").click();
@@ -333,9 +333,9 @@
 
   function logout() {
     if (confirm("Keluar dari akun anda ? ")) {
-      sessionStorage.removeItem("Logged_in");
-      sessionStorage.removeItem("id");
-      sessionStorage.removeItem("rolename");
+      localStorage.removeItem("Logged_in");
+      localStorage.removeItem("id");
+      localStorage.removeItem("rolename");
       ceklogin();
       $("#username").val("");
       $("#password").val("");

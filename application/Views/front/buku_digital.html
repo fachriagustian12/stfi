@@ -62,33 +62,78 @@
       </div>
       {% if results is empty %}
       <h4 class="text-center">Data Tidak Tersedia !</h4>
-      {% endif %} {% for item in results %} {% if item.status == 1 %}
-      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-        <div class="team-card">
-          <div class="team-card-img">
-            <img src="{{baseURL}}{{item.cover_path}}" alt="image" />
-            <div class="team-social-icons">
-              <ul>
-                <li>
-                  <a
-                    href="javascript:void(0)"
-                    class="readbook"
-                    data-url="{{baseURL}}{{item.path}}"
-                    data-title="{{item.title}}"
-                    ><i class="fa fa-file-pdf"></i
-                  ></a>
-                </li>
-              </ul>
+      {% endif %} {% for item in results %} {% if item.status == 1 %} {% if
+      item.cover == "-" %} {% set pathcover = 'assets/images/default_book.jpg'
+      %} {% endif %}
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
+        <div class="card shadow border-0 mb-3">
+          <div class="row g-0">
+            <div class="col-md-5">
+              <img
+                src="{% if item.cover == '-' %} {{pathcover}} {%else%} {{item.cover}} {%endif%}"
+                class="img-fluid rounded-start"
+                alt="..."
+              />
             </div>
-          </div>
-          <div class="team-card-text">
-            <h4>{{ item.title }}</h4>
-            <h5>{{ item.keterangan }}</h5>
-            {% if item.ketersediaan > 0 %}
-            <span class="badge bg-success p-2">Tersedia</span>
-            {% else %}
-            <span class="badge bg-danger p-2">Tidak Tersedia</span>
-            {% endif %}
+            <div class="col-md-7">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <a href="{{item.url_file}}" target="_blank"
+                    >{{ item.title }}</a
+                  >
+                </h5>
+                <table class="table table-borderless table-sm text-start">
+                  <tr>
+                    <td width="40%">Status Pinjam</td>
+                    <td>:</td>
+                    <td>
+                      {% if item.status_boleh_dipinjam == 1 %}
+                      <span class="badge bg-success p-2">Tersedia</span>
+                      {% else %}
+                      <span class="badge bg-danger p-2">Tidak Tersedia</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Sub Judul</td>
+                    <td>:</td>
+                    <td>{{item.sub_judul_ebook}}</td>
+                  </tr>
+                  <tr>
+                    <td>Kategori</td>
+                    <td>:</td>
+                    <td>{{item.nama_kategori_ebook}}</td>
+                  </tr>
+                  <tr>
+                    <td>Pengarang</td>
+                    <td>:</td>
+                    <td>{{item.pengarang}}</td>
+                  </tr>
+                  <tr>
+                    <td>Terbit</td>
+                    <td>:</td>
+                    <td>{{item.tempat_terbit}}</td>
+                  </tr>
+                  <tr>
+                    <td>Penerbit</td>
+                    <td>:</td>
+                    <td>{{item.penerbit}}</td>
+                  </tr>
+                  <tr>
+                    <td>Tahun</td>
+                    <td>:</td>
+                    <td>{{item.tahun_terbit}}</td>
+                  </tr>
+                </table>
+                <a
+                  href="{{item.url_file}}"
+                  target="_blank"
+                  class="btn btn-primary round-6"
+                >
+                  <i class="fa fa-file"></i>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -208,7 +253,9 @@
             id="button-dismiss-login"
           ></button>
           <a href="/" class="btn btn-secondary btn-sm"> Kembali Ke Menu </a>
-          <button type="submit" class="btn btn-success btn-sm">Login</button>
+          <button type="submit" class="btn btn-success btn-sm" id="btn-login">
+            Login
+          </button>
         </div>
       </form>
     </div>
@@ -237,6 +284,9 @@
   $(() => {
     $("#page-layanan_buku").addClass("active");
 
+    $(".load").fadeOut();
+    $(".loader").fadeOut();
+
     $(".readbook").click(function () {
       var url = $(this).data("url");
       var title = $(this).data("title");
@@ -263,16 +313,18 @@
           duration: 3000,
         }).showToast();
       } else {
-        let fd = new FormData();
-        fd.append("username", uname);
-        fd.append("password", pass);
+        // let fd = new FormData();
+        // fd.append("username", uname);
+        // fd.append("password", pass);
         $.ajax({
           type: "post",
-          dataType: "json",
-          data: fd,
+          data: JSON.stringify({
+            username_mhs: uname,
+            password_mhs: pass,
+          }),
           processData: false,
-          contentType: false,
-          url: "temp_login",
+          contentType: "application/json",
+          url: "http://192.168.5.32/api/login-mhs",
           beforeSend: function () {
             Toastify({
               text: "Mohon Tunggu ...",
@@ -281,11 +333,11 @@
               style: {
                 background: "#00b4d8",
               },
-              duration: 1000,
+              duration: 10000,
             }).showToast();
           },
           success: function (res) {
-            if (res.code == 200) {
+            if (res.status == "success") {
               Toastify({
                 text: res.msg,
                 gravity: "bottom",
@@ -296,8 +348,6 @@
                 duration: 3000,
               }).showToast();
               localStorage.setItem("Logged_in", 1);
-              localStorage.setItem("id", res.id);
-              localStorage.setItem("rolename", res.rolename);
               $("#content_buku").removeClass("d-none");
               ceklogin();
             } else {
@@ -307,6 +357,19 @@
                 position: "left",
                 style: {
                   background: "#d62828",
+                },
+                duration: 3000,
+              }).showToast();
+            }
+          },
+          error: function (xhr, textStatus, errorThrown) {
+            if (textStatus == "timeout") {
+              Toastify({
+                text: res.msg,
+                gravity: "bottom",
+                position: "left",
+                style: {
+                  background: "#f50505",
                 },
                 duration: 3000,
               }).showToast();
@@ -334,8 +397,6 @@
   function logout() {
     if (confirm("Keluar dari akun anda ? ")) {
       localStorage.removeItem("Logged_in");
-      localStorage.removeItem("id");
-      localStorage.removeItem("rolename");
       ceklogin();
       $("#username").val("");
       $("#password").val("");

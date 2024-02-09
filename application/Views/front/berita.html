@@ -128,6 +128,9 @@
   $(() => {
     $("#page-layanan_buku").addClass("active");
 
+    $(".load").fadeOut();
+    $(".loader").fadeOut();
+
     $("#kategori").change(function () {
       $("#form-search").submit();
     });

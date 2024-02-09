@@ -32,7 +32,7 @@ class Jsondatas extends ControllersBaseController
                 $row = [];
                 $row[] = $no;
                 $row[] = $list->nama;
-                $row[] = $list->npm;
+                $row[] = $list->nim;
                 $row[] = $list->semester;
                 $row[] = $list->prodi;
                 $row[] = $list->status_mahasiswa == 1 ? '<span class="badge bg-success p-2"> AKTIF </span>' : '<span class="badge bg-danger p-2"> TIDAK AKTIF </span>';
@@ -55,34 +55,42 @@ class Jsondatas extends ControllersBaseController
         $request = $this->request;
         $mhsmodel = new \App\Models\KelasModel();
 
-        if ($request->getMethod(true) === 'POST') {
-            $lists = $mhsmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
-            $data = [];
-            $no = $request->getPost('start');
+        // if ($request->getMethod(true) === 'POST') {
+        //     $lists = $mhsmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
+        //     $data = [];
+        //     $no = $request->getPost('start');
 
-            foreach ($lists as $list) {
-                $no++;
-                $row = [];
-                $row[] = $no;
-                $row[] = $list->nama;
-                $row[] = $list->no_kelas;
-                $row[] = $list->matkul;
-                $row[] = '<span class="badge bg-success p-2">' . $list->status . '</span>';
-                $row[] = $list->jam_mulai;
-                $row[] = $list->jam_akhir;
-                $row[] = date('d M Y', strtotime($list->tanggal));
-                $data[] = $row;
-            }
+        //     foreach ($lists as $list) {
+        //         $no++;
+        //         $row = [];
+        //         $row[] = $no;
+        //         $row[] = $list->nama;
+        //         $row[] = $list->no_kelas;
+        //         $row[] = $list->matkul;
+        //         $row[] = $list->nm_dosen;
+        //         $row[] = $list->jam_mulai;
+        //         $row[] = $list->jam_akhir;
+        //         $row[] = $list->nm_hari;
+        //         $row[] = $list->status == 'Ada' ? '<span class="badge bg-success p-2">Ada</span>' : '<span class="badge bg-secondary p-2">Ditiadakan</span>';
+        //         $data[] = $row;
+        //     }
 
-            $output = [
-                'draw' => $request->getPost('draw'),
-                'recordsTotal' => $mhsmodel->countAll(),
-                'recordsFiltered' => $mhsmodel->countFiltered($request->getPost(),$request->getPost('search')['value']),
-                'data' => $data
-            ];
+        //     $output = [
+        //         'draw' => $request->getPost('draw'),
+        //         'recordsTotal' => $mhsmodel->countAll(),
+        //         'recordsFiltered' => $mhsmodel->countFiltered($request->getPost(), $request->getPost('search')['value']),
+        //         'data' => $data
+        //     ];
 
-            echo json_encode($output);
-        }
+        $lists = $mhsmodel->getAllData();
+
+        $output = [
+            'code' => 200,
+            'data' => $lists
+        ];
+
+        echo json_encode($output);
+        // }
     }
     public function getDsn()
     {
@@ -99,11 +107,11 @@ class Jsondatas extends ControllersBaseController
                 $row = [];
                 $row[] = $no;
                 $row[] = $list->nama;
-                $row[] = $list->mata_kuliah;
-                $row[] = $list->jadwal;
-                $row[] = $list->kelas;
-                $row[] = $list->perkuliahan == 'online' ? '<span class="badge bg-success p-2">Online</span>' : '<span class="badge bg-secondary p-2">Offline</span>';
-                $row[] = $list->tugas;
+                $row[] = $list->nm_jab;
+                $row[] = $list->nm_pangkat;
+                $row[] = $list->kategori_dosen;
+                $row[] = $list->alamat;
+                $row[] = $list->kontak;
                 $data[] = $row;
             }
 
@@ -122,112 +130,109 @@ class Jsondatas extends ControllersBaseController
         $request = $this->request;
         $dsnmodel = new \App\Models\PraktikumModel();
 
-        if ($request->getMethod(true) === 'POST') {
-            $lists = $dsnmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
-            $data = [];
-            $no = $request->getPost('start');
+        // if ($request->getMethod(true) === 'POST') {
+        //     $lists = $dsnmodel->getDatatables($request->getPost(), $request->getPost('search')['value']);
+        //     $data = [];
+        //     $no = $request->getPost('start');
 
-            foreach ($lists as $list) {
-                $no++;
-                $row = [];
-                $row[] = $no;
-                $row[] = $list->ruangan_praktikum;
-                $row[] = $list->mata_kuliah_praktikum;
-                $row[] = $list->nama;
-                $row[] = $list->status == 'Ada' ? '<span class="badge bg-success p-2">Ada</span>' : '<span class="badge bg-secondary p-2">Ditiadakan</span>';
-                $row[] = $list->jam_mulai;
-                $row[] = $list->jam_akhir;
-                $row[] = date('d M Y', strtotime($list->tanggal));
-                $data[] = $row;
-            }
+        //     foreach ($lists as $list) {
+        //         $no++;
+        //         $row = [];
+        //         $row[] = $no;
+        //         $row[] = $list->ruangan_praktikum;
+        //         $row[] = $list->mata_kuliah_praktikum;
+        //         $row[] = $list->nama_dosen;
+        //         $row[] = $list->jam_mulai . ' WIB';
+        //         $row[] = $list->jam_akhir . ' WIB';
+        //         $row[] = $list->nama_hari;
+        //         $row[] = $list->status == 'Ada' ? '<span class="badge bg-success p-2">Ada</span>' : '<span class="badge bg-secondary p-2">Ditiadakan</span>';
+        //         $data[] = $row;
+        //     }
 
-            $output = [
-                'draw' => $request->getPost('draw'),
-                'recordsTotal' => $dsnmodel->countAll(),
-                'recordsFiltered' => $dsnmodel->countFiltered($request->getPost(), $request->getPost('search')['value']),
-                'data' => $data
-            ];
+        $lists = $dsnmodel->getAllData();
 
-            echo json_encode($output);
-        }
+        $output = [
+            'code' => 200,
+            'data' => $lists
+        ];
+
+        echo json_encode($output);
+        // }
     }
 
     public function temp_login()
     {
-        try
-			{
-			$model = new UserModel();
-			$userModel = new \App\Models\UserModel();
+        try {
+            $model = new UserModel();
+            $userModel = new \App\Models\UserModel();
 
-			$email = $this->request->getVar('username');
-			$password = $this->request->getVar('password');
-			$dataemail = $model->getWhereis(['username' => $email]);
-			if(!$dataemail){
+            $email = $this->request->getVar('username');
+            $password = $this->request->getVar('password');
+            $dataemail = $model->getWhereis(['username' => $email]);
+            if (!$dataemail) {
                 $res = array(
                     'code' => 500,
                     'msg'  => 'User Belum Terdaftar'
                 );
                 echo json_encode($res);
                 exit;
-			}
-			
-			$dataactive = $model->getWhere(['m_user.username' => $email, 'm_user.status' => 0])->getRow();
-			
-			if($dataactive){
+            }
+
+            $dataactive = $model->getWhere(['m_user.username' => $email, 'm_user.status' => 0])->getRow();
+
+            if ($dataactive) {
                 $res = array(
                     'code' => 500,
                     'msg'  => 'User Tidak Aktif'
                 );
                 echo json_encode($res);
                 exit;
-			}
+            }
 
-			$datastatus = $model->getWhere(['m_user.username' => $email, 'm_user.status' => 1])->getRow();
-			
-			if(!$datastatus){
+            $datastatus = $model->getWhere(['m_user.username' => $email, 'm_user.status' => 1])->getRow();
+
+            if (!$datastatus) {
                 $res = array(
                     'code' => 500,
                     'msg'  => 'User Belum diverifikasi'
                 );
                 echo json_encode($res);
                 exit;
-			}
-			
-			if($dataemail && $datastatus){
-				$pass = $dataemail->password;
-				// $hash =  substr_replace($pass, "$2y$10", 0, 1);
-				// $verify_pass = password_verify($password, $pass);
-				$verify_pass = md5($password) == $pass ? 1 : 0;
-				if($verify_pass){
-					$ses_data = [			
-                            'code'          => 200,			
-                            'msg'           => 'Login Berhasil !',	
-							'username' 		=> $dataemail->username,
-							'id' 			=> $dataemail->id,
-							'role' 			=> $dataemail->id_role,
-							'rolename' 		=> $dataemail->role,
-							'logged_in'     => TRUE,
-					];
-					
+            }
+
+            if ($dataemail && $datastatus) {
+                $pass = $dataemail->password;
+                // $hash =  substr_replace($pass, "$2y$10", 0, 1);
+                // $verify_pass = password_verify($password, $pass);
+                $verify_pass = md5($password) == $pass ? 1 : 0;
+                if ($verify_pass) {
+                    $ses_data = [
+                        'code'          => 200,
+                        'msg'           => 'Login Berhasil !',
+                        'username'         => $dataemail->username,
+                        'id'             => $dataemail->id,
+                        'role'             => $dataemail->id_role,
+                        'rolename'         => $dataemail->role,
+                        'logged_in'     => TRUE,
+                    ];
+
                     echo json_encode($ses_data);
-				}else{
+                } else {
                     $res = array(
                         'code' => 500,
                         'msg'  => 'Username atau Password salah'
                     );
                     echo json_encode($res);
-				}
-			}else{
+                }
+            } else {
                 $res = array(
                     'code' => 500,
                     'msg'  => 'Username Belum Terdaftar'
                 );
                 echo json_encode($res);
-			}
-		}
-		catch (\Exception $e)
-		{
-			die($e->getMessage());
-		}
+            }
+        } catch (\Exception $e) {
+            die($e->getMessage());
+        }
     }
 }

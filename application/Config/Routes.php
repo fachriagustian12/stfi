@@ -26,7 +26,7 @@ $routes = Services::routes(true);
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
 if (file_exists(BASEPATH . 'Config/Routes.php')) {
-	require BASEPATH . 'Config/Routes.php';
+    require BASEPATH . 'Config/Routes.php';
 }
 
 /**
@@ -65,8 +65,8 @@ $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 // $routes->set404Override();
 $routes->set404Override(function () {
-	echo view('error_404');
-	die;
+    echo view('error_404');
+    die;
 });
 $routes->setAutoRoute(false);
 
@@ -99,9 +99,9 @@ $routes->post("temp_login", 'Jsondatas::temp_login');
 
 // GETDATA
 $routes->post('getMhs', 'Jsondatas::getMhs');
-$routes->post('getKelas', 'Jsondatas::getKelas');
+$routes->get('getKelas', 'Jsondatas::getKelas');
 $routes->post('getDsn', 'Jsondatas::getDsn');
-$routes->post('getPraktikum', 'Jsondatas::getPraktikum');
+$routes->get('getPraktikum', 'Jsondatas::getPraktikum');
 
 
 // LOGIN
@@ -118,6 +118,7 @@ $routes->add('data_user', 'View::user');
 $routes->add('data_slider', 'View::data_slider');
 $routes->add('data_berita', 'View::data_berita');
 $routes->add('data_kelas', 'View::data_kelas');
+$routes->add('data_jadwal_praktikum', 'View::data_jadwal_praktikum');
 
 
 // $routes->add('/', 'View::login');
@@ -156,6 +157,8 @@ $routes->post('pembayaran', 'Jsondata::pembayaran');
 $routes->post('kodebilling', 'Jsondata::kodebilling');
 
 $routes->post('getdata', 'Jsondata::getdata');
+$routes->post('getdatadosen', 'Jsondata::getdatadosen');
+$routes->post('getdataPraktikum', 'Jsondata::getPraktikum');
 $routes->post('deletedata', 'Jsondata::deletedata');
 $routes->post('addslider', 'Jsondata::addslider');
 $routes->post('addmahasiswa', 'Jsondata::addmahasiswa');
@@ -163,16 +166,31 @@ $routes->post('adddosen', 'Jsondata::adddosen');
 $routes->post('addkegiatan', 'Jsondata::addkegiatan');
 $routes->post('addberita', 'Jsondata::addberita');
 $routes->post('addkelas', 'Jsondata::addkelas');
+$routes->post('addjadwalpraktikum', 'Jsondata::addjadwalpraktikum');
 $routes->post('addbuku', 'Jsondata::addbuku');
 
 // API
-$routes->group('api', ['namespace' => 'App\Controllers'], function($routes)
-{
+$routes->group('api', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('buku', 'Jsondata::getBuku');
     $routes->get('buku/(:segment)', 'Jsondata::getDetailBuku/$1');
 
     $routes->get('berita', 'Jsondata::getBerita');
     $routes->get('berita/(:segment)', 'Jsondata::getDetailBerita/$1');
+
+    $routes->get('perkuliahan', 'Jsondata::getPerkuliahan');
+    $routes->get('perkuliahan/(:segment)', 'Jsondata::getDetailPerkuliahan/$1');
+
+    $routes->get('praktikum', 'Jsondata::getPraktikum');
+    $routes->get('praktikum/(:segment)', 'Jsondata::getDetailPraktikum/$1');
+
+    $routes->post('login-mhs', 'Signage::login_mhs');
+    $routes->post('getmahasiswa', 'Signage::get_mahasiswa');
+    $routes->post('getdosen', 'Signage::get_dosen');
+    $routes->post('getperkuliahan', 'Signage::getjadwal');
+    $routes->post('getjadwalpraktikum', 'Signage::getjadwal_praktikum');
+    $routes->post('getskripsi', 'Signage::getdataskripsi');
+    $routes->post('getbook', 'Signage::getdatabuku');
+    $routes->post('getajar', 'Signage::getdatadosen');
 });
 
 /**
@@ -189,5 +207,5 @@ $routes->group('api', ['namespace' => 'App\Controllers'], function($routes)
  * needing to reload it.
  */
 if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
-	require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
+    require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }

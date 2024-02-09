@@ -8,7 +8,7 @@ $(() => {
     $(".file").imageUploader();
   });
 
-  load("kelas");
+  load("perkuliahan");
 });
 
 function load(table) {
@@ -48,11 +48,12 @@ function load(table) {
             { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "nama", class: "text-center" },
             { mDataProp: "no_kelas", class: "text-center" },
-            { mDataProp: "status", class: "text-center", width: "10%" },
+            { mDataProp: "nm_dosen", class: "text-center" },
+            { mDataProp: "nm_kelas", class: "text-center", width: "10%" },
             { mDataProp: "matkul", class: "text-center", width: "10%" },
             { mDataProp: "jam_mulai", class: "text-center", width: "10%" },
             { mDataProp: "jam_akhir", class: "text-center", width: "10%" },
-            { mDataProp: "tanggal", class: "text-center" },
+            { mDataProp: "nm_hari", class: "text-center" },
             { mDataProp: "id", class: "text-center" },
           ],
           order: [[0, "ASC"]],
@@ -67,7 +68,7 @@ function load(table) {
                 elem += "</div>";
                 return elem;
               },
-              aTargets: [8],
+              aTargets: [9],
             },
           ],
           fnRowCallback: function (

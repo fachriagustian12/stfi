@@ -27,6 +27,7 @@ function load(table) {
       let data = result.data;
       console.log(data);
       let code = result.code;
+      console.log(result.data);
       if (code != "0") {
         var dt = $("#all_buku").DataTable({
           dom:
@@ -52,11 +53,11 @@ function load(table) {
           aoColumns: [
             { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "title", class: "text-center" },
-            { mDataProp: "cover", class: "text-center" },
+            { mDataProp: "pengarang", class: "text-center" },
+            { mDataProp: "penerbit", class: "text-center", width: "10%" },
+            { mDataProp: "tempat_terbit", class: "text-center", width: "10%" },
+            { mDataProp: "tahun_terbit", class: "text-center", width: "10%" },
             { mDataProp: "path", class: "text-center" },
-            { mDataProp: "tanggal", class: "text-center" },
-            { mDataProp: "ketersediaan", class: "text-center", width: "10%" },
-            { mDataProp: "keterangan", class: "text-center", width: "10%" },
             { mDataProp: "id", class: "text-center" },
           ],
           order: [[0, "ASC"]],
@@ -68,15 +69,7 @@ function load(table) {
                                   <button class="btn btn-sm btn-info" onclick="viewimage('${data}')"><i class="la la-image"></i></button>`;
                 return elem;
               },
-              aTargets: [2],
-            },
-            {
-              mRender: function (data, type, row) {
-                var elem = `
-                                  <button class="btn btn-sm btn-info" onclick="viewimage('${data}')"><i class="la la-image"></i></button>`;
-                return elem;
-              },
-              aTargets: [3],
+              aTargets: [6],
             },
             {
               mRender: function (data, type, row) {

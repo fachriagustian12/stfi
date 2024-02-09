@@ -5,7 +5,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">Data Jadwal Perkuliahan</h4>
+          <h4 class="card-title">Data Jadwal Praktikum</h4>
           <a class="heading-elements-toggle"
             ><i class="la la-ellipsis-v font-medium-3"></i
           ></a>
@@ -15,11 +15,11 @@
                 <button
                   type="button"
                   class="btn btn-success btn-min-width mr-1 mb-1"
-                  id="add_kelas"
+                  id="add_jadwal_praktikum"
                   data-toggle="modal"
-                  data-target="#modal_add_kelas"
+                  data-target="#modal_add_jadwal_praktikum"
                 >
-                  <i class="la la-plus"></i> Tambah Informasi Kelas
+                  <i class="la la-plus"></i> Tambah Informasi Jadwal Praktikum
                 </button>
               </li>
             </ul>
@@ -29,17 +29,18 @@
           <div class="card-body card-dashboard">
             <div class="table-responsive">
               <table
-                id="all_kelas"
+                id="all_jadwal_praktikum"
                 class="table table-striped table-bordered bootstrap-3"
               >
                 <thead>
                   <tr>
                     <th class="align-middle" rowspan="2">#No</th>
-                    <th class="align-middle" rowspan="2">Nama Kelas</th>
-                    <th class="align-middle" rowspan="2">No Kelas</th>
-                    <th class="align-middle" rowspan="2">Nama Dosen</th>
-                    <th class="align-middle" rowspan="2">Kelas</th>
-                    <th class="align-middle" rowspan="2">Mata Kuliah</th>
+                    <th class="align-middle" rowspan="2">Ruangan Praktikum</th>
+                    <th class="align-middle" rowspan="2">
+                      Mata kuliah praktikum
+                    </th>
+                    <th class="align-middle" rowspan="2">Nama dosen</th>
+                    <th class="align-middle" rowspan="2">Nama Kelompok</th>
                     <th class="align-middle" colspan="2">
                       <center>Jam</center>
                     </th>
@@ -63,7 +64,7 @@
 <div
   class="modal fade"
   tabindex="-1"
-  id="modal_add_kelas"
+  id="modal_add_jadwal_praktikum"
   data-backdrop="static"
 >
   <div class="modal-dialog">
@@ -71,22 +72,24 @@
       <div class="modal-header">
         <h5 class="modal-title">
           <i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data
-          Informasi Kelas
+          Informasi Jadwal Praktikum
         </h5>
 
         <!--begin::Close-->
         <a class="btn btn-icon" data-dismiss="modal" aria-label="Close">
           <span class="la la-times"></span>
         </a>
-        <!--end::Close-->
+        <!--end::Closeaction="addjadwalpraktikum"
+        method="POST"
+        enctype="multipart/form-data"-->
       </div>
 
-      <form action="addkelas" method="POST" enctype="multipart/form-data">
+      <form>
         <input type="hidden" name="id" id="id" />
         <div class="modal-body">
           <fieldset>
             <div class="form-group">
-              <h5>Nama Kelas</h5>
+              <h5>Ruangan Praktikum</h5>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id=""
@@ -96,9 +99,9 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Nama"
-                  name="nama"
-                  id="nama"
+                  placeholder="Ruangan Praktikum"
+                  name="ruangan_praktikum"
+                  id="ruangan_praktikum"
                 />
               </div>
             </div>
@@ -106,7 +109,28 @@
 
           <fieldset>
             <div class="form-group">
-              <h5>Nomor Kelas</h5>
+              <h5>Nama Dosen</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""
+                    ><i class="la la-eye"></i
+                  ></span>
+                </div>
+                <select
+                  class="custom-select"
+                  id="selectDosen"
+                  nama="selectDosen"
+                  onchange="dataMatkul()"
+                >
+                  <option value="">Pilih Dosen</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <div class="form-group">
+              <h5>Mata Kuliah Praktikum</h5>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id=""
@@ -116,9 +140,10 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Nomor Kelas"
-                  name="no_kelas"
-                  id="no_kelas"
+                  placeholder="Mata Kuliah Praktikum"
+                  name="mata_kuliah_praktikum"
+                  id="mata_kuliah_praktikum"
+                  disabled
                 />
               </div>
             </div>
@@ -138,26 +163,6 @@
                   <option value="Ada">Ada</option>
                   <option value="Ditiadakan">Ditiadakan</option>
                 </select>
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <div class="form-group">
-              <h5>Mata Kuliah</h5>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id=""
-                    ><i class="la la-eye"></i
-                  ></span>
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Mata Kuliah"
-                  name="matkul"
-                  id="matkul"
-                />
               </div>
             </div>
           </fieldset>
@@ -229,7 +234,11 @@
           >
             <i class="la la-times"></i> Batal
           </button>
-          <button type="submit" class="btn btn-success btn-sm mr-1 mb-1">
+          <button
+            type="button"
+            id="mohon_save"
+            class="btn btn-success btn-sm mr-1 mb-1"
+          >
             <i class="la la-check"></i> Simpan
           </button>
         </div>

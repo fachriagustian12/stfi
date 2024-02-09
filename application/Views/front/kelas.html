@@ -51,7 +51,7 @@
       >
         <div class="row">
           <div class="col-lg-12">
-            <div class="card shadow border-0">
+            <!-- <div class="card shadow border-0">
               <div class="card-body">
                 <table class="table table-bordered" id="table-kelas">
                   <thead class="table-active">
@@ -59,17 +59,78 @@
                     <th>Kode</th>
                     <th>No. Kelas</th>
                     <th>Mata Kuliah</th>
-                    <th>Status</th>
+                    <th>Dosen</th>
                     <th>Jam Mulai</th>
                     <th>Jam Selesai</th>
-                    <th>Tanggal</th>
+                    <th>Hari</th>
+                    <th>Status</th>
                   </thead>
                 </table>
+              </div>
+            </div> -->
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card shadow border-0">
+                  <div class="card-body">
+                    <div class="accordion" id="accordionExample">
+                      {% for i in hari %}
+                      <div class="accordion-item">
+                        <h2
+                          class="accordion-header"
+                          id="headkuliah-{{loop.index}}"
+                        >
+                          <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#kuliah-{{loop.index}}"
+                            aria-expanded="true"
+                            aria-controls="kuliah-{{loop.index}}"
+                          >
+                            {{i}}
+                          </button>
+                        </h2>
+                        <div
+                          id="kuliah-{{loop.index}}"
+                          class="accordion-collapse collapse"
+                          aria-labelledby="headkuliah-{{loop.index}}"
+                          data-bs-parent="#accordionExample"
+                        >
+                          <div class="accordion-body">
+                            <div class="table-responsive">
+                              <table class="table table-bordered">
+                                <thead class="table-active">
+                                  <!-- <th width="3%">No.</th> -->
+                                  <th>Nama Ruangan</th>
+                                  <th>No. Kelas</th>
+                                  <th>Mata Kuliah</th>
+                                  <th>Dosen</th>
+                                  <th>Jam Mulai</th>
+                                  <th>Jam Selesai</th>
+                                  <th>Hari</th>
+                                  <th>Status</th>
+                                </thead>
+                                <tbody id="tbody-kuliah-{{loop.index}}">
+                                  <tr id="kosong-kuliah-{{loop.index}}">
+                                    <td colspan="9" class="text-center">
+                                      Data Tidak Tersedia
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor%}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
       <div
         class="tab-pane fade"
@@ -82,18 +143,57 @@
           <div class="col-lg-12">
             <div class="card shadow border-0">
               <div class="card-body">
-                <table class="table table-bordered" id="table-praktikum">
-                  <thead class="table-active">
-                    <th width="3%">No.</th>
-                    <th>Ruangan</th>
-                    <th>Mata Kuliah</th>
-                    <th>Dosen</th>
-                    <th>Status</th>
-                    <th>Jam Mulai</th>
-                    <th>Jam Selesai</th>
-                    <th>Tanggal</th>
-                  </thead>
-                </table>
+                <div class="accordion" id="accordionExample2">
+                  {% for i in hari %}
+                  <div class="accordion-item">
+                    <h2
+                      class="accordion-header"
+                      id="headpraktikum-{{loop.index}}"
+                    >
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#praktikum-{{loop.index}}"
+                        aria-expanded="true"
+                        aria-controls="praktikum-{{loop.index}}"
+                      >
+                        {{i}}
+                      </button>
+                    </h2>
+                    <div
+                      id="praktikum-{{loop.index}}"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="headpraktikum-{{loop.index}}"
+                      data-bs-parent="#accordionExample2"
+                    >
+                      <div class="accordion-body">
+                        <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <thead class="table-active">
+                              <!-- <th width="3%">No.</th> -->
+                              <th>Nama Ruangan Praktikum</th>
+                              <th>Mata Kuliah</th>
+                              <th>Dosen</th>
+                              <th>Jam Mulai</th>
+                              <th>Jam Selesai</th>
+                              <th>Hari</th>
+                              <th>Status</th>
+                            </thead>
+                            <tbody id="tbody-praktikum-{{loop.index}}">
+                              <tr id="kosong-praktikum-{{loop.index}}">
+                                <td colspan="9" class="text-center">
+                                  Data Tidak Tersedia
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor%}
+                </div>
               </div>
             </div>
           </div>
@@ -167,62 +267,182 @@
     $("#dropdown-layanan").addClass("active");
     $("#page-layanan_mahasiswa").addClass("active");
 
-    var table = $("#table-kelas").DataTable({
-      searching: true,
-      processing: true,
-      serverSide: true,
-      language: {
-        searchPlaceholder: "Masukan Kode, Matkul, Kelas dan Jam",
-        search: "Cari Data Jadwal Perkuliahan :",
-        info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ Data",
-        lengthMenu: "Menampilkan _MENU_ Data",
-        paginate: {
-          first: "Awal",
-          last: "Akhir",
-          next: "Selanjutnya",
-          previous: "Sebelumnya",
-        },
-      },
-      order: [],
-      ajax: {
-        url: "getKelas",
-        type: "POST",
-      },
-      columnDefs: [
-        {
-          targets: [],
-          orderable: false,
-        },
-      ],
-    });
-    var tablepraktikum = $("#table-praktikum").DataTable({
-      searching: true,
-      processing: true,
-      serverSide: true,
-      language: {
-        searchPlaceholder: "Masukan Ruangan atau Matkul",
-        search: "Cari Data Jadwal Praktikum :",
-        info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ Data",
-        lengthMenu: "Menampilkan _MENU_ Data",
-        paginate: {
-          first: "Awal",
-          last: "Akhir",
-          next: "Selanjutnya",
-          previous: "Sebelumnya",
-        },
-      },
-      order: [],
-      ajax: {
-        url: "getPraktikum",
-        type: "POST",
-      },
-      columnDefs: [
-        {
-          targets: [],
-          orderable: false,
-        },
-      ],
-    });
+    getDataKuliah();
+
+    // var table = $("#table-kelas").DataTable({
+    //   searching: true,
+    //   processing: true,
+    //   serverSide: true,
+    //   language: {
+    //     searchPlaceholder: "Masukan Kode, Matkul, Kelas dan Jam",
+    //     search: "Cari Data Jadwal Perkuliahan :",
+    //     info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ Data",
+    //     lengthMenu: "Menampilkan _MENU_ Data",
+    //     paginate: {
+    //       first: "Awal",
+    //       last: "Akhir",
+    //       next: "Selanjutnya",
+    //       previous: "Sebelumnya",
+    //     },
+    //   },
+    //   order: [],
+    //   ajax: {
+    //     url: "getKelas",
+    //     type: "POST",
+    //   },
+    //   columnDefs: [
+    //     {
+    //       targets: [],
+    //       orderable: false,
+    //     },
+    //   ],
+    // });
+    // var tablepraktikum = $("#table-praktikum").DataTable({
+    //   searching: true,
+    //   processing: true,
+    //   serverSide: true,
+    //   language: {
+    //     searchPlaceholder: "Masukan Ruangan atau Matkul",
+    //     search: "Cari Data Jadwal Praktikum :",
+    //     info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ Data",
+    //     lengthMenu: "Menampilkan _MENU_ Data",
+    //     paginate: {
+    //       first: "Awal",
+    //       last: "Akhir",
+    //       next: "Selanjutnya",
+    //       previous: "Sebelumnya",
+    //     },
+    //   },
+    //   order: [],
+    //   ajax: {
+    //     url: "getPraktikum",
+    //     type: "POST",
+    //   },
+    //   columnDefs: [
+    //     {
+    //       targets: [],
+    //       orderable: false,
+    //     },
+    //   ],
+    // });
   });
+
+  function getDataKuliah() {
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "getKelas",
+      beforeSend: function () {
+        $(".load").fadeIn();
+        $(".loader").fadeIn();
+      },
+      success: function (res) {
+        getDataPraktikum();
+
+        if (res.code == 200) {
+          let data = res.data;
+          data.forEach((el) => {
+            let html = `
+              <tr>
+                <td>${el.nama}</td>
+                <td>${el.no_kelas}</td>
+                <td>${el.matkul}</td>
+                <td>${el.nm_dosen}</td>
+                <td>${el.start_time} WIB</td>
+                <td>${el.end_time} WIB</td>
+                <td>${el.nm_hari}</td>
+                <td>${
+                  el.status == 1
+                    ? '<span class="badge bg-success p-2">Ada</span>'
+                    : '<span class="badge bg-secondary p-2">Ditiadakan</span>'
+                }</td>
+              </tr>
+              `;
+            if (el.nm_hari == "SENIN") {
+              $("#kosong-kuliah-1").remove();
+              $("#tbody-kuliah-1").append(html);
+            } else if (el.nm_hari == "SELASA") {
+              $("#kosong-kuliah-2").remove();
+              $("#tbody-kuliah-2").append(html);
+            } else if (el.nm_hari == "RABU") {
+              $("#kosong-kuliah-3").remove();
+              $("#tbody-kuliah-3").append(html);
+            } else if (el.nm_hari == "KAMIS") {
+              $("#kosong-kuliah-4").remove();
+              $("#tbody-kuliah-4").append(html);
+            } else if (el.nm_hari == "JUMAT") {
+              $("#kosong-kuliah-5").remove();
+              $("#tbody-kuliah-5").append(html);
+            } else if (el.nm_hari == "SABTU") {
+              $("#kosong-kuliah-6").remove();
+              $("#tbody-kuliah-6").append(html);
+            } else if (el.nm_hari == "MINGGU") {
+              $("#kosong-kuliah-7").remove();
+              $("#tbody-kuliah-7").append(html);
+            }
+          });
+        }
+      },
+    });
+  }
+
+  function getDataPraktikum() {
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "getPraktikum",
+      beforeSend: function () {
+        $(".load").fadeIn();
+        $(".loader").fadeIn();
+      },
+      success: function (res) {
+        $(".load").fadeOut();
+        $(".loader").fadeOut();
+
+        if (res.code == 200) {
+          let data = res.data;
+          data.forEach((el) => {
+            let html = `
+              <tr>
+                <td>${el.ruangan_praktikum}</td>
+                <td>${el.mata_kuliah_praktikum}</td>
+                <td>${el.nama_dosen}</td>
+                <td>${el.jam_mulai} WIB</td>
+                <td>${el.jam_akhir} WIB</td>
+                <td>${el.nama_hari}</td>
+                <td>${
+                  el.status == 1
+                    ? '<span class="badge bg-success p-2">Ada</span>'
+                    : '<span class="badge bg-secondary p-2">Ditiadakan</span>'
+                }</td>
+              </tr>
+              `;
+            if (el.nama_hari == "SENIN") {
+              $("#kosong-praktikum-1").remove();
+              $("#tbody-praktikum-1").append(html);
+            } else if (el.nama_hari == "SELASA") {
+              $("#kosong-praktikum-2").remove();
+              $("#tbody-praktikum-2").append(html);
+            } else if (el.nama_hari == "RABU") {
+              $("#kosong-praktikum-3").remove();
+              $("#tbody-praktikum-3").append(html);
+            } else if (el.nama_hari == "KAMIS") {
+              $("#kosong-praktikum-4").remove();
+              $("#tbody-praktikum-4").append(html);
+            } else if (el.nama_hari == "JUMAT") {
+              $("#kosong-praktikum-5").remove();
+              $("#tbody-praktikum-5").append(html);
+            } else if (el.nama_hari == "SABTU") {
+              $("#kosong-praktikum-6").remove();
+              $("#tbody-praktikum-6").append(html);
+            } else if (el.nama_hari == "MINGGU") {
+              $("#kosong-praktikum-7").remove();
+              $("#tbody-praktikum-7").append(html);
+            }
+          });
+        }
+      },
+    });
+  }
 </script>
 {% endblock %}

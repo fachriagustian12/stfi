@@ -1073,6 +1073,127 @@ class Jsondata extends \CodeIgniter\Controller
 	}
   }
 
+  public function getPerkuliahan(){
+	try {
+		$table = 'kelas';
+		$user = new \App\Models\UserModel();
+		$data = $user->getData($table);
+        $response = [
+			'status'	=> 'sukses',
+			'code'		=> 200,
+			'data'		=> $data
+		];
+		header('Content-Type: application/json');
+	  echo json_encode($response);
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function getDetailPerkuliahan($id = null){
+	try {
+		$table	= 'kelas';
+		$user 	= new \App\Models\UserModel();
+		$data 	= $user->getData($table, $id);
+
+        $response = [
+			'status'   	=> 'sukses',
+			'code'     	=> 200,
+			'data' 	 	=> $data
+		];
+		header('Content-Type: application/json');
+	  echo json_encode($response);
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function addjadwalpraktikum()
+  {
+	try {
+		$request	= $this->request;
+		$param		= $request->getVar('param');
+		
+		$method		= $request->getMethod();
+		$praktik 		= new \App\Models\PraktikumModel();
+		
+		if($method == 'post'){
+			if($request->getVar('id')){
+				$tanggal = $request->getVar('tanggal');
+				$tanggal .= ' 00:00:00.000000';
+				
+					$data = [
+						'ruangan_praktikum'			=> $request->getVar('ruangan_praktikum'),
+						'mata_kuliah_praktikum'		=> $request->getVar('mata_kuliah_praktikum'),
+						'nama_dosen'				=> $request->getVar('nama_dosen'),
+						'status'					=> $request->getVar('status'),
+						'jam_mulai'					=> $request->getVar('jam_mulai'),
+						'jam_akhir'					=> $request->getVar('jam_akhir'),
+						'tanggal'					=> $tanggal,
+						'updated_at'				=> $this->now,
+						'updated_by'				=> $this->session->get('id'),
+					];
+					$praktik->update($request->getVar('id'), $data);
+				}else{
+					$tanggal = $request->getVar('tanggal');
+					$tanggal .= ' 00:00:00.000000';
+
+					$data = [
+						'ruangan_praktikum'			=> $request->getVar('ruangan_praktikum'),
+						'mata_kuliah_praktikum' 	=> $request->getVar('mata_kuliah_praktikum'),
+						'nama_dosen' 				=> $request->getVar('nama_dosen'),
+						'status' 					=> $request->getVar('status'),
+						'jam_mulai' 				=> $request->getVar('jam_mulai'),
+						'jam_akhir' 				=> $request->getVar('jam_akhir'),
+						'tanggal' 					=> $tanggal,
+						'created_at'				=> $this->now,
+						'created_by'				=> $this->session->get('id'),
+					];
+					$praktik->insert($data);
+					$lastid = $praktik->insertID();
+				}
+		}
+		redirect('data_jadwal_praktikum','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function getPraktikum(){
+	try {
+		$table = 'jadwal_praktikum';
+		$user = new \App\Models\UserModel();
+		$data = $user->getDosenPraktik($table);
+        $response = [
+			'status'	=> 'sukses',
+			'code'		=> 200,
+			'data'		=> $data
+		];
+		header('Content-Type: application/json');
+	  echo json_encode($response);
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function getDetailPraktikum($id = null){
+	try {
+		$table	= 'jadwal_praktikum';
+		$user 	= new \App\Models\UserModel();
+		$data 	= $user->getDosenPraktik($table, $id);
+
+        $response = [
+			'status'   	=> 'sukses',
+			'code'     	=> 200,
+			'data' 	 	=> $data
+		];
+		header('Content-Type: application/json');
+	  echo json_encode($response);
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
   public function addbuku()
   {
 	try {
@@ -1296,6 +1417,71 @@ class Jsondata extends \CodeIgniter\Controller
 	  header('Content-Type: application/json');
 	  echo json_encode($response);
 	  exit;
+	  } catch (\Exception $e) {
+		  die($e->getMessage());
+	  }
+  }
+
+//   public function getdatadosen()
+//   {
+// 	  try {
+// 			$ajarDosen 		= new \App\Models\AjarDosenModel();
+// 		  	$table          = "ajar_dosen";
+// 			$field          = "kd_dosen, nm_dosen, nm_mk";
+// 			$jadwall        = [];
+// 			$jadwal_dosen   = $ajarDosen->getJadwalDosen($field, $table);
+// 			foreach ($jadwal_dosen as $key => $value) {
+// 				$jadwal_praktikum = $ajarDosen->getJadwalDosen("jam_mulai, jam_akhir, nama_hari, nm_kelas, ruangan_praktikum", "jadwal_praktikum", "nip_dosen", $value->kd_dosen);
+// 				$value->jadwal = $jadwal_praktikum;
+//                 $jadwall[] = $value;
+// 			}
+
+// 			if($jadwall){
+// 				$response = [
+// 					'status'   => 'sukses',
+// 					'code'     => 200,
+// 					'data' 	 => $jadwall
+// 				];
+// 			}else{
+// 				$response = [
+// 					'status'   => 'gagal',
+// 					'code'     => '0',
+// 					'data'     => 'tidak ada data',
+// 				];
+// 			}
+// 			header('Content-Type: application/json');
+// 			echo json_encode($response);
+// 			exit;
+// 	  } catch (\Exception $e) {
+// 		  die($e->getMessage());
+// 	  }
+//   }
+
+  public function getdatadosen()
+  {
+	  try {
+			$ajarDosen 		= new \App\Models\AjarDosenModel();
+		  	$table          = "dosen";
+			$field          = "*";
+			$jadwall        = [];
+			$jadwal_dosen   = $ajarDosen->getJadwalDosen($field, $table);
+
+			if($jadwal_dosen){
+				$response = [
+					'status'   => 'sukses',
+					'code'     => 200,
+					'data' 	 => $jadwal_dosen
+				];
+			}else{
+				$response = [
+					'status'   => 'gagal',
+					'code'     => '0',
+					'data'     => 'tidak ada data',
+				];
+			}
+			header('Content-Type: application/json');
+			echo json_encode($response);
+			exit;
 	  } catch (\Exception $e) {
 		  die($e->getMessage());
 	  }

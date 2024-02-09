@@ -43,7 +43,7 @@
       <thead class="table-active">
         <th width="3%">No.</th>
         <th>Nama</th>
-        <th>NPM</th>
+        <th>NIM</th>
         <th>Semester</th>
         <th>Program Studi</th>
         <th>Status</th>
@@ -87,7 +87,7 @@
     $("#page-layanan_mahasiswa").addClass("active");
 
     var table = $("#table-mhs").DataTable({
-      processing: true,
+      // processing: true,
       serverSide: true,
       language: {
         searchPlaceholder: "Masukan Nama / NPM Mahasiswa",
@@ -105,6 +105,14 @@
       ajax: {
         url: "getMhs",
         type: "POST",
+        beforeSend: function () {
+          $(".load").fadeIn();
+          $(".loader").fadeIn();
+        },
+        complete: function (data) {
+          $(".load").fadeOut();
+          $(".loader").fadeOut();
+        },
       },
       columnDefs: [
         {

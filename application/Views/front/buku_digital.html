@@ -319,21 +319,21 @@
         $.ajax({
           type: "post",
           // AMBIL DATA USER DI DB
-          dataType: "json",
-          data: fd,
-          processData: false,
-          contentType: false,
-          url: "temp_login",
+          // dataType: "json",
+          // data: fd,
+          // processData: false,
+          // contentType: false,
+          // url: "temp_login",
           // END AMBIL DATA USER DI DB
 
           // AMBIL DATA MHS API
-          // data: JSON.stringify({
-          //   username_mhs: uname,
-          //   password_mhs: pass,
-          // }),
-          // processData: false,
-          // contentType: "application/json",
-          // url: "http://192.168.5.32/api/login-mhs",
+          data: JSON.stringify({
+            username_mhs: uname,
+            password_mhs: pass,
+          }),
+          processData: false,
+          contentType: "application/json",
+          url: "http://192.168.5.32/api/login-mhs",
 
           // END AMBIL DATA MHS API
           beforeSend: function () {
@@ -349,11 +349,11 @@
           },
           success: function (res) {
             // API
-            // if (res.status == "success") {
-            // DB
-            if (res.code == 200) {
+            if (res.status == "Success") {
+              // DB
+              // if (res.code == 200) {
               Toastify({
-                text: res.msg,
+                text: res.status,
                 gravity: "bottom",
                 position: "left",
                 style: {
@@ -366,7 +366,7 @@
               ceklogin();
             } else {
               Toastify({
-                text: res.msg,
+                text: res.status,
                 gravity: "bottom",
                 position: "left",
                 style: {
@@ -377,17 +377,17 @@
             }
           },
           error: function (xhr, textStatus, errorThrown) {
-            if (textStatus == "timeout") {
-              Toastify({
-                text: res.msg,
-                gravity: "bottom",
-                position: "left",
-                style: {
-                  background: "#f50505",
-                },
-                duration: 3000,
-              }).showToast();
-            }
+            // if (textStatus == "timeout") {
+            Toastify({
+              text: textStatus,
+              gravity: "bottom",
+              position: "left",
+              style: {
+                background: "#f50505",
+              },
+              duration: 3000,
+            }).showToast();
+            // }
           },
         });
       }

@@ -33,12 +33,12 @@ class Database extends \CodeIgniter\Database\Config
 	 */
 	public $default = [
 		'DSN'          => '',
-		// 'hostname'     => 'localhost',
-		// 'username'     => 'root',
-		// 'password'     => 'stfi!@#',
-		'hostname'     => '117.53.145.3',
+		'hostname'     => 'localhost',
 		'username'     => 'root',
-		'password'     => 'Bios#2023',
+		'password'     => 'stfi!@#',
+		// 'hostname'     => '117.53.145.3',
+		// 'username'     => 'root',
+		// 'password'     => 'Bios#2023',
 		'database'     => 'stfi',
 		'DBDriver'     => 'MySQLi',
 		'DBPrefix'     => '',

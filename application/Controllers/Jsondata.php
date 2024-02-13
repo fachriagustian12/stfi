@@ -1037,15 +1037,15 @@ class Jsondata extends \CodeIgniter\Controller
 					$tanggal .= ' 00:00:00.000000';
 
 					$data = [
-						'nama'			=> $request->getVar('nama'),
-						'no_kelas'		=> $request->getVar('no_kelas'),
-						'matkul'		=> $request->getVar('matkul'),
+						// 'nama'			=> $request->getVar('nama'),
+						// 'no_kelas'		=> $request->getVar('no_kelas'),
+						// 'matkul'		=> $request->getVar('matkul'),
 						'status'		=> $request->getVar('status'),
-						'jam_mulai'		=> $request->getVar('jam_mulai'),
-						'jam_akhir'		=> $request->getVar('jam_akhir'),
-						'tanggal'		=> $tanggal,
+						// 'jam_mulai'		=> $request->getVar('jam_mulai'),
+						// 'jam_akhir'		=> $request->getVar('jam_akhir'),
+						// 'tanggal'		=> $tanggal,
 						'updated_at'	=> $this->now,
-						'updated_by'		=> $this->session->get('id'),
+						'updated_by'    => $this->session->get('id'),
 					];
 					$kelas->update($request->getVar('id'), $data);
 				}else{
@@ -1123,13 +1123,13 @@ class Jsondata extends \CodeIgniter\Controller
 				$tanggal .= ' 00:00:00.000000';
 				
 					$data = [
-						'ruangan_praktikum'			=> $request->getVar('ruangan_praktikum'),
-						'mata_kuliah_praktikum'		=> $request->getVar('mata_kuliah_praktikum'),
-						'nama_dosen'				=> $request->getVar('nama_dosen'),
+						// 'ruangan_praktikum'			=> $request->getVar('ruangan_praktikum'),
+						// 'mata_kuliah_praktikum'		=> $request->getVar('mata_kuliah_praktikum'),
+						// 'nama_dosen'				=> $request->getVar('nama_dosen'),
 						'status'					=> $request->getVar('status'),
-						'jam_mulai'					=> $request->getVar('jam_mulai'),
-						'jam_akhir'					=> $request->getVar('jam_akhir'),
-						'tanggal'					=> $tanggal,
+						// 'jam_mulai'					=> $request->getVar('jam_mulai'),
+						// 'jam_akhir'					=> $request->getVar('jam_akhir'),
+						// 'tanggal'					=> $tanggal,
 						'updated_at'				=> $this->now,
 						'updated_by'				=> $this->session->get('id'),
 					];

@@ -64,7 +64,7 @@ function load(table) {
     success: function (result) {
       let data = result.data;
       let code = result.code;
-      console.log(data);
+      // console.log(data);
       if (code != "0") {
         var dt = $("#all_jadwal_praktikum").DataTable({
           dom:
@@ -91,7 +91,7 @@ function load(table) {
             { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "ruangan_praktikum", class: "text-center" },
             { mDataProp: "mata_kuliah_praktikum", class: "text-center" },
-            { mDataProp: "nama", class: "text-center", width: "10%" },
+            { mDataProp: "nama_dosen", class: "text-center", width: "10%" },
             { mDataProp: "status", class: "text-center", width: "10%" },
             { mDataProp: "jam_mulai", class: "text-center", width: "10%" },
             { mDataProp: "jam_akhir", class: "text-center", width: "10%" },

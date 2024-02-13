@@ -22,6 +22,7 @@ function load(table) {
     success: function (result) {
       let data = result.data;
       let code = result.code;
+      // console.log(data);
       if (code != "0") {
         var dt = $("#all_kelas").DataTable({
           dom:
@@ -155,10 +156,11 @@ function action(mode, id, path) {
       url: "/getdata",
       data: {
         id: id,
-        table: "kelas",
+        table: "perkuliahan",
       },
       success: function (result) {
         var data = result.data;
+        console.log(data);
         $("#modal_add_kelas").modal("show");
         $("#id").val(id);
         $("#status").val(data.status);

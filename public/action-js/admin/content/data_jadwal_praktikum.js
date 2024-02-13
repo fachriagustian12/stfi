@@ -95,7 +95,7 @@ function load(table) {
             { mDataProp: "status", class: "text-center", width: "10%" },
             { mDataProp: "jam_mulai", class: "text-center", width: "10%" },
             { mDataProp: "jam_akhir", class: "text-center", width: "10%" },
-            { mDataProp: "tanggal", class: "text-center" },
+            { mDataProp: "nama_hari", class: "text-center" },
             { mDataProp: "id", class: "text-center" },
           ],
           order: [[0, "ASC"]],

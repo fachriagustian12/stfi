@@ -43,11 +43,11 @@
       <thead class="table-active">
         <th width="3%">No.</th>
         <th>Nama</th>
-        <th>Mata Kuliah</th>
-        <th>Jadwal</th>
-        <th>Kelas</th>
-        <th>Perkuliahan</th>
-        <th>Tugas</th>
+        <th>Jabatan</th>
+        <th>Pangkat</th>
+        <th>Kategori</th>
+        <th>Alamat</th>
+        <th>Kontak</th>
       </thead>
     </table>
     <!-- <div class="paginations mt-30">
@@ -88,7 +88,7 @@
     $("#page-layanan_mahasiswa").addClass("active");
 
     var table = $("#table-dsn").DataTable({
-      processing: true,
+      // processing: true,
       serverSide: true,
       language: {
         searchPlaceholder: "Masukan Nama Dosen",
@@ -106,6 +106,14 @@
       ajax: {
         url: "getDsn",
         type: "POST",
+        beforeSend: function () {
+          $(".load").fadeIn();
+          $(".loader").fadeIn();
+        },
+        complete: function (data) {
+          $(".load").fadeOut();
+          $(".loader").fadeOut();
+        },
       },
       columnDefs: [
         {

@@ -28,12 +28,14 @@
             <i class="la la-image"></i><span class="menu-title" data-i18n="eCommerce">Slider</span>
             </a>
          </li> -->
+      {% if role <= 2 or role == 6 %}
       <li class="nav-item" id="menu-data_berita">
         <a href="{{baseURL}}data_berita">
           <i class="la la-rss"></i
           ><span class="menu-title" data-i18n="eCommerce">Berita</span>
         </a>
       </li>
+      {% endif %}
       <li class="nav-item" id="menu-data_kelas">
         <a href="{{baseURL}}data_kelas">
           <i class="la la-info"></i
@@ -50,7 +52,7 @@
           >
         </a>
       </li>
-
+      {% if role <= 11 or role == 13 %}
       <!-- LAYANAN -->
       <li class="navigation-header">
         <span data-i18n="Admin Panels">Layanan</span
@@ -94,6 +96,8 @@
                </li> -->
         </ul>
       </li>
+      {% endif %}
+      {% if role <= 2 or role == 12 %}
       <li class="nav-item" id="menu-data_buku">
         <a href="{{baseURL}}data_buku"
           ><i class="la la-book"></i
@@ -102,7 +106,9 @@
           ></a
         >
       </li>
+      {% endif %}
       <!-- MANAJEMEN -->
+      {% if role <= 2 %}
       <li class="navigation-header">
         <span data-i18n="Admin Panels">Manajemen</span
         ><i
@@ -119,6 +125,7 @@
           ><span class="menu-title" data-i18n="eCommerce">Pengguna</span></a
         >
       </li>
+      {% endif %}
     </ul>
   </div>
 </div>

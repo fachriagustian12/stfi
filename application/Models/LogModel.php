@@ -37,5 +37,16 @@ class LogModel extends Model{
       return  $query;
     }
 
+    public function addlog($data = null){
+      $builder = $this->db->table('log_aktifitas')->insert($data);
+      return $builder;
+    }
 
+    public function getlog($param = null)
+    {
+        $builder = $this->db->table('log_aktifitas');
+        $builder->select("*");
+        $query   = $builder->get();
+      return $query->getResult();
+    }
 }

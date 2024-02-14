@@ -60,6 +60,36 @@ class Jsondata extends \CodeIgniter\Controller
 		  die($e->getMessage());
 	  }
   }
+  
+  public function getalllogs()
+  {
+	  try {
+		  $request	= $this->request;
+		  $param	= $request->getVar('param');
+		  $log 		= new \App\Models\LogModel();
+		  $data 	= $log->getlog($param);
+		  
+		  if($data){
+			  $response = [
+				  'status'   => 'sukses',
+				  'code'     => 200,
+				  'data' 	 => $data
+			  ];
+		  }else{
+			  $response = [
+				  'status'   => 'gagal',
+				  'code'     => '0',
+				  'data'     => 'tidak ada data',
+			  ];
+		  }
+
+	  header('Content-Type: application/json');
+	  echo json_encode($response);
+	  exit;
+	  } catch (\Exception $e) {
+		  die($e->getMessage());
+	  }
+  }
 
   public function getuser()
   {

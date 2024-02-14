@@ -115,6 +115,7 @@ $routes->add('data_kampus', 'View::data_kampus');
 $routes->add('data_jadwal', 'View::data_jadwal');
 $routes->add('data_buku', 'View::data_buku');
 $routes->add('data_user', 'View::user');
+$routes->add('data_log', 'View::logss');
 $routes->add('data_slider', 'View::data_slider');
 $routes->add('data_berita', 'View::data_berita');
 $routes->add('data_kelas', 'View::data_kelas');
@@ -141,6 +142,7 @@ $routes->add('reg', 'Auth::reg');
 $routes->add('logout', 'Auth::logout');
 
 $routes->post('getalluser', 'Jsondata::getalluser');
+$routes->post('getalllogs', 'Jsondata::getalllogs');
 $routes->post('getuser', 'Jsondata::getuser');
 $routes->post('adduser', 'Jsondata::adduser');
 $routes->post('deleteuser', 'Jsondata::deleteuser');

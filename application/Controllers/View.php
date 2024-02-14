@@ -335,6 +335,16 @@ class View extends \CodeIgniter\Controller
 			return redirect('dashboard');
 		}
 	}
+	
+	public function logss()
+	{
+		if ($this->logged) {
+			$this->data['script'] = $this->data['baseURL'] . '/action-js/admin/user/data_log.js';
+			return \Twig::instance()->display('admin/user/data_log.html', $this->data);
+		} else {
+			return redirect('login');
+		}
+	}
 
 	public function user_simponi()
 	{

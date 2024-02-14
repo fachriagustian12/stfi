@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use CodeIgniter\Model;
@@ -8,20 +9,20 @@ class PraktikumModel extends Model
     protected $table = 'data_jadwal_praktikum';
     protected $primaryKey = 'id';
 
-//     protected $allowedFields = ['ruangan_praktikum', 'mata_kuliah_praktikum', 'nama_dosen', 'status', 'tanggal', 'jam_mulai', 'jam_akhir', 'created_by', 'created_at', 'updated_by', 'updated_at'];
+    //     protected $allowedFields = ['ruangan_praktikum', 'mata_kuliah_praktikum', 'nama_dosen', 'status', 'tanggal', 'jam_mulai', 'jam_akhir', 'created_by', 'created_at', 'updated_by', 'updated_at'];
 
     protected $allowedFields = [
-        'nama_dosen', 
-        'ruangan_praktikum', 
-        'tanggal', 
-        'status', 
-        'mata_kuliah_praktikum', 
-        'jam_mulai', 
-        'jam_akhir', 
-        'created_by', 
-        'created_at', 
-        'updated_by', 
-        'updated_at',        
+        'nama_dosen',
+        'ruangan_praktikum',
+        'tanggal',
+        'status',
+        'mata_kuliah_praktikum',
+        'jam_mulai',
+        'jam_akhir',
+        'created_by',
+        'created_at',
+        'updated_by',
+        'updated_at',
         'kode_periode_akademik',
         'id_hari',
         'nama_hari',
@@ -44,7 +45,7 @@ class PraktikumModel extends Model
         'kd_prodi',
         'nm_prodi'
     ];
-    protected $column_search = ['data_dosen.nama','data_jadwal_praktikum.ruangan_praktikum', 'data_jadwal_praktikum.tanggal', 'data_jadwal_praktikum.status', 'data_jadwal_praktikum.mata_kuliah_praktikum', 'data_jadwal_praktikum.jam_mulai', 'data_jadwal_praktikum.jam_akhir'];
+    protected $column_search = ['data_dosen.nama', 'data_jadwal_praktikum.ruangan_praktikum', 'data_jadwal_praktikum.tanggal', 'data_jadwal_praktikum.status', 'data_jadwal_praktikum.mata_kuliah_praktikum', 'data_jadwal_praktikum.jam_mulai', 'data_jadwal_praktikum.jam_akhir'];
     protected $order = ['id' => 'DESC'];
 
     private function getDatatablesQuery($postData, $search = "")
@@ -99,4 +100,10 @@ class PraktikumModel extends Model
         return $tbl_storage->countAllResults();
     }
 
+    public function getAllData()
+    {
+        $tbl_storage = $this->db->query('SELECT ruangan_praktikum,mata_kuliah_praktikum,nama_dosen,jam_mulai,jam_akhir,nama_hari,status FROM data_jadwal_praktikum');
+        // $tbl_storage->groupBy('nm_hari');
+        return $tbl_storage->getResult();
+    }
 }

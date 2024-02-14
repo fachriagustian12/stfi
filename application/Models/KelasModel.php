@@ -9,17 +9,17 @@ class KelasModel extends Model
     protected $table = 'data_perkuliahan';
     protected $primaryKey = 'id';
     protected $allowedFields = [
-        'nama', 
-        'no_kelas', 
-        'matkul', 
-        'status', 
-        'jam_mulai', 
-        'jam_akhir', 
-        'tanggal', 
-        'created_at', 
+        'nama',
+        'no_kelas',
+        'matkul',
+        'status',
+        'jam_mulai',
+        'jam_akhir',
+        'tanggal',
+        'created_at',
         'updated_at',
-        'created_by', 
-        'updated_by', 
+        'created_by',
+        'updated_by',
         'kd_periode',
         'id_hari',
         'nm_hari',
@@ -109,5 +109,12 @@ class KelasModel extends Model
     {
         $tbl_storage = $this->db->table($this->table);
         return $tbl_storage->countAllResults();
+    }
+
+    public function getAllData()
+    {
+        $tbl_storage = $this->db->query('SELECT nama,no_kelas,matkul,nm_dosen,start_time,end_time,nm_hari,status FROM data_perkuliahan');
+        // $tbl_storage->groupBy('nm_hari');
+        return $tbl_storage->getResult();
     }
 }

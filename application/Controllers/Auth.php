@@ -1,5 +1,6 @@
 <?php namespace App\Controllers;
 use App\Models\UserModel;
+use App\Models\LogModel;
 use App\Controller\BaseController;
 
 class Auth extends \CodeIgniter\Controller
@@ -13,12 +14,21 @@ class Auth extends \CodeIgniter\Controller
 			$session = session();
 			$model = new UserModel();
 			$userModel = new \App\Models\UserModel();
+			$log = new \App\Models\LogModel();
 
 			$email = $this->request->getVar('username');
 			$password = $this->request->getVar('password');
 			$dataemail = $model->getWhereis(['username' => $email]);
 			if(!$dataemail){
 				$session->setFlashdata('msg', 'User Belum Terdaftar');
+				$data = [
+					'tanggal'		=> date('Y-m-d H:i:s'),
+					'nama'			=> $email,
+					'aktifitas'		=> "Login",
+					'keterangan'	=> "User Belum Terdaftar",
+				];
+				
+				$log->addlog($data);
 				return redirect('login');
 			}
 			
@@ -26,6 +36,14 @@ class Auth extends \CodeIgniter\Controller
 			
 			if($dataactive){
 				$session->setFlashdata('msg', 'User Tidak Aktif');
+				$data = [
+					'tanggal'		=> date('Y-m-d H:i:s'),
+					'nama'			=> $email,
+					'aktifitas'		=> "Login",
+					'keterangan'	=> "User Tidak Aktif",
+				];
+				
+				$log->addlog($data);
 				return redirect('login');
 			}
 
@@ -33,6 +51,14 @@ class Auth extends \CodeIgniter\Controller
 			
 			if(!$datastatus){
 				$session->setFlashdata('msg', 'User Belum di Verifikasi');
+				$data = [
+					'tanggal'		=> date('Y-m-d H:i:s'),
+					'nama'			=> $email,
+					'aktifitas'		=> "Login",
+					'keterangan'	=> "User Belum di Verifikasi",
+				];
+				
+				$log->addlog($data);
 				return redirect('login');
 			}
 			
@@ -54,13 +80,37 @@ class Auth extends \CodeIgniter\Controller
 					$session->set($ses_data);
 
 					$userModel->updateIsLogin($dataemail->id, ['isLogin' => 1]);
+					$data = [
+						'tanggal'		=> date('Y-m-d H:i:s'),
+						'nama'			=> $email,
+						'aktifitas'		=> "Login",
+						'keterangan'	=> "Berhasil Login",
+					];
+					
+					$log->addlog($data);
 					return redirect('dashboard');
 				}else{
 					$session->setFlashdata('msg', 'Username atau password salah');
+					$data = [
+						'tanggal'		=> date('Y-m-d H:i:s'),
+						'nama'			=> $email,
+						'aktifitas'		=> "Login",
+						'keterangan'	=> "Username atau password salah",
+					];
+					
+					$log->addlog($data);
 					return redirect('login');
 				}
 			}else{
 					$session->setFlashdata('msg', 'User belum terdaftar');
+					$data = [
+						'tanggal'		=> date('Y-m-d H:i:s'),
+						'nama'			=> $email,
+						'aktifitas'		=> "Login",
+						'keterangan'	=> "User belum terdaftar",
+					];
+					
+					$log->addlog($data);
 					return redirect('login');
 			}
 		}

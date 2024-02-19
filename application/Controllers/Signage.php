@@ -67,6 +67,100 @@ class Signage extends \CodeIgniter\Controller
 		}
 	}
 
+    public function riset_dosen()
+	{
+		try {
+            $RisetDosen = new \App\Models\RisetDosenModel();
+            $endpoint = 'getrisetdosen';
+            
+            $response   = $this->http->post($endpoint, $this->Data, 'POST');
+            if($response){
+                $RisetDosen->truncate();
+                foreach ($response['data'] as $item) {
+                    $data = [
+                        'kode_dosen'        => $item['kode_dosen'], 
+                        'nm_dosen'          => $item['nm_dosen'], 
+                        'nidn'              => $item['nidn'], 
+                        'kd_periode_lkd'    => $item['kd_periode_lkd'], 
+                        'tahun_ajaran'      => $item['tahun_ajaran'], 
+                        'jenis_karyailmiah' => $item['jenis_karyailmiah'],
+                        'judul'             => $item['judul'],
+                        'issn'              => $item['issn'],
+                        'volume'            => $item['volume'],
+                        'nomor'             => $item['nomor'],
+                        'tahun'             => $item['tahun'],
+                        'created_at'        => $this->now
+                    ];
+                    $RisetDosen->insert($data);
+                }
+                $response = [
+                    'status'	=> 'Sukses',
+                    'code'		=> 200,
+                ];
+                header('Content-Type: application/json');
+                echo json_encode($response);
+                exit;
+            }else{
+                $response = [
+                    'status'	=> 'Tidak Terhubung ke Server',
+                    'code'		=> 404,
+                ];
+                header('Content-Type: application/json');
+                echo json_encode($response);
+                exit;
+            }
+		} catch (\Exception $e) {
+			die($e->getMessage());
+		}
+	}
+
+    public function jurnal_dosen()
+	{
+		try {
+            $JurnalDosen = new \App\Models\JurnalDosenModel();
+            $endpoint = 'getjurnaldosen';
+            
+            $response   = $this->http->post($endpoint, $this->Data, 'POST');
+            if($response){
+                $JurnalDosen->truncate();
+                foreach ($response['data'] as $item) {
+                    $data = [
+                        'kode_dosen'        => $item['kode_dosen'], 
+                        'nm_dosen'          => $item['nm_dosen'], 
+                        'nidn'              => $item['nidn'], 
+                        'kd_periode_lkd'    => $item['kd_periode_lkd'], 
+                        'tahun_ajaran'      => $item['tahun_ajaran'], 
+                        'jenis_jurnal'      => $item['jenis_jurnal'],
+                        'judul'             => $item['judul'],
+                        'issn'              => $item['issn'],
+                        'volume'            => $item['volume'],
+                        'nomor'             => $item['nomor'],
+                        'tahun'             => $item['tahun'],
+                        'created_at'        => $this->now
+                    ];
+                    $JurnalDosen->insert($data);
+                }
+                $response = [
+                    'status'	=> 'Sukses',
+                    'code'		=> 200,
+                ];
+                header('Content-Type: application/json');
+                echo json_encode($response);
+                exit;
+            }else{
+                $response = [
+                    'status'	=> 'Tidak Terhubung ke Server',
+                    'code'		=> 404,
+                ];
+                header('Content-Type: application/json');
+                echo json_encode($response);
+                exit;
+            }
+		} catch (\Exception $e) {
+			die($e->getMessage());
+		}
+	}
+
     // public function getdatadosen(){
     //     $endpoint       = 'getajar';
     //     $data           = $this->http->post($endpoint, $this->Data, 'POST');

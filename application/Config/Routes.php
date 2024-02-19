@@ -193,6 +193,8 @@ $routes->group('api', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('getskripsi', 'Signage::getdataskripsi');
     $routes->post('getbook', 'Signage::getdatabuku');
     $routes->post('getajar', 'Signage::getdatadosen');
+    $routes->post('getrisetdosen', 'Signage::riset_dosen');
+    $routes->post('getjurnaldosen', 'Signage::jurnal_dosen');
 });
 
 /**

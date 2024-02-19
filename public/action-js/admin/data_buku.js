@@ -12,22 +12,20 @@ $(() => {
     });
   });
 
-  load("buku");
+  load();
 });
 
-function load(table) {
+function load() {
   $.ajax({
     type: "post",
     dataType: "json",
     url: "/getdata",
     data: {
-      table: table,
+      table: "buku",
     },
     success: function (result) {
       let data = result.data;
-      console.log(data);
       let code = result.code;
-      console.log(result.data);
       if (code != "0") {
         var dt = $("#all_buku").DataTable({
           dom:
@@ -53,12 +51,11 @@ function load(table) {
           aoColumns: [
             { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "title", class: "text-center" },
-            { mDataProp: "pengarang", class: "text-center" },
-            { mDataProp: "penerbit", class: "text-center", width: "10%" },
-            { mDataProp: "tempat_terbit", class: "text-center", width: "10%" },
-            { mDataProp: "tahun_terbit", class: "text-center", width: "10%" },
-            { mDataProp: "path", class: "text-center" },
-            { mDataProp: "id", class: "text-center" },
+            { mDataProp: "pengarang", class: "text-center", width: "12%" },
+            { mDataProp: "penerbit", class: "text-center", width: "12%" },
+            { mDataProp: "tempat_terbit", class: "text-center", width: "12%" },
+            { mDataProp: "tahun_terbit", class: "text-center", width: "12%" },
+            { mDataProp: "path", class: "text-center", width: "12%" },
           ],
           order: [[0, "ASC"]],
           fixedColumns: true,
@@ -70,17 +67,6 @@ function load(table) {
                 return elem;
               },
               aTargets: [6],
-            },
-            {
-              mRender: function (data, type, row) {
-                var elem =
-                  '<div class="btn-group" role="group" aria-label="Basic example">';
-                elem += `<button class="btn btn-icon btn-info btn-sm" onclick="action('update', ${row.id})"><i class="la la-edit"></i></button>`;
-                elem += `<button class="btn btn-icon btn-danger btn-sm" onclick="action('delete', ${row.id}, '${row.path}')"><i class="la la-trash"></i></button>`;
-                elem += "</div>";
-                return elem;
-              },
-              aTargets: [7],
             },
           ],
           fnRowCallback: function (
@@ -112,6 +98,240 @@ function load(table) {
         });
       } else {
         var table = $("#all_buku").DataTable();
+        table.clear().draw();
+      }
+    },
+  });
+  $.ajax({
+    type: "post",
+    dataType: "json",
+    url: "/getdata",
+    data: {
+      table: "skripsi",
+    },
+    success: function (result) {
+      let data = result.data;
+      let code = result.code;
+      if (code != "0") {
+        var dt = $("#all_skripsi").DataTable({
+          dom:
+            "<'row'" +
+            "<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
+            "<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
+            ">" +
+            "<'table-responsive'tr>" +
+            "<'row'" +
+            "<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
+            "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
+            ">",
+          destroy: true,
+          paging: true,
+          lengthChange: false,
+          searching: true,
+          ordering: true,
+          info: true,
+          autoWidth: false,
+          responsive: false,
+          pageLength: 10,
+          aaData: result.data,
+          aoColumns: [
+            { mDataProp: "id", class: "text-center", width: "2%" },
+            { mDataProp: "judul_buku", class: "text-center" },
+            { mDataProp: "pengarang", class: "text-center", width: "10%" },
+            { mDataProp: "penerbit", class: "text-center", width: "15%" },
+            { mDataProp: "tempat_terbit", class: "text-center", width: "10%" },
+            { mDataProp: "tahun_terbit", class: "text-center", width: "10%" },
+            { mDataProp: "kondisi_buku", class: "text-center", width: "10%" },
+          ],
+          order: [[0, "ASC"]],
+          fixedColumns: true,
+          aoColumnDefs: [],
+          fnRowCallback: function (
+            nRow,
+            aData,
+            iDisplayIndex,
+            iDisplayIndexFull
+          ) {
+            var index = iDisplayIndexFull + 1;
+            $("td:eq(0)", nRow).html("#" + index);
+            return index;
+          },
+          fnDrawCallback: function () {
+            $(".update_status").change(function () {
+              action("update", this.value, this.checked);
+            });
+          },
+          fnInitComplete: function () {
+            var that = this;
+            var td;
+            var tr;
+            this.$("td").click(function () {
+              td = this;
+            });
+            this.$("tr").click(function () {
+              tr = this;
+            });
+          },
+        });
+      } else {
+        var table = $("#all_skripsi").DataTable();
+        table.clear().draw();
+      }
+    },
+  });
+  $.ajax({
+    type: "post",
+    dataType: "json",
+    url: "/getdata",
+    data: {
+      table: "jurnal_dosen",
+    },
+    success: function (result) {
+      let data = result.data;
+      let code = result.code;
+      console.log(data);
+      if (code != "0") {
+        var dt = $("#all_jurnal").DataTable({
+          dom:
+            "<'row'" +
+            "<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
+            "<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
+            ">" +
+            "<'table-responsive'tr>" +
+            "<'row'" +
+            "<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
+            "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
+            ">",
+          destroy: true,
+          paging: true,
+          lengthChange: false,
+          searching: true,
+          ordering: true,
+          info: true,
+          autoWidth: false,
+          responsive: false,
+          pageLength: 10,
+          aaData: result.data,
+          aoColumns: [
+            { mDataProp: "id", class: "text-center", width: "2%" },
+            { mDataProp: "nidn", class: "text-center", width: "10%" },
+            { mDataProp: "nm_dosen", class: "text-center", width: "12%" },
+            { mDataProp: "judul", class: "text-center" },
+            { mDataProp: "jenis_jurnal", class: "text-center", width: "12%" },
+            { mDataProp: "tahun", class: "text-center", width: "10%" },
+          ],
+          order: [[0, "ASC"]],
+          fixedColumns: true,
+          aoColumnDefs: [],
+          fnRowCallback: function (
+            nRow,
+            aData,
+            iDisplayIndex,
+            iDisplayIndexFull
+          ) {
+            var index = iDisplayIndexFull + 1;
+            $("td:eq(0)", nRow).html("#" + index);
+            return index;
+          },
+          fnDrawCallback: function () {
+            $(".update_status").change(function () {
+              action("update", this.value, this.checked);
+            });
+          },
+          fnInitComplete: function () {
+            var that = this;
+            var td;
+            var tr;
+            this.$("td").click(function () {
+              td = this;
+            });
+            this.$("tr").click(function () {
+              tr = this;
+            });
+          },
+        });
+      } else {
+        var table = $("#all_jurnal").DataTable();
+        table.clear().draw();
+      }
+    },
+  });
+  $.ajax({
+    type: "post",
+    dataType: "json",
+    url: "/getdata",
+    data: {
+      table: "riset_dosen",
+    },
+    success: function (result) {
+      let data = result.data;
+      let code = result.code;
+      if (code != "0") {
+        var dt = $("#all_riset").DataTable({
+          dom:
+            "<'row'" +
+            "<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
+            "<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
+            ">" +
+            "<'table-responsive'tr>" +
+            "<'row'" +
+            "<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
+            "<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
+            ">",
+          destroy: true,
+          paging: true,
+          lengthChange: false,
+          searching: true,
+          ordering: true,
+          info: true,
+          autoWidth: false,
+          responsive: false,
+          pageLength: 10,
+          aaData: result.data,
+          aoColumns: [
+            { mDataProp: "id", class: "text-center", width: "2%" },
+            { mDataProp: "nidn", class: "text-center", width: "10%" },
+            { mDataProp: "nm_dosen", class: "text-center", width: "15%" },
+            { mDataProp: "judul", class: "text-center" },
+            {
+              mDataProp: "jenis_karyailmiah",
+              class: "text-center",
+              width: "12%",
+            },
+            { mDataProp: "tahun", class: "text-center", width: "10%" },
+          ],
+          order: [[0, "ASC"]],
+          fixedColumns: true,
+          aoColumnDefs: [],
+          fnRowCallback: function (
+            nRow,
+            aData,
+            iDisplayIndex,
+            iDisplayIndexFull
+          ) {
+            var index = iDisplayIndexFull + 1;
+            $("td:eq(0)", nRow).html("#" + index);
+            return index;
+          },
+          fnDrawCallback: function () {
+            $(".update_status").change(function () {
+              action("update", this.value, this.checked);
+            });
+          },
+          fnInitComplete: function () {
+            var that = this;
+            var td;
+            var tr;
+            this.$("td").click(function () {
+              td = this;
+            });
+            this.$("tr").click(function () {
+              tr = this;
+            });
+          },
+        });
+      } else {
+        var table = $("#all_riset").DataTable();
         table.clear().draw();
       }
     },

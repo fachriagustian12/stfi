@@ -1,7 +1,7 @@
 {% extends "front/layout.html" %} {% block content %}
 
-<section class="team pt-70 pb-70 d-none" id="content_buku">
-  <!-- <section class="team pt-70 pb-70"> -->
+<!-- <section class="team pt-70 pb-70 d-none" id="content_buku"> -->
+<section class="team pt-70 pb-70">
   <div class="container">
     <nav aria-label="breadcrumb" class="fw-bold">
       <ol class="breadcrumb">
@@ -479,7 +479,7 @@
 
 {% endblock %} {% block js %}
 <script>
-  ceklogin();
+  // ceklogin();
   $(() => {
     $("#page-layanan_buku").addClass("active");
     getBuku();
@@ -853,7 +853,7 @@
                         </h6>
                         <table class="table table-borderless table-sm text-start">
                           <tr>
-                            <td width="40%">Status Pinjam</td>
+                            <td width="40%">Status Tersedia</td>
                             <td>:</td>
                             <td>
                               ${stat}

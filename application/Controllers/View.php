@@ -336,7 +336,7 @@ class View extends \CodeIgniter\Controller
 			return redirect('dashboard');
 		}
 	}
-	
+
 	public function logss()
 	{
 		if ($this->logged) {

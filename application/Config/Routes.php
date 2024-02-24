@@ -2,6 +2,8 @@
 
 namespace Config;
 
+use App\Controllers\Jsondata;
+
 /**
  * --------------------------------------------------------------------
  * URI Routing
@@ -102,6 +104,10 @@ $routes->post('getMhs', 'Jsondatas::getMhs');
 $routes->get('getKelas', 'Jsondatas::getKelas');
 $routes->post('getDsn', 'Jsondatas::getDsn');
 $routes->get('getPraktikum', 'Jsondatas::getPraktikum');
+$routes->post('getBuku', 'Jsondatas::getBuku');
+$routes->post('getSkripsi', 'Jsondatas::getSkripsi');
+$routes->post('getJurnal', 'Jsondatas::getJurnal');
+$routes->post('getRiset', 'Jsondatas::getRiset');
 
 
 // LOGIN

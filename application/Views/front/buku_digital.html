@@ -1,6 +1,7 @@
 {% extends "front/layout.html" %} {% block content %}
 
 <section class="team pt-70 pb-70 d-none" id="content_buku">
+  <!-- <section class="team pt-70 pb-70"> -->
   <div class="container">
     <nav aria-label="breadcrumb" class="fw-bold">
       <ol class="breadcrumb">
@@ -25,119 +26,317 @@
         >
       </div>
     </div>
-
-    <div class="row justify-content-center">
-      <div class="col-xl-12">
-        <div class="row">
-          <div class="col-xl-8">
-            <!-- BUTTON API REPOSITORY -->
-            <a
-              href="#"
-              class="btn btn-success"
-              style="background-color: var(--mainColor)"
-              >Repository Buku Digital <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
-          <div class="col-xl-4">
-            <form>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="search"
-                  placeholder="Masukan Nama Buku Yang Dicari"
-                  required
-                />
-                <button
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link active"
+          id="pills-buku-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-buku"
+          type="button"
+          role="tab"
+          aria-controls="pills-buku"
+          aria-selected="true"
+        >
+          Buku Digital
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="pills-skripsi-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-skripsi"
+          type="button"
+          role="tab"
+          aria-controls="pills-skripsi"
+          aria-selected="false"
+        >
+          Skripsi
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="pills-jurnal-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-jurnal"
+          type="button"
+          role="tab"
+          aria-controls="pills-jurnal"
+          aria-selected="false"
+        >
+          Jurnal Dosen
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="pills-riset-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-riset"
+          type="button"
+          role="tab"
+          aria-controls="pills-riset"
+          aria-selected="false"
+        >
+          Riset Dosen
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+      <div
+        class="tab-pane fade show active"
+        id="pills-buku"
+        role="tabpanel"
+        aria-labelledby="pills-buku-tab"
+        tabindex="0"
+      >
+        <div class="row justify-content-center">
+          <div class="col-xl-12">
+            <div class="row">
+              <div class="col-xl-6">
+                <!-- BUTTON API REPOSITORY -->
+                <a
+                  href="#"
                   class="btn btn-success"
                   style="background-color: var(--mainColor)"
-                  type="submit"
-                >
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      {% if results is empty %}
-      <h4 class="text-center">Data Tidak Tersedia !</h4>
-      {% endif %} {% for item in results %} {% if item.status == 1 %} {% if
-      item.cover == "-" %} {% set pathcover = 'assets/images/default_book.jpg'
-      %} {% endif %}
-      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
-        <div class="card shadow border-0 mb-3">
-          <div class="row g-0">
-            <div class="col-md-5">
-              <img
-                src="{% if item.cover == '-' %} {{pathcover}} {%else%} {{item.cover}} {%endif%}"
-                class="img-fluid rounded-start"
-                alt="..."
-              />
-            </div>
-            <div class="col-md-7">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <a href="{{item.url_file}}" target="_blank"
-                    >{{ item.title }}</a
-                  >
-                </h5>
-                <table class="table table-borderless table-sm text-start">
-                  <tr>
-                    <td width="40%">Status Pinjam</td>
-                    <td>:</td>
-                    <td>
-                      {% if item.status_boleh_dipinjam == 1 %}
-                      <span class="badge bg-success p-2">Tersedia</span>
-                      {% else %}
-                      <span class="badge bg-danger p-2">Tidak Tersedia</span>
-                      {% endif %}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Sub Judul</td>
-                    <td>:</td>
-                    <td>{{item.sub_judul_ebook}}</td>
-                  </tr>
-                  <tr>
-                    <td>Kategori</td>
-                    <td>:</td>
-                    <td>{{item.nama_kategori_ebook}}</td>
-                  </tr>
-                  <tr>
-                    <td>Pengarang</td>
-                    <td>:</td>
-                    <td>{{item.pengarang}}</td>
-                  </tr>
-                  <tr>
-                    <td>Terbit</td>
-                    <td>:</td>
-                    <td>{{item.tempat_terbit}}</td>
-                  </tr>
-                  <tr>
-                    <td>Penerbit</td>
-                    <td>:</td>
-                    <td>{{item.penerbit}}</td>
-                  </tr>
-                  <tr>
-                    <td>Tahun</td>
-                    <td>:</td>
-                    <td>{{item.tahun_terbit}}</td>
-                  </tr>
-                </table>
-                <a
-                  href="{{item.url_file}}"
-                  target="_blank"
-                  class="btn btn-primary round-6"
-                >
-                  <i class="fa fa-file"></i>
+                  >Repository Buku Digital
+                  <i class="fas fa-arrow-right"></i>
                 </a>
               </div>
+              <div class="col-xl-6">
+                <form id="form-buku">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="search"
+                      id="search-buku"
+                      placeholder="Masukan Nama Buku Yang Dicari atau Kosongkan Untuk Munculkan Semua"
+                    />
+                    <button
+                      class="btn btn-success"
+                      style="background-color: var(--mainColor)"
+                      type="submit"
+                    >
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
+          <h4 class="text-center mt-4 d-none" id="buku-empty">
+            Data Tidak Tersedia !
+          </h4>
+          <div class="row" id="list-buku"></div>
+          <div id="links-buku"></div>
+          <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+              <div class="events-card">
+                <img src="{{item.path}}" alt="image" />
+                <div class="events-card-text">
+                  <ul>
+                    {% if item.ketersediaan > 0 %}
+                    <li>Tersedia</li>
+                    {% else %}
+                    <li>Tidak Tersedia</li>
+                    {% endif %}
+                    <li>{{ item.created_at | date('d F Y') }}</li>
+                  </ul>
+                  <h4><a>{{ item.title }}</a></h4>
+                  <p>
+                    <a>{{ item.keterangan }}</a>
+                  </p>
+                </div>
+              </div>
+            </div> -->
         </div>
       </div>
-      <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+      <div
+        class="tab-pane fade"
+        id="pills-skripsi"
+        role="tabpanel"
+        aria-labelledby="pills-skripsi-tab"
+        tabindex="0"
+      >
+        <div class="row justify-content-center">
+          <div class="col-xl-12">
+            <div class="row">
+              <div class="col-xl-6">
+                <!-- BUTTON API REPOSITORY -->
+                <a
+                  href="#"
+                  class="btn btn-success"
+                  style="background-color: var(--mainColor)"
+                  >Repository Buku Digital
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+              <div class="col-xl-6">
+                <form id="form-skripsi">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="search"
+                      id="search-skripsi"
+                      placeholder="Masukan Judul Skripsi Yang Dicari atau Kosongkan Untuk Munculkan Semua"
+                    />
+                    <button
+                      class="btn btn-success"
+                      style="background-color: var(--mainColor)"
+                      type="submit"
+                    >
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <h4 class="text-center mt-4 d-none" id="skripsi-empty">
+            Data Tidak Tersedia !
+          </h4>
+          <div class="row" id="list-skripsi"></div>
+          <div id="links-skripsi"></div>
+          <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="events-card">
+              <img src="{{item.path}}" alt="image" />
+              <div class="events-card-text">
+                <ul>
+                  {% if item.ketersediaan > 0 %}
+                  <li>Tersedia</li>
+                  {% else %}
+                  <li>Tidak Tersedia</li>
+                  {% endif %}
+                  <li>{{ item.created_at | date('d F Y') }}</li>
+                </ul>
+                <h4><a>{{ item.title }}</a></h4>
+                <p>
+                  <a>{{ item.keterangan }}</a>
+                </p>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="pills-jurnal"
+        role="tabpanel"
+        aria-labelledby="pills-jurnal-tab"
+        tabindex="0"
+      >
+        <div class="row justify-content-center">
+          <div class="col-xl-12">
+            <div class="row">
+              <div class="col-xl-6">
+                <!-- BUTTON API REPOSITORY -->
+                <a
+                  href="#"
+                  class="btn btn-success"
+                  style="background-color: var(--mainColor)"
+                  >Repository Buku Digital
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+              <div class="col-xl-6">
+                <form id="form-jurnal">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="search"
+                      id="search-jurnal"
+                      placeholder="Masukan Judul Jurnal Yang Dicari atau Kosongkan Untuk Munculkan Semua"
+                    />
+                    <button
+                      class="btn btn-success"
+                      style="background-color: var(--mainColor)"
+                      type="submit"
+                    >
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <h4 class="text-center mt-4 d-none" id="jurnal-empty">
+            Data Tidak Tersedia !
+          </h4>
+          <div class="row" id="list-jurnal"></div>
+          <div id="links-jurnal"></div>
+          <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="events-card">
+            <img src="{{item.path}}" alt="image" />
+            <div class="events-card-text">
+              <ul>
+                {% if item.ketersediaan > 0 %}
+                <li>Tersedia</li>
+                {% else %}
+                <li>Tidak Tersedia</li>
+                {% endif %}
+                <li>{{ item.created_at | date('d F Y') }}</li>
+              </ul>
+              <h4><a>{{ item.title }}</a></h4>
+              <p>
+                <a>{{ item.keterangan }}</a>
+              </p>
+            </div>
+          </div>
+        </div> -->
+        </div>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="pills-riset"
+        role="tabpanel"
+        aria-labelledby="pills-riset-tab"
+        tabindex="0"
+      >
+        <div class="row justify-content-center">
+          <div class="col-xl-12">
+            <div class="row">
+              <div class="col-xl-6">
+                <!-- BUTTON API REPOSITORY -->
+                <a
+                  href="#"
+                  class="btn btn-success"
+                  style="background-color: var(--mainColor)"
+                  >Repository Buku Digital
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+              <div class="col-xl-6">
+                <form id="form-riset">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="search"
+                      id="search-riset"
+                      placeholder="Masukan judul riset yang dicari atau kosongkan untuk munculkan semua"
+                    />
+                    <button
+                      class="btn btn-success"
+                      style="background-color: var(--mainColor)"
+                      type="submit"
+                    >
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <h4 class="text-center mt-4 d-none" id="riset-empty">
+            Data Tidak Tersedia !
+          </h4>
+          <div class="row" id="list-riset"></div>
+          <div id="links-riset"></div>
+          <!-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="events-card">
           <img src="{{item.path}}" alt="image" />
           <div class="events-card-text">
@@ -156,9 +355,9 @@
           </div>
         </div>
       </div> -->
-      {% endif %} {% endfor %}
+        </div>
+      </div>
     </div>
-    <div class="mt-5">{{links|raw}}</div>
   </div>
 </section>
 <div class="modal fade" tabindex="-1" id="myModal">
@@ -283,9 +482,90 @@
   ceklogin();
   $(() => {
     $("#page-layanan_buku").addClass("active");
+    getBuku();
 
-    $(".load").fadeOut();
-    $(".loader").fadeOut();
+    // BUKU
+    $("#links-buku").on("click", ".pagination a", function (e) {
+      e.preventDefault();
+
+      var url = $(this).attr("href");
+      getBuku(url);
+    });
+
+    $("#form-buku").submit(function (e) {
+      e.preventDefault();
+
+      var search = $("#search-buku").val();
+      getBuku("", search);
+    });
+
+    // END BUKU
+
+    // SKRIPSI
+
+    $("#pills-skripsi-tab").click(function () {
+      getSkripsi();
+    });
+
+    $("#links-skripsi").on("click", ".pagination a", function (e) {
+      e.preventDefault();
+
+      var url = $(this).attr("href");
+      getSkripsi(url);
+    });
+
+    $("#form-skripsi").submit(function (e) {
+      e.preventDefault();
+
+      var search = $("#search-skripsi").val();
+      getSkripsi("", search);
+    });
+
+    // END SKRIPSI
+
+    // Jurnal
+
+    $("#pills-jurnal-tab").click(function () {
+      getJurnal();
+    });
+
+    $("#links-jurnal").on("click", ".pagination a", function (e) {
+      e.preventDefault();
+
+      var url = $(this).attr("href");
+      getJurnal(url);
+    });
+
+    $("#form-jurnal").submit(function (e) {
+      e.preventDefault();
+
+      var search = $("#search-jurnal").val();
+      getJurnal("", search);
+    });
+
+    // END Jurnal
+
+    // Riset
+
+    $("#pills-riset-tab").click(function () {
+      getRiset();
+    });
+
+    $("#links-riset").on("click", ".pagination a", function (e) {
+      e.preventDefault();
+
+      var url = $(this).attr("href");
+      getRiset(url);
+    });
+
+    $("#form-riset").submit(function (e) {
+      e.preventDefault();
+
+      var search = $("#search-riset").val();
+      getRiset("", search);
+    });
+
+    // END Riset
 
     $(".readbook").click(function () {
       var url = $(this).data("url");
@@ -393,6 +673,449 @@
       }
     });
   });
+
+  function getBuku(
+    url = "",
+    search = "",
+    tab = "pills-buku-tab",
+    target = "#pills-buku"
+  ) {
+    $.ajax({
+      type: "post",
+      dataType: "json",
+      data: {
+        search: search,
+      },
+      url: "getBuku",
+      beforeSend: function () {
+        $(".load").fadeIn();
+        $(".loader").fadeIn();
+      },
+      success: function (response) {
+        $(".load").fadeOut();
+        $(".loader").fadeOut();
+        if (response.code == 200) {
+          let res = response.result;
+          if (res.length > 0) {
+            $("#buku-empty").addClass("d-none");
+            let html = "";
+            res.forEach((item) => {
+              let cover = "";
+              if (item.cover == "-") {
+                cover = "assets/images/default_book.jpg";
+              } else {
+                cover = item.cover;
+              }
+              let stat = "";
+              if (item.status_boleh_dipinjam == 1) {
+                stat = `<span class="badge bg-success p-2">Tersedia</span>`;
+              } else {
+                stat = `<span class="badge bg-danger p-2">Tidak Tersedia</span>`;
+              }
+              html += `
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
+                <div class="card shadow border-0 mb-3">
+                  <div class="row g-0">
+                    <div class="col-md-5">
+                      <img
+                        src="${cover}"
+                        class="img-fluid rounded-start"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="col-md-7">
+                      <div class="card-body">
+                        <h5 class="card-title lh-base">
+                          <a href="${item.url_file}" target="_blank"
+                            >${item.title}</a
+                          >
+                        </h5>
+                        <table class="table table-borderless table-sm text-start">
+                          <tr>
+                            <td width="40%">Status Pinjam</td>
+                            <td>:</td>
+                            <td>
+                              ${stat}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Sub Judul</td>
+                            <td>:</td>
+                            <td>${item.sub_judul_ebook}</td>
+                          </tr>
+                          <tr>
+                            <td>Kategori</td>
+                            <td>:</td>
+                            <td>${item.nama_kategori_ebook}</td>
+                          </tr>
+                          <tr>
+                            <td>Pengarang</td>
+                            <td>:</td>
+                            <td>${item.pengarang}</td>
+                          </tr>
+                          <tr>
+                            <td>Terbit</td>
+                            <td>:</td>
+                            <td>${item.tempat_terbit}</td>
+                          </tr>
+                          <tr>
+                            <td>Penerbit</td>
+                            <td>:</td>
+                            <td>${item.penerbit}</td>
+                          </tr>
+                          <tr>
+                            <td>Tahun</td>
+                            <td>:</td>
+                            <td>${item.tahun_terbit}</td>
+                          </tr>
+                        </table>
+                        <a
+                          href="${item.url_file}"
+                          target="_blank"
+                          class="btn btn-primary round-6"
+                        >
+                          <i class="fa fa-file"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              `;
+            });
+            $("#list-buku").html(html);
+            $("#links-buku").html(response.links);
+          } else {
+            $("#list-buku").html("");
+            $("#links-buku").html(response.links);
+            $("#buku-empty").removeClass("d-none");
+          }
+        }
+      },
+    });
+  }
+  function getSkripsi(
+    url = "",
+    search = "",
+    tab = "pills-skripsi-tab",
+    target = "#pills-skripsi"
+  ) {
+    let urlnow = "getSkripsi";
+    if (url != "") {
+      urlnow = url;
+    }
+    $.ajax({
+      type: "post",
+      dataType: "json",
+      data: {
+        search: search,
+      },
+      url: urlnow,
+      beforeSend: function () {
+        $(".load").fadeIn();
+        $(".loader").fadeIn();
+      },
+      success: function (response) {
+        $(".load").fadeOut();
+        $(".loader").fadeOut();
+        if (response.code == 200) {
+          let res = response.result;
+          if (res.length > 0) {
+            $("#skripsi-empty").addClass("d-none");
+            let html = "";
+            res.forEach((item) => {
+              let cover = "assets/images/default_book.jpg";
+              // if (item.cover == "-") {
+              //   cover = "assets/images/default_book.jpg";
+              // } else {
+              //   cover = item.cover;
+              // }
+              let stat = "";
+              if (item.status_ketersediaan == 1) {
+                stat = `<span class="badge bg-success p-2">Tersedia</span>`;
+              } else {
+                stat = `<span class="badge bg-danger p-2">Tidak Tersedia</span>`;
+              }
+              html += `
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
+                <div class="card shadow border-0 mb-3">
+                  <div class="row g-0">
+                    <div class="col-md-5">
+                      <img
+                        src="${cover}"
+                        class="img-fluid rounded-start"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="col-md-7">
+                      <div class="card-body">
+                        <h6 class="card-title lh-base">${item.judul_buku}
+                        </h6>
+                        <table class="table table-borderless table-sm text-start">
+                          <tr>
+                            <td width="40%">Status Pinjam</td>
+                            <td>:</td>
+                            <td>
+                              ${stat}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Sumber Buku</td>
+                            <td>:</td>
+                            <td>${item.sumber_buku}</td>
+                          </tr>
+                          <tr>
+                            <td>Kondisi Buku</td>
+                            <td>:</td>
+                            <td>${item.kondisi_buku}</td>
+                          </tr>
+                          <tr>
+                            <td>Pengarang</td>
+                            <td>:</td>
+                            <td>${item.pengarang}</td>
+                          </tr>
+                          <tr>
+                            <td>Terbit</td>
+                            <td>:</td>
+                            <td>${item.tempat_terbit}</td>
+                          </tr>
+                          <tr>
+                            <td>Penerbit</td>
+                            <td>:</td>
+                            <td>${item.penerbit}</td>
+                          </tr>
+                          <tr>
+                            <td>Tahun</td>
+                            <td>:</td>
+                            <td>${item.tahun_terbit}</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              `;
+            });
+            $("#list-skripsi").html(html);
+            $("#links-skripsi").html(response.links);
+          } else {
+            $("#list-skripsi").html("");
+            $("#links-skripsi").html(response.links);
+            $("#skripsi-empty").removeClass("d-none");
+          }
+        }
+      },
+    });
+  }
+  function getJurnal(
+    url = "",
+    search = "",
+    tab = "pills-jurnal-tab",
+    target = "#pills-jurnal"
+  ) {
+    let urlnow = "getJurnal";
+    if (url != "") {
+      urlnow = url;
+    }
+    $.ajax({
+      type: "post",
+      dataType: "json",
+      data: {
+        search: search,
+      },
+      url: urlnow,
+      beforeSend: function () {
+        $(".load").fadeIn();
+        $(".loader").fadeIn();
+      },
+      success: function (response) {
+        $(".load").fadeOut();
+        $(".loader").fadeOut();
+        if (response.code == 200) {
+          let res = response.result;
+          if (res.length > 0) {
+            $("#jurnal-empty").addClass("d-none");
+            let html = "";
+            res.forEach((item) => {
+              let cover = "assets/images/default_book.jpg";
+              // if (item.cover == "-") {
+              //   cover = "assets/images/default_book.jpg";
+              // } else {
+              //   cover = item.cover;
+              // }
+              let stat = `<span class="badge bg-success p-2">${item.tahun}</span>`;
+              // if (item.status_ketersediaan == 1) {
+              //   stat = `<span class="badge bg-success p-2">Tersedia</span>`;
+              // } else {
+              //   stat = `<span class="badge bg-danger p-2">Tidak Tersedia</span>`;
+              // }
+              html += `
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
+                <div class="card shadow border-0 mb-3">
+                  <div class="row g-0">
+                    <div class="col-md-5">
+                      <img
+                        src="${cover}"
+                        class="img-fluid rounded-start"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="col-md-7">
+                      <div class="card-body">
+                        <h6 class="card-title lh-base">${item.judul}
+                        </h6>
+                        <table class="table table-borderless table-sm text-start">
+                          <tr>
+                            <td width="40%">Tahun</td>
+                            <td>:</td>
+                            <td>
+                              ${stat}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Nama Dosen</td>
+                            <td>:</td>
+                            <td>${item.nm_dosen}</td>
+                          </tr>
+                          <tr>
+                            <td>Jenis Jurnal</td>
+                            <td>:</td>
+                            <td>${item.jenis_jurnal}</td>
+                          </tr>
+                          <tr>
+                            <td>ISSN</td>
+                            <td>:</td>
+                            <td>${item.issn}</td>
+                          </tr>
+                          <tr>
+                            <td>Tahun Ajaran</td>
+                            <td>:</td>
+                            <td>${item.tahun_ajaran}</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              `;
+            });
+            $("#list-jurnal").html(html);
+            $("#links-jurnal").html(response.links);
+          } else {
+            $("#list-jurnal").html("");
+            $("#links-jurnal").html(response.links);
+            $("#jurnal-empty").removeClass("d-none");
+          }
+        }
+      },
+    });
+  }
+  function getRiset(
+    url = "",
+    search = "",
+    tab = "pills-riset-tab",
+    target = "#pills-riset"
+  ) {
+    let urlnow = "getRiset";
+    if (url != "") {
+      urlnow = url;
+    }
+    $.ajax({
+      type: "post",
+      dataType: "json",
+      data: {
+        search: search,
+      },
+      url: urlnow,
+      beforeSend: function () {
+        $(".load").fadeIn();
+        $(".loader").fadeIn();
+      },
+      success: function (response) {
+        $(".load").fadeOut();
+        $(".loader").fadeOut();
+        if (response.code == 200) {
+          let res = response.result;
+          if (res.length > 0) {
+            $("#riset-empty").addClass("d-none");
+            let html = "";
+            res.forEach((item) => {
+              let cover = "assets/images/default_book.jpg";
+              // if (item.cover == "-") {
+              //   cover = "assets/images/default_book.jpg";
+              // } else {
+              //   cover = item.cover;
+              // }
+              let stat = `<span class="badge bg-success p-2">${item.tahun}</span>`;
+              // if (item.status_ketersediaan == 1) {
+              //   stat = `<span class="badge bg-success p-2">Tersedia</span>`;
+              // } else {
+              //   stat = `<span class="badge bg-danger p-2">Tidak Tersedia</span>`;
+              // }
+              html += `
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
+                <div class="card shadow border-0 mb-3">
+                  <div class="row g-0">
+                    <div class="col-md-5">
+                      <img
+                        src="${cover}"
+                        class="img-fluid rounded-start"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="col-md-7">
+                      <div class="card-body">
+                        <h6 class="card-title lh-base">${item.judul}
+                        </h6>
+                        <table class="table table-borderless table-sm text-start">
+                          <tr>
+                            <td width="40%">Tahun</td>
+                            <td>:</td>
+                            <td>
+                              ${stat}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Nama Dosen</td>
+                            <td>:</td>
+                            <td>${item.nm_dosen}</td>
+                          </tr>
+                          <tr>
+                            <td>Jenis Karya Ilmiah</td>
+                            <td>:</td>
+                            <td>${item.jenis_karyailmiah}</td>
+                          </tr>
+                          <tr>
+                            <td>ISSN</td>
+                            <td>:</td>
+                            <td>${item.issn}</td>
+                          </tr>
+                          <tr>
+                            <td>Tahun Ajaran</td>
+                            <td>:</td>
+                            <td>${item.tahun_ajaran}</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              `;
+            });
+            $("#list-riset").html(html);
+            $("#links-riset").html(response.links);
+          } else {
+            $("#list-riset").html("");
+            $("#links-riset").html(response.links);
+            $("#riset-empty").removeClass("d-none");
+          }
+        }
+      },
+    });
+  }
 
   function ceklogin() {
     if (localStorage.length == 0) {

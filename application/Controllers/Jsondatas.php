@@ -160,6 +160,110 @@ class Jsondatas extends ControllersBaseController
         // }
     }
 
+    public function getbuku()
+    {
+        $request = $this->request;
+        $model = new \App\Models\BukuModel();
+
+        $get = $this->request->getVar('search');
+
+        if ($get != "" && $get != NULL) {
+            $results = $model->like('title', $get)->paginate(5, 'new_pagination');
+        } else {
+            $results = $model->paginate(5, 'new_pagination');
+        }
+
+        // Menampilkan link pagination
+        $pager = $model->pager;
+        $links = $pager->links('new_pagination', 'new_pagination');
+
+        $output = array(
+            'code' => 200,
+            'result' => $results,
+            'pager' => $pager,
+            'links' => $links
+        );
+        echo json_encode($output);
+    }
+
+    public function getSkripsi()
+    {
+        $request = $this->request;
+        $model = new \App\Models\SkripsiModel();
+
+        $get = $this->request->getVar('search');
+
+        if ($get != "" && $get != NULL) {
+            $results = $model->like('judul_buku', $get)->paginate(5, 'new_pagination');
+        } else {
+            $results = $model->paginate(5, 'new_pagination');
+        }
+
+        // Menampilkan link pagination
+        $pager = $model->pager;
+        $links = $pager->links('new_pagination', 'new_pagination');
+
+        $output = array(
+            'code' => 200,
+            'result' => $results,
+            'pager' => $pager,
+            'links' => $links
+        );
+        echo json_encode($output);
+    }
+
+    public function getJurnal()
+    {
+        $request = $this->request;
+        $model = new \App\Models\JurnalDosenModel();
+
+        $get = $this->request->getVar('search');
+
+        if ($get != "" && $get != NULL) {
+            $results = $model->like('judul', $get)->paginate(5, 'new_pagination');
+        } else {
+            $results = $model->paginate(5, 'new_pagination');
+        }
+
+        // Menampilkan link pagination
+        $pager = $model->pager;
+        $links = $pager->links('new_pagination', 'new_pagination');
+
+        $output = array(
+            'code' => 200,
+            'result' => $results,
+            'pager' => $pager,
+            'links' => $links
+        );
+        echo json_encode($output);
+    }
+
+    public function getRiset()
+    {
+        $request = $this->request;
+        $model = new \App\Models\RisetDosenModel();
+
+        $get = $this->request->getVar('search');
+
+        if ($get != "" && $get != NULL) {
+            $results = $model->like('judul', $get)->paginate(5, 'new_pagination');
+        } else {
+            $results = $model->paginate(5, 'new_pagination');
+        }
+
+        // Menampilkan link pagination
+        $pager = $model->pager;
+        $links = $pager->links('new_pagination', 'new_pagination');
+
+        $output = array(
+            'code' => 200,
+            'result' => $results,
+            'pager' => $pager,
+            'links' => $links
+        );
+        echo json_encode($output);
+    }
+
     public function temp_login()
     {
         try {

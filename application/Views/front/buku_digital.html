@@ -1,7 +1,7 @@
 {% extends "front/layout.html" %} {% block content %}
 
-<!-- <section class="team pt-70 pb-70 d-none" id="content_buku"> -->
-<section class="team pt-70 pb-70">
+<section class="team pt-70 pb-70 d-none" id="content_buku">
+  <!-- <section class="team pt-70 pb-70"> -->
   <div class="container">
     <nav aria-label="breadcrumb" class="fw-bold">
       <ol class="breadcrumb">
@@ -27,7 +27,7 @@
       </div>
     </div>
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-      <li class="nav-item" role="presentation">
+      <li class="nav-item btn-bukudigital" role="presentation">
         <button
           class="nav-link active"
           id="pills-buku-tab"
@@ -41,7 +41,7 @@
           Buku Digital
         </button>
       </li>
-      <li class="nav-item" role="presentation">
+      <li class="nav-item btn-ilmiah" role="presentation">
         <button
           class="nav-link"
           id="pills-skripsi-tab"
@@ -55,7 +55,7 @@
           Skripsi
         </button>
       </li>
-      <li class="nav-item" role="presentation">
+      <li class="nav-item btn-ilmiah" role="presentation">
         <button
           class="nav-link"
           id="pills-jurnal-tab"
@@ -69,7 +69,7 @@
           Jurnal Dosen
         </button>
       </li>
-      <li class="nav-item" role="presentation">
+      <li class="nav-item btn-ilmiah" role="presentation">
         <button
           class="nav-link"
           id="pills-riset-tab"
@@ -86,7 +86,7 @@
     </ul>
     <div class="tab-content" id="pills-tabContent">
       <div
-        class="tab-pane fade show active"
+        class="tab-pane fade bukudigital show active"
         id="pills-buku"
         role="tabpanel"
         aria-labelledby="pills-buku-tab"
@@ -154,7 +154,7 @@
         </div>
       </div>
       <div
-        class="tab-pane fade"
+        class="tab-pane fade ilmiah show active"
         id="pills-skripsi"
         role="tabpanel"
         aria-labelledby="pills-skripsi-tab"
@@ -222,7 +222,7 @@
         </div>
       </div>
       <div
-        class="tab-pane fade"
+        class="tab-pane fade ilmiah"
         id="pills-jurnal"
         role="tabpanel"
         aria-labelledby="pills-jurnal-tab"
@@ -290,7 +290,7 @@
         </div>
       </div>
       <div
-        class="tab-pane fade"
+        class="tab-pane fade ilmiah"
         id="pills-riset"
         role="tabpanel"
         aria-labelledby="pills-riset-tab"
@@ -360,35 +360,50 @@
     </div>
   </div>
 </section>
-<div class="modal fade" tabindex="-1" id="myModal">
-  <div class="modal-dialog modal-fullscreen">
+<div class="modal fade" tabindex="-1" data-bs-backdrop="static" id="myModal">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="title-book"></h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
       <div class="modal-body">
-        <iframe
-          src=""
-          frameborder="0"
-          id="iframe-readbook"
-          style="width: 100%; height: 100%"
-        ></iframe>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-success btn-sm"
-          data-bs-dismiss="modal"
-        >
-          <i class="fa fa-times"></i>
-          Tutup
-        </button>
+        <h5 class="text-center mb-4">PILIH TUJUAN ANDA</h5>
+        <div class="row mt-3">
+          <div class="col-xl-6">
+            <!-- <div class="card bg-success border-0 shadow-lg">
+              <div class="card-body text-center"> -->
+            <button
+              type="button"
+              class="btn btn-success d-flex flex-column w-100 justify-content-center align-items-center p-5 text-white shadow-lg"
+              style="
+                background-color: var(--mainColor);
+                border-color: var(--mainColor);
+              "
+              onclick="tujuan('buku_digital')"
+            >
+              <h4 class="display-4 text-white">
+                <i class="fa fa-book"></i>
+              </h4>
+              Buku Digital
+            </button>
+            <!-- </div>
+            </div> -->
+          </div>
+          <div class="col-xl-6">
+            <button
+              type="button"
+              class="btn btn-success d-flex flex-column w-100 justify-content-center align-items-center p-5 text-white shadow-lg"
+              onclick="tujuan('karya_ilmiah')"
+            >
+              <h4 class="display-4 text-white">
+                <i class="fa fa-file-alt"></i>
+              </h4>
+              Karya Ilmiah
+            </button>
+          </div>
+          <div class="col-xl-12 text-center my-3">
+            <a href="/" class="text-center">
+              <i class="fa fa-arrow-left"></i> Kembali ke Menu</a
+            >
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -452,6 +467,14 @@
             id="button-dismiss-login"
           ></button>
           <a href="/" class="btn btn-secondary btn-sm"> Kembali Ke Menu </a>
+          <button
+            type="button"
+            data-bs-dismiss="modal"
+            class="btn btn-danger btn-sm"
+            onclick="removeTujuan()"
+          >
+            Pilih Kembali Tujuan
+          </button>
           <button type="submit" class="btn btn-success btn-sm" id="btn-login">
             Login
           </button>
@@ -479,7 +502,8 @@
 
 {% endblock %} {% block js %}
 <script>
-  // ceklogin();
+  var myModal = new bootstrap.Modal(document.getElementById("myModal"), {});
+  ceklogin();
   $(() => {
     $("#page-layanan_buku").addClass("active");
     getBuku();
@@ -642,6 +666,7 @@
                 duration: 3000,
               }).showToast();
               localStorage.setItem("Logged_in", 1);
+              localStorage.setItem("tujuan", sessionStorage.getItem("tujuan"));
               $("#content_buku").removeClass("d-none");
               ceklogin();
             } else {
@@ -1117,24 +1142,67 @@
     });
   }
 
+  function tujuan(value) {
+    sessionStorage.setItem("tujuan", value);
+    myModal.hide();
+    ceklogin();
+  }
+
+  function removeTujuan() {
+    sessionStorage.removeItem("tujuan");
+    localStorage.removeItem("tujuan");
+    ceklogin();
+  }
+
   function ceklogin() {
-    if (localStorage.length == 0) {
-      $("#btn-login-temp").click();
+    if (sessionStorage.length == 0) {
+      // $("#btn-login-temp").click();
+      myModal.show();
       $("#content_buku").addClass("d-none");
     } else {
-      if (localStorage.getItem("Logged_in") == 0) {
-        $("#btn-login-temp").click();
+      if (
+        sessionStorage.getItem("tujuan") != "" ||
+        localStorage.getItem("tujuan") != ""
+      ) {
+        if (localStorage.length == 0) {
+          $("#btn-login-temp").click();
+          $("#content_buku").addClass("d-none");
+          // cekcontent();
+          // $("#content_buku").removeClass("d-none");
+          // console.log("harus login");
+        } else {
+          if (localStorage.getItem("Logged_in") == 0) {
+            $("#btn-login-temp").click();
+          } else {
+            cekcontent();
+            $("#button-dismiss-login").click();
+            $("#content_buku").removeClass("d-none");
+          }
+        }
       } else {
-        $("#button-dismiss-login").click();
-        $("#content_buku").removeClass("d-none");
+        myModal.show();
       }
+    }
+  }
+
+  function cekcontent() {
+    var tujuan = localStorage.getItem("tujuan");
+    // var tujuan = sessionStorage.getItem("tujuan");
+    if (tujuan == "buku_digital") {
+      $(".ilmiah").addClass("d-none");
+      $(".btn-ilmiah").addClass("d-none");
+    } else if (tujuan == "karya_ilmiah") {
+      $(".bukudigital").addClass("d-none");
+      $(".btn-bukudigital").addClass("d-none");
+      $("#pills-skripsi-tab").trigger("click");
+      getSkripsi();
     }
   }
 
   function logout() {
     if (confirm("Keluar dari akun anda ? ")) {
       localStorage.removeItem("Logged_in");
-      ceklogin();
+      removeTujuan();
       $("#username").val("");
       $("#password").val("");
     }

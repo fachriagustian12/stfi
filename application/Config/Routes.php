@@ -201,6 +201,7 @@ $routes->group('api', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('getajar', 'Signage::getdatadosen');
     $routes->post('getrisetdosen', 'Signage::riset_dosen');
     $routes->post('getjurnaldosen', 'Signage::jurnal_dosen');
+    $routes->get('getpdf', 'Jsondata::getpdf');
 });
 
 /**

@@ -1542,4 +1542,29 @@ class Jsondata extends \CodeIgniter\Controller
 	}
   }
 
+  public function getpdf(){
+	$request = $this->request;
+	$url = $request->getVar('url'); 
+	
+    $file_name = basename($url); 
+	$basepath = './uploads/view/';
+
+	if(!is_dir($basepath)){
+		mkdir($basepath, 0777, true);
+	}
+	if(file_exists($basepath.$file_name)){
+		unlink($basepath.$file_name);
+	}
+    file_put_contents($basepath.$file_name, file_get_contents($url));
+
+	$response = [
+		'data'   => $basepath.$file_name,
+	];
+
+	header('Content-Type: application/json');
+	echo json_encode($response);
+	exit;
+
+  }
+
 }

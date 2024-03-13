@@ -95,16 +95,7 @@
         <div class="row justify-content-center">
           <div class="col-xl-12">
             <div class="row">
-              <div class="col-xl-6">
-                <!-- BUTTON API REPOSITORY -->
-                <a
-                  href="#"
-                  class="btn btn-success"
-                  style="background-color: var(--mainColor)"
-                  >Repository Buku Digital
-                  <i class="fas fa-arrow-right"></i>
-                </a>
-              </div>
+              <div class="col-xl-6"></div>
               <div class="col-xl-6">
                 <form id="form-buku">
                   <div class="input-group">
@@ -163,16 +154,7 @@
         <div class="row justify-content-center">
           <div class="col-xl-12">
             <div class="row">
-              <div class="col-xl-6">
-                <!-- BUTTON API REPOSITORY -->
-                <a
-                  href="#"
-                  class="btn btn-success"
-                  style="background-color: var(--mainColor)"
-                  >Repository Buku Digital
-                  <i class="fas fa-arrow-right"></i>
-                </a>
-              </div>
+              <div class="col-xl-6"></div>
               <div class="col-xl-6">
                 <form id="form-skripsi">
                   <div class="input-group">
@@ -231,16 +213,7 @@
         <div class="row justify-content-center">
           <div class="col-xl-12">
             <div class="row">
-              <div class="col-xl-6">
-                <!-- BUTTON API REPOSITORY -->
-                <a
-                  href="#"
-                  class="btn btn-success"
-                  style="background-color: var(--mainColor)"
-                  >Repository Buku Digital
-                  <i class="fas fa-arrow-right"></i>
-                </a>
-              </div>
+              <div class="col-xl-6"></div>
               <div class="col-xl-6">
                 <form id="form-jurnal">
                   <div class="input-group">
@@ -299,16 +272,7 @@
         <div class="row justify-content-center">
           <div class="col-xl-12">
             <div class="row">
-              <div class="col-xl-6">
-                <!-- BUTTON API REPOSITORY -->
-                <a
-                  href="#"
-                  class="btn btn-success"
-                  style="background-color: var(--mainColor)"
-                  >Repository Buku Digital
-                  <i class="fas fa-arrow-right"></i>
-                </a>
-              </div>
+              <div class="col-xl-6"></div>
               <div class="col-xl-6">
                 <form id="form-riset">
                   <div class="input-group">
@@ -483,7 +447,33 @@
     </div>
   </div>
 </div>
-
+<div class="modal fade" tabindex="-1" id="modal-view-book">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mt-3">
+          <div class="col-lg-12">
+            <iframe
+              src=""
+              id="src-view-book"
+              frameborder="0"
+              width="100%"
+              height="600px"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <button
   type="button"
   class="d-none btn btn-primary"
@@ -503,11 +493,14 @@
 {% endblock %} {% block js %}
 <script>
   var myModal = new bootstrap.Modal(document.getElementById("myModal"), {});
+  var viewbookmodal = new bootstrap.Modal(
+    document.getElementById("modal-view-book"),
+    {}
+  );
   ceklogin();
   $(() => {
     $("#page-layanan_buku").addClass("active");
     getBuku();
-
     // BUKU
     $("#links-buku").on("click", ".pagination a", function (e) {
       e.preventDefault();
@@ -591,13 +584,11 @@
 
     // END Riset
 
-    $(".readbook").click(function () {
+    $(document).on("click", ".view-book", function () {
       var url = $(this).data("url");
-      var title = $(this).data("title");
-      $("#btn-modal").click();
-      $("#title-book").html(title);
-
-      $("#iframe-readbook").attr("src", url);
+      console.log(url);
+      viewbookmodal.show();
+      $("#src-view-book").attr("src", url);
     });
 
     $("#form-temp-login").submit(function (e) {
@@ -671,7 +662,7 @@
               ceklogin();
             } else {
               Toastify({
-                text: res.status,
+                text: "Login Gagal !",
                 gravity: "bottom",
                 position: "left",
                 style: {
@@ -751,9 +742,7 @@
                     <div class="col-md-7">
                       <div class="card-body">
                         <h5 class="card-title lh-base">
-                          <a href="${item.url_file}" target="_blank"
-                            >${item.title}</a
-                          >
+                          ${item.title}
                         </h5>
                         <table class="table table-borderless table-sm text-start">
                           <tr>
@@ -795,9 +784,9 @@
                           </tr>
                         </table>
                         <a
-                          href="${item.url_file}"
-                          target="_blank"
-                          class="btn btn-primary round-6"
+                          href="javascript:;"
+                          class="btn btn-primary round-6 view-book"
+                          data-url="${item.url_file}"
                         >
                           <i class="fa fa-file"></i>
                         </a>
@@ -1167,7 +1156,7 @@
         if (localStorage.length == 0) {
           $("#btn-login-temp").click();
           $("#content_buku").addClass("d-none");
-          // cekcontent();
+          cekcontent();
           // $("#content_buku").removeClass("d-none");
           // console.log("harus login");
         } else {

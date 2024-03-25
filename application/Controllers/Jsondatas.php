@@ -17,6 +17,12 @@ use App\Controllers\Services;
 
 class Jsondatas extends ControllersBaseController
 {
+
+    function __construct()
+    {
+        $this->logModel   = new \App\Models\LogModel();
+    }
+
     public function getMhs()
     {
         $request = $this->request;
@@ -338,5 +344,15 @@ class Jsondatas extends ControllersBaseController
         } catch (\Exception $e) {
             die($e->getMessage());
         }
+    }
+
+    public function addLogLayanan()
+    {
+        $request = $this->request;
+        $this->logModel->insert([
+            'tgl' => date('Y-m-d H:i:s'),
+            'username' => $this->session->get('username'),
+            'keterangan' => "Menambahkan data pembayaran " . $request->getVar('hdno'),
+        ]);
     }
 }

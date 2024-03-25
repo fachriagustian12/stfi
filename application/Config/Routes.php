@@ -109,6 +109,9 @@ $routes->post('getSkripsi', 'Jsondatas::getSkripsi');
 $routes->post('getJurnal', 'Jsondatas::getJurnal');
 $routes->post('getRiset', 'Jsondatas::getRiset');
 
+//POSTDATA
+$routes->post('addLogLayanan', 'Jsondatas::addLogLayanan');
+
 
 // LOGIN
 $routes->add('login', 'View::login');

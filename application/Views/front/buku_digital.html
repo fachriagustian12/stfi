@@ -598,6 +598,7 @@
 
     $(document).on("click", ".view-book", function () {
       var url = $(this).data("url");
+      var judul = $(this).data("judul");
       $.ajax({
         type: "get",
         dataType: "json",
@@ -611,6 +612,11 @@
           $(".loader").fadeOut();
           $("#src-view-book").attr("src", response.data);
           viewbookmodal.show();
+          addLog(
+            localStorage.getItem("uname"),
+            "Membaca Buku " + judul,
+            "Membaca Buku dengan Judul " + judul
+          );
         },
       });
     });
@@ -681,10 +687,21 @@
                 duration: 3000,
               }).showToast();
               localStorage.setItem("Logged_in", 1);
+              localStorage.setItem("uname", uname);
               localStorage.setItem("tujuan", sessionStorage.getItem("tujuan"));
               $("#content_buku").removeClass("d-none");
               ceklogin();
+              addLog(
+                uname,
+                "Login Layanan Perpustakaan Digital",
+                "Berhasil Login"
+              );
             } else {
+              addLog(
+                uname,
+                "Login Layanan Perpustakaan Digital",
+                "Gagal Login"
+              );
               Toastify({
                 text: "Login Gagal !",
                 gravity: "bottom",
@@ -698,6 +715,7 @@
           },
           error: function (xhr, textStatus, errorThrown) {
             // if (textStatus == "timeout") {
+            addLog(uname, "Login Layanan Perpustakaan Digital", "Gagal Login");
             Toastify({
               text: textStatus,
               gravity: "bottom",
@@ -713,6 +731,22 @@
       }
     });
   });
+
+  function addLog(nama, aktifitas, keterangan) {
+    $.ajax({
+      type: "post",
+      dataType: "json",
+      data: {
+        nama: nama,
+        aktifitas: aktifitas,
+        keterangan: keterangan,
+      },
+      url: "addLogLayanan",
+      success: function (result) {
+        console.log("oke");
+      },
+    });
+  }
 
   function getBuku(
     url = "",
@@ -811,6 +845,7 @@
                           href="javascript:;"
                           class="btn btn-primary round-6 view-book"
                           data-url="${item.url_file}"
+                          data-judul="${item.title}"
                         >
                           <i class="fa fa-file"></i>
                         </a>
@@ -1215,6 +1250,7 @@
   function logout() {
     if (confirm("Keluar dari akun anda ? ")) {
       localStorage.removeItem("Logged_in");
+      localStorage.removeItem("uname");
       removeTujuan();
       $("#username").val("");
       $("#password").val("");

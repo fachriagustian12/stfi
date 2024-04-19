@@ -2,6 +2,28 @@ console.log("You are running jQuery version: " + $.fn.jquery);
 $(document).ready(function () {
   $("#menu-log").addClass("active");
   loaddata();
+
+  $('#download_csv').on('click', function() {
+    var table = $('#all-log').DataTable();
+    var data = table.rows().data().toArray();
+    var csv = '';
+    console.log(data);
+    for (var i = 0; i < data.length; i++) {
+        var row = Object.values(data[i]);
+        csv += row.join(',') + '\n';
+    }
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var link = document.createElement("a");
+    if (link.download !== undefined) { // feature detection
+        var url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", 'data_log_aktifitas.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+  });
 });
 
 function loaddata() {
@@ -12,7 +34,6 @@ function loaddata() {
     success: function (result) {
       let data = result.data;
       let code = result.code;
-      console.log(data);
       var dt = $("#all-log").DataTable({
         dom:
           "<'row'" +
@@ -74,3 +95,4 @@ function loaddata() {
     },
   });
 }
+

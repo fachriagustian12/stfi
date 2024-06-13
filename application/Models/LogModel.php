@@ -45,7 +45,7 @@ class LogModel extends Model{
     public function getlog($param = null)
     {
         $builder = $this->db->table('log_aktifitas');
-        $builder->select("tanggal, aktifitas, keterangan,
+        $builder->select("id, tanggal, aktifitas, keterangan,
 	(select nama from data_mahasiswa WHERE nim = log_aktifitas.nama) as nama");
         $query   = $builder->get();
       return $query->getResult();

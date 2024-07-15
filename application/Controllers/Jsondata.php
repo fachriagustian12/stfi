@@ -1061,41 +1061,46 @@ class Jsondata extends \CodeIgniter\Controller
 		$method		= $request->getMethod();
 		$kelas 		= new \App\Models\KelasModel();
 		
+		$tanggal = $request->getVar('tanggal');
+		$tanggal .= ' 00:00:00.000000';
+		
+		$reqdosen = $request->getVar('nm_dosen');
+		$dosenmodel = new \App\Models\UserModel();
+		$paydosen = $dosenmodel->getDosen($reqdosen);
+		$kd_dosen = $paydosen->kd_dosen;
+
 		if($method == 'post'){
-				if($request->getVar('id')){
-					$tanggal = $request->getVar('tanggal');
-					$tanggal .= ' 00:00:00.000000';
+			if($request->getVar('id')){
 
-					$data = [
-						// 'nama'			=> $request->getVar('nama'),
-						// 'no_kelas'		=> $request->getVar('no_kelas'),
-						// 'matkul'		=> $request->getVar('matkul'),
-						'status'		=> $request->getVar('status'),
-						// 'jam_mulai'		=> $request->getVar('jam_mulai'),
-						// 'jam_akhir'		=> $request->getVar('jam_akhir'),
-						// 'tanggal'		=> $tanggal,
-						'updated_at'	=> $this->now,
-						'updated_by'    => $this->session->get('id'),
-					];
-					$kelas->update($request->getVar('id'), $data);
-				}else{
-					$tanggal = $request->getVar('tanggal');
-					$tanggal .= ' 00:00:00.000000';
-
-					$data = [
-						'nama' 			=> $request->getVar('nama'),
-						'no_kelas' 		=> $request->getVar('no_kelas'),
-						'matkul' 		=> $request->getVar('matkul'),
-						'status' 		=> $request->getVar('status'),
-						'jam_mulai' 	=> $request->getVar('jam_mulai'),
-						'jam_akhir' 	=> $request->getVar('jam_akhir'),
-						'tanggal' 		=> $tanggal,
-						'created_at'	=> $this->now,
-						'created_by'	=> $this->session->get('id'),
-					];
-					$kelas->insert($data);
-					$lastid = $kelas->insertID();
-				}
+				$data = [
+					'nama'			=> $request->getVar('nama'),
+					'no_kelas'		=> $request->getVar('no_kelas'),
+					'matkul'		=> $request->getVar('matkul'),
+					'jam_mulai'		=> $request->getVar('jam_mulai'),
+					'jam_akhir'		=> $request->getVar('jam_akhir'),
+					'updated_at'	=> $this->now,
+					'updated_by'    => $this->session->get('id'),
+					'nm_hari'		=> $request->getVar('hari'),
+					'kelas'			=> $request->getVar('kelas'),
+					'kd_dosen'		=> $kd_dosen,
+				];
+				$kelas->update($request->getVar('id'), $data);
+			}else{
+				$data = [
+					'nama'			=> $request->getVar('nama'),
+					'no_kelas'		=> $request->getVar('no_kelas'),
+					'matkul'		=> $request->getVar('matkul'),
+					'jam_mulai'		=> $request->getVar('jam_mulai'),
+					'jam_akhir'		=> $request->getVar('jam_akhir'),
+					'created_at'	=> $this->now,
+					'created_by'	=> $this->session->get('id'),
+					'nm_hari'		=> $request->getVar('hari'),
+					'kelas'			=> $request->getVar('kelas'),
+					'kd_dosen'		=> $kd_dosen,
+				];
+				$kelas->insert($data);
+				$lastid = $kelas->insertID();
+			}
 		}
 		redirect('data_kelas','refresh');
 	} catch (\Exception $e) {
@@ -1145,37 +1150,40 @@ class Jsondata extends \CodeIgniter\Controller
 		$param		= $request->getVar('param');
 		
 		$method		= $request->getMethod();
-		$praktik 		= new \App\Models\PraktikumModel();
+		$praktik 	= new \App\Models\PraktikumModel();
 		
+		$tanggal 	= $request->getVar('tanggal');
+		$tanggal 	.= ' 00:00:00.000000';
+
+		$reqdosen = $request->getVar('nm_dosen');
+		$dosenmodel = new \App\Models\UserModel();
+		$paydosen = $dosenmodel->getDosen($reqdosen);
+		$kd_dosen = $paydosen->kd_dosen;
+
 		if($method == 'post'){
 			if($request->getVar('id')){
-				$tanggal = $request->getVar('tanggal');
-				$tanggal .= ' 00:00:00.000000';
 				
 					$data = [
-						// 'ruangan_praktikum'			=> $request->getVar('ruangan_praktikum'),
-						// 'mata_kuliah_praktikum'		=> $request->getVar('mata_kuliah_praktikum'),
-						// 'nama_dosen'				=> $request->getVar('nama_dosen'),
-						'status'					=> $request->getVar('status'),
-						// 'jam_mulai'					=> $request->getVar('jam_mulai'),
-						// 'jam_akhir'					=> $request->getVar('jam_akhir'),
-						// 'tanggal'					=> $tanggal,
+						'ruangan_praktikum'			=> $request->getVar('ruangan_praktikum'),
+						'mata_kuliah_praktikum'		=> $request->getVar('mata_kuliah_praktikum'),
+						'nip_dosen'					=> $kd_dosen,
+						'nama_kelompok'				=> $request->getVar('nama_kelompok'),
+						'nama_hari'					=> $request->getVar('nama_hari'),
+						'jam_mulai'					=> $request->getVar('jam_mulai'),
+						'jam_akhir'					=> $request->getVar('jam_akhir'),
 						'updated_at'				=> $this->now,
 						'updated_by'				=> $this->session->get('id'),
 					];
 					$praktik->update($request->getVar('id'), $data);
 				}else{
-					$tanggal = $request->getVar('tanggal');
-					$tanggal .= ' 00:00:00.000000';
-
 					$data = [
 						'ruangan_praktikum'			=> $request->getVar('ruangan_praktikum'),
-						'mata_kuliah_praktikum' 	=> $request->getVar('mata_kuliah_praktikum'),
-						'nama_dosen' 				=> $request->getVar('nama_dosen'),
-						'status' 					=> $request->getVar('status'),
-						'jam_mulai' 				=> $request->getVar('jam_mulai'),
-						'jam_akhir' 				=> $request->getVar('jam_akhir'),
-						'tanggal' 					=> $tanggal,
+						'mata_kuliah_praktikum'		=> $request->getVar('mata_kuliah_praktikum'),
+						'nip_dosen'					=> $kd_dosen,
+						'nama_kelompok'				=> $request->getVar('nama_kelompok'),
+						'nama_hari'					=> $request->getVar('nama_hari'),
+						'jam_mulai'					=> $request->getVar('jam_mulai'),
+						'jam_akhir'					=> $request->getVar('jam_akhir'),
 						'created_at'				=> $this->now,
 						'created_by'				=> $this->session->get('id'),
 					];
@@ -1191,9 +1199,13 @@ class Jsondata extends \CodeIgniter\Controller
 
   public function getPraktikum(){
 	try {
-		$table = 'jadwal_praktikum';
+		$request = $this->request;
 		$user = new \App\Models\UserModel();
-		$data = $user->getDosenPraktik($table);
+		if($request->getVar('id')){
+			$data = $user->getDosenPraktik($request->getVar('id'));
+		}else{
+			$data = $user->getDosenPraktik();
+		}
         $response = [
 			'status'	=> 'sukses',
 			'code'		=> 200,
@@ -1219,6 +1231,44 @@ class Jsondata extends \CodeIgniter\Controller
 		];
 		header('Content-Type: application/json');
 	  echo json_encode($response);
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function addbukus(){
+	try {
+		$request = $this->request;
+		$buku = new \App\Models\BukuModel();
+		if($request->getVar('id')){
+			$data = [
+				'title' => $request->getVar('title'),
+				'pengarang' => $request->getVar('pengarang'),
+				'penerbit' => $request->getVar('penerbit'),
+				'tempat_terbit' => $request->getVar('tempat_terbit'),
+				'tahun_terbit' => $request->getVar('tahun_terbit'),
+				'path' => $request->getVar('path'),
+				'url_file' => $request->getVar('path'),
+				'updated_at' => $this->now,
+				'updated_by'    => $this->session->get('id'),
+			];
+			$buku->update($request->getVar('id'), $data);
+		}else{
+			$data = [
+				'title' => $request->getVar('title'),
+				'pengarang' => $request->getVar('pengarang'),
+				'penerbit' => $request->getVar('penerbit'),
+				'tempat_terbit' => $request->getVar('tempat_terbit'),
+				'tahun_terbit' => $request->getVar('tahun_terbit'),
+				'path' => $request->getVar('path'),
+				'url_file' => $request->getVar('path'),
+				'created_at' => $this->now,
+				'created_by' => $this->session->get('id'),
+			];
+			$buku->insert($data);
+			$lastid = $buku->insertID();
+		}
+		redirect('data_buku','refresh');
 	} catch (\Exception $e) {
 		die($e->getMessage());
 	}
@@ -1425,10 +1475,15 @@ class Jsondata extends \CodeIgniter\Controller
   {
 	  try {
 		  $request	= $this->request;
-		  $table	= $request->getVar('table');
-		  $id	= $request->getVar('id');
+		  $table = $request->getVar('table');
+		  $id = $request->getVar('id');
 		  $user = new \App\Models\UserModel();
-		  $data = $user->getData($table, $id);
+		  
+		  if($table == 'perkuliahan'){
+			$data = $user->joinDosen();
+		  }else{
+			$data = $user->getData($table, $id);
+		  }
 		  
 		  if($data){
 			  $response = [
@@ -1450,6 +1505,66 @@ class Jsondata extends \CodeIgniter\Controller
 	  } catch (\Exception $e) {
 		  die($e->getMessage());
 	  }
+  }
+
+  public function getdataid(){
+	try {
+		$request = $this->request;
+		$table = $request->getVar('table');
+		$id = $request->getVar('id');
+		$data_perkuliahan = new \App\Models\UserModel();
+		$data = $data_perkuliahan->getData($table, $id);
+
+		$idDosen = $data->kd_dosen;
+		$datadosen = $data_perkuliahan->getDosen($idDosen);
+
+		$datas = [
+			'data' => $data,
+			'DataDosen' => $datadosen
+		];
+
+		if($datas){
+			$response = [
+				'status'   => 'sukses',
+				'code'     => 200,
+				'data' 	 => $datas
+			];
+		}else{
+			$response = [
+				'status'   => 'gagal',
+				'code'     => '0',
+				'data'     => 'tidak ada data',
+			];
+		}
+
+		header('Content-Type: application/json');
+		echo json_encode($response);
+		exit;
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+
+  public function getlistdosen(){
+		$Dosen 		= new \App\Models\DosenModel();
+		$GetData	= $Dosen->getAllData();
+
+		if($GetData){
+			$response = [
+				'status'   => 'sukses',
+				'code'     => 200,
+				'data' 	 => $GetData
+			];
+		}else{
+			$response = [
+				'status'   => 'gagal',
+				'code'     => '0',
+				'data'     => 'tidak ada data',
+			];
+		}
+		header('Content-Type: application/json');
+		echo json_encode($response);
+		exit;
   }
 
 //   public function getdatadosen()

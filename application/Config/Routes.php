@@ -168,7 +168,9 @@ $routes->post('pembayaran', 'Jsondata::pembayaran');
 $routes->post('kodebilling', 'Jsondata::kodebilling');
 
 $routes->post('getdata', 'Jsondata::getdata');
+$routes->post('getdataid', 'Jsondata::getdataid');
 $routes->post('getdatadosen', 'Jsondata::getdatadosen');
+$routes->get('getlistdosen', 'Jsondata::getlistdosen');
 $routes->post('getdataPraktikum', 'Jsondata::getPraktikum');
 $routes->post('deletedata', 'Jsondata::deletedata');
 $routes->post('addslider', 'Jsondata::addslider');
@@ -179,6 +181,7 @@ $routes->post('addberita', 'Jsondata::addberita');
 $routes->post('addkelas', 'Jsondata::addkelas');
 $routes->post('addjadwalpraktikum', 'Jsondata::addjadwalpraktikum');
 $routes->post('addbuku', 'Jsondata::addbuku');
+$routes->post('addbukus', 'Jsondata::addbukus');
 
 // API
 $routes->group('api', ['namespace' => 'App\Controllers'], function ($routes) {

@@ -9,7 +9,7 @@
           <a class="heading-elements-toggle"
             ><i class="la la-ellipsis-v font-medium-3"></i
           ></a>
-          <!-- <div class="heading-elements">
+          <div class="heading-elements">
             <ul class="list-inline mb-0">
               <li>
                 <button
@@ -23,7 +23,7 @@
                 </button>
               </li>
             </ul>
-          </div> -->
+          </div>
         </div>
         <div class="card-content collapse show">
           <div class="card-body card-dashboard">
@@ -84,7 +84,7 @@
       <form action="addkelas" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" id="id" />
         <div class="modal-body">
-          <!-- <fieldset>
+          <fieldset>
             <div class="form-group">
               <h5>Nama Kelas</h5>
               <div class="input-group">
@@ -106,7 +106,7 @@
 
           <fieldset>
             <div class="form-group">
-              <h5>Nomor Kelas</h5>
+              <h5>No Kelas</h5>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id=""
@@ -122,26 +122,25 @@
                 />
               </div>
             </div>
-          </fieldset> -->
-
+          </fieldset>
+          
           <fieldset>
             <div class="form-group">
-              <h5>Status</h5>
+              <h5>Nama Dosen</h5>
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="status"
-                    ><i class="la la-check"></i
-                  ></label>
+                  <span class="input-group-text" id=""><i class="la la-list-ol"></i></span>
                 </div>
-                <select class="custom-select" id="status" name="status">
-                  <option value="pilih">-Pilih-</option>
-                  <option value="Ada">Ada</option>
-                  <option value="Ditiadakan">Ditiadakan</option>
+                <select class="form-control" name="nm_dosen" id="nm_dosen">
+                  <option> -- PILIH DOSEN -- </option>
+                  {% for dosen in data_dosen %}
+                  <option value="{{dosen.kd_dosen}}">{{dosen.nama}}</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
           </fieldset>
-          <!-- 
+
           <fieldset>
             <div class="form-group">
               <h5>Mata Kuliah</h5>
@@ -157,6 +156,26 @@
                   placeholder="Mata Kuliah"
                   name="matkul"
                   id="matkul"
+                />
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <div class="form-group">
+              <h5>Hari</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""
+                    ><i class="la la-eye"></i
+                  ></span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Hari"
+                  name="nm_hari"
+                  id="nm_hari"
                 />
               </div>
             </div>
@@ -199,26 +218,6 @@
               </div>
             </div>
           </fieldset>
-
-          <fieldset>
-            <div class="form-group">
-              <h5>Tanggal</h5>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id=""
-                    ><i class="la la-calendar"></i
-                  ></span>
-                </div>
-                <input
-                  type="date"
-                  class="form-control"
-                  placeholder=""
-                  name="tanggal"
-                  id="tanggal"
-                />
-              </div>
-            </div>
-          </fieldset> -->
         </div>
 
         <div class="modal-footer">

@@ -40,7 +40,7 @@ function load() {
             ">",
           destroy: true,
           paging: true,
-          lengthChange: false,
+          lengthChange: true,
           searching: true,
           ordering: true,
           info: true,
@@ -49,6 +49,7 @@ function load() {
           pageLength: 10,
           aaData: result.data,
           aoColumns: [
+            { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "title", class: "text-center" },
             { mDataProp: "pengarang", class: "text-center", width: "12%" },
@@ -62,11 +63,21 @@ function load() {
           aoColumnDefs: [
             {
               mRender: function (data, type, row) {
-                var elem = `
-                                  <button class="btn btn-sm btn-info" onclick="viewimage('${data}')"><i class="la la-image"></i></button>`;
+                var elem =
+                        '<div class="btn-group" role="group" aria-label="Basic example">';
+                elem += `<button class="btn btn-icon btn-info btn-sm" onclick="action('update', ${row.id})"><i class="la la-edit"></i></button>`;
+                elem += `<button class="btn btn-icon btn-danger btn-sm" onclick="action('delete', ${row.id}, '${row.path}')"><i class="la la-trash"></i></button>`;
+                elem += "</div>";
                 return elem;
               },
-              aTargets: [6],
+              aTargets: [1],
+            },
+            {
+              mRender: function (data, type, row) {
+                var elem = `<button class="btn btn-sm btn-info" onclick="viewimage('${data}')"><i class="la la-image"></i></button>`;
+                return elem;
+              },
+              aTargets: [7],
             },
           ],
           fnRowCallback: function (
@@ -189,7 +200,6 @@ function load() {
     success: function (result) {
       let data = result.data;
       let code = result.code;
-      console.log(data);
       if (code != "0") {
         var dt = $("#all_jurnal").DataTable({
           dom:
@@ -383,7 +393,7 @@ function action(mode, id, path) {
       },
       success: function (result) {
         var data = result.data;
-        $("#modal_add_buku").modal("show");
+        $("#modal_add_data_buku").modal("show");
         $("#id").val(id);
         for (let item in data) {
           if ($(`#${item}`).length) {

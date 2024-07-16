@@ -104,4 +104,14 @@ class DosenModel extends Model
         $tbl_storage = $this->db->table($this->table);
         return $tbl_storage->countAllResults();
     }
+
+    public function getAllData()
+    {
+        return $this->findAll();
+    }
+
+    public function getDataById($id)
+    {
+        return $this->find($id);
+    }
 }

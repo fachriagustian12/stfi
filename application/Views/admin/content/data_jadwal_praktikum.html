@@ -9,7 +9,7 @@
           <a class="heading-elements-toggle"
             ><i class="la la-ellipsis-v font-medium-3"></i
           ></a>
-          <!-- <div class="heading-elements">
+          <div class="heading-elements">
             <ul class="list-inline mb-0">
               <li>
                 <button
@@ -23,7 +23,7 @@
                 </button>
               </li>
             </ul>
-          </div> -->
+          </div>
         </div>
         <div class="card-content collapse show">
           <div class="card-body card-dashboard">
@@ -71,59 +71,24 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">
-          <i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data
-          Informasi Jadwal Praktikum
+          <i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data Informasi Jadwal Praktikum
         </h5>
-
-        <!--begin::Close-->
         <a class="btn btn-icon" data-dismiss="modal" aria-label="Close">
           <span class="la la-times"></span>
         </a>
-        <!--end::Closeaction="addjadwalpraktikum"
-        method="POST"
-        enctype="multipart/form-data"-->
       </div>
 
-      <form>
+      <form action="addjadwalpraktikum" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" id="id" />
         <div class="modal-body">
-          <!-- <fieldset>
+          <fieldset>
             <div class="form-group">
               <h5>Ruangan Praktikum</h5>
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <span class="input-group-text" id=""
-                    ><i class="la la-home"></i
-                  ></span>
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
                 </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Ruangan Praktikum"
-                  name="ruangan_praktikum"
-                  id="ruangan_praktikum"
-                />
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <div class="form-group">
-              <h5>Nama Dosen</h5>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id=""
-                    ><i class="la la-eye"></i
-                  ></span>
-                </div>
-                <select
-                  class="custom-select"
-                  id="selectDosen"
-                  nama="selectDosen"
-                  onchange="dataMatkul()"
-                >
-                  <option value="">Pilih Dosen</option>
-                </select>
+                <input type="text" class="form-control" placeholder="Ruangan Praktikum" name="ruangan_praktikum" id="ruangan_praktikum"/>
               </div>
             </div>
           </fieldset>
@@ -143,30 +108,40 @@
                   placeholder="Mata Kuliah Praktikum"
                   name="mata_kuliah_praktikum"
                   id="mata_kuliah_praktikum"
-                  disabled
                 />
               </div>
             </div>
-          </fieldset> -->
+          </fieldset>
 
           <fieldset>
             <div class="form-group">
-              <h5>Status</h5>
+              <h5>Nama Dosen</h5>
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="status"
-                    ><i class="la la-check"></i
-                  ></label>
+                  <span class="input-group-text" id=""><i class="la la-list-ol"></i></span>
                 </div>
-                <select class="custom-select" id="status" name="status">
-                  <option value="pilih">-Pilih-</option>
-                  <option value="Ada">Ada</option>
-                  <option value="Ditiadakan">Ditiadakan</option>
+                <select class="form-control" name="nm_dosen" id="nm_dosen">
+                  <option> -- PILIH DOSEN -- </option>
+                  {% for dosen in data_dosen %}
+                  <option value="{{dosen.kd_dosen}}">{{dosen.nama}}</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
           </fieldset>
-          <!-- 
+
+          <fieldset>
+            <div class="form-group">
+              <h5>Nama Kelompok</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Nama Kelompok" name="nama_kelompok" id="nama_kelompok"/>
+              </div>
+            </div>
+          </fieldset>
+          
           <fieldset>
             <div class="form-group">
               <h5>Jam Mulai</h5>
@@ -207,38 +182,30 @@
 
           <fieldset>
             <div class="form-group">
-              <h5>Tanggal</h5>
+              <h5>Hari</h5>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id=""
-                    ><i class="la la-calendar"></i
+                    ><i class="la la-eye"></i
                   ></span>
                 </div>
                 <input
-                  type="date"
+                  type="text"
                   class="form-control"
-                  placeholder=""
-                  name="tanggal"
-                  id="tanggal"
+                  placeholder="Hari"
+                  name="nama_hari"
+                  id="nama_hari"
                 />
               </div>
             </div>
-          </fieldset> -->
+          </fieldset>
         </div>
 
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary btn-sm mr-1 mb-1"
-            data-dismiss="modal"
-          >
+          <button type="button" class="btn btn-secondary btn-sm mr-1 mb-1" data-dismiss="modal">
             <i class="la la-times"></i> Batal
           </button>
-          <button
-            type="button"
-            id="mohon_save"
-            class="btn btn-success btn-sm mr-1 mb-1"
-          >
+          <button type="submit" class="btn btn-success btn-sm mr-1 mb-1">
             <i class="la la-check"></i> Simpan
           </button>
         </div>

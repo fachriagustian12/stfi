@@ -74,15 +74,20 @@
         <div class="card-content collapse show">
           <div class="card-body card-dashboard pt-0">
             <div id="buku" class="tabcontent" style="padding-top: 30px">
-              <!-- <h3>Data Buku</h3> -->
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>Data Buku</h3>
+                <button type="button"
+                  class="btn btn-success btn-min-width mr-1 mb-1"
+                  id="add_data_buku"
+                  data-toggle="modal"
+                  data-target="#modal_add_data_buku">Tambah</button>
+              </div>
               <div class="table-responsive">
-                <table
-                  id="all_buku"
-                  class="table table-striped table-bordered bootstrap-3"
-                >
+                <table id="all_buku"class="table table-striped table-bordered bootstrap-3">
                   <thead>
                     <tr>
                       <th>#No</th>
+                      <th>Aksi</th>
                       <th>Title</th>
                       <th>Pengarang</th>
                       <th>Penerbit</th>
@@ -158,6 +163,107 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  tabindex="-1"
+  id="modal_add_data_buku"
+  data-backdrop="static"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data Buku
+        </h5>
+        <a class="btn btn-icon" data-dismiss="modal" aria-label="Close">
+          <span class="la la-times"></span>
+        </a>
+      </div>
+
+    <form action="addbukus" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" id="id" />
+        <div class="modal-body">
+          <fieldset>
+            <div class="form-group">
+              <h5>Title</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Title" name="title" id="title"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Pengarang</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Pengarang" name="pengarang" id="pengarang"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Penerbit</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Penerbit" name="penerbit" id="penerbit"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Tempat Penerbit</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Tempat Penerbit" name="tempat_terbit" id="tempat_terbit"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Tahun Terbit</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="number" class="form-control" placeholder="Tahun Terbit" name="tahun_terbit" id="tahun_terbit"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Link Download File</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Link Download File" name="path" id="path"/>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm mr-1 mb-1" data-dismiss="modal">
+            <i class="la la-times"></i> Batal
+          </button>
+          <button type="submit" class="btn btn-success btn-sm mr-1 mb-1">
+            <i class="la la-check"></i> Simpan
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

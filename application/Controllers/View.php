@@ -287,6 +287,10 @@ class View extends \CodeIgniter\Controller
 	public function data_kelas()
 	{
 		if ($this->logged) {
+			helper('form');
+			$user = new \App\Models\UserModel();
+
+			$this->data['data_dosen']	= $user->getDosen();
 			$this->data['script'] = $this->data['baseURL'] . '/action-js/admin/content/data_kelas.js';
 			return \Twig::instance()->display('admin/content/data_kelas.html', $this->data);
 		} else {
@@ -297,6 +301,10 @@ class View extends \CodeIgniter\Controller
 	public function data_jadwal_praktikum()
 	{
 		if ($this->logged) {
+			helper('form');
+			$user = new \App\Models\UserModel();
+
+			$this->data['data_dosen']	= $user->getDosen();
 			$this->data['script'] = $this->data['baseURL'] . '/action-js/admin/content/data_jadwal_praktikum.js';
 			return \Twig::instance()->display('admin/content/data_jadwal_praktikum.html', $this->data);
 		} else {
@@ -329,6 +337,7 @@ class View extends \CodeIgniter\Controller
 			$this->data['here'] 			= 'user';
 			$this->data['data_provinsi'] 	= $user->getprovinsi();
 			$this->data['data_role']		= $user->getrole();
+			var_dump($this->data['data_role']);die;
 
 			$this->data['script'] 			= $this->data['baseURL'] . '/action-js/admin/user/user.js';
 			return \Twig::instance()->display('admin/user/index.html', $this->data);

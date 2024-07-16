@@ -148,13 +148,55 @@ class UserModel extends Model{
           return $query->getResult();
         }
     }
+    
+    public function getDosen($id = null)
+    {
+        $builder = $this->db->table("data_dosen");
+        $builder->select("*");
+        if($id){
+          $query  = $builder->getWhere(['kd_dosen' => $id]);
+          return $query->getRow();
+        }else{
+          $query   = $builder->get();
+          return $query->getResult();
+        }
+    }
+    
+    public function joinDosen($id = null)
+    {
+        $builder = $this->db->table("data_perkuliahan");
+        $builder->select("
+          data_perkuliahan.id,
+          data_perkuliahan.nama, data_perkuliahan.no_kelas, 
+          data_perkuliahan.matkul, data_perkuliahan.status, 
+          data_perkuliahan.jam_mulai, data_perkuliahan.jam_akhir, 
+          data_perkuliahan.nm_hari, data_perkuliahan.nm_kelas, 
+          data_dosen.nm_dosen");
+        $builder->join('data_dosen', 'data_perkuliahan.kd_dosen = data_dosen.kd_dosen', 'INNER');
+        if($id){
+          $query  = $builder->getWhere(['kd_dosen' => $id]);
+          return $query->getRow();
+        }else{
+          $query   = $builder->get();
+          return $query->getResult();
+        }
+    }
 
-    public function getDosenPraktik($table = null, $id = null)
+    
+    public function getDosenPraktik($id = null)
     {
 
-      $builder = $this->db->table("data_$table");
-      // $builder->select("data_$table.id, data_$table.ruangan_praktikum, data_$table.mata_kuliah_praktikum, data_$table.status, data_$table.jam_mulai, data_$table.jam_akhir, data_$table.tanggal, data_dosen.nama");
-      // $builder->join('data_dosen', 'data_dosen.id = data_jadwal_praktikum.nama_dosen', 'INNER');
+      $builder = $this->db->table("data_jadwal_praktikum");
+      $builder->select("
+      data_jadwal_praktikum.id,
+      data_jadwal_praktikum.ruangan_praktikum,
+			data_jadwal_praktikum.mata_kuliah_praktikum,
+      data_jadwal_praktikum.nama_kelompok,
+			data_jadwal_praktikum.jam_mulai,
+      data_jadwal_praktikum.jam_akhir,
+			data_jadwal_praktikum.nama_hari,
+      data_dosen.nm_dosen,data_dosen.kd_dosen");
+      $builder->join('data_dosen', 'data_jadwal_praktikum.nip_dosen = data_dosen.kd_dosen', 'INNER');
       if($id){
         $query  = $builder->getWhere(['data_jadwal_praktikum.id' => $id]);
         return $query->getRow();

@@ -9,6 +9,7 @@ $(() => {
   });
 
   load("perkuliahan");
+
 });
 
 function load(table) {
@@ -20,9 +21,10 @@ function load(table) {
       table: table,
     },
     success: function (result) {
-      let data = result.data;
+      let data = result.data.data;
+      let dosen = result.data.dosen;
       let code = result.code;
-      // console.log(data);
+      // console.log(dosen);
       if (code != "0") {
         var dt = $("#all_kelas").DataTable({
           dom:
@@ -153,38 +155,49 @@ function action(mode, id, path) {
     $.ajax({
       type: "post",
       dataType: "json",
-      url: "/getdata",
+      url: "/getdataid",
       data: {
         id: id,
         table: "perkuliahan",
       },
       success: function (result) {
-        var data = result.data;
-        console.log(data);
+        var data = result.data.data;
         $("#modal_add_kelas").modal("show");
         $("#id").val(id);
         $("#status").val(data.status);
+        
+        var datados = result.data.DataDosen;
+        $('#nm_dosen').val(datados.kd_dosen);
+        
+        $('#nama').val(data.nama);
+        $('#no_kelas').val(data.no_kelas);
+        $('#matkul').val(data.matkul);
+        $('#nm_hari').val(data.nm_hari);
+        $('#jam_mulai').val(data.jam_mulai);
+        $('#jam_akhir').val(data.jam_akhir);
 
-        for (let item in data) {
-          if ($(`#${item}`).length) {
-            if (item == "perkuliahan") {
-              if (data[item] == "online") {
-                $(`#${item}`).prop("checked", true);
-              } else {
-                $(`#${item}`).prop("checked", false);
-              }
-            } else {
-              $(`#${item}`).val(data[item]).trigger("change");
-            }
-          }
-        }
-        $("wrd").html("Update");
+        $('wrd').html('Ubah')
 
-        let preloaded = [{ id: 1, src: data.path }];
-        $(".file").empty();
-        $(".file").imageUploader({
-          preloaded: preloaded,
-        });
+        // for (let item in data) {
+        //   if ($(`#${item}`).length) {
+        //     if (item == "perkuliahan") {
+        //       if (data[item] == "online") {
+        //         $(`#${item}`).prop("checked", true);
+        //       } else {
+        //         $(`#${item}`).prop("checked", false);
+        //       }
+        //     } else {
+        //       $(`#${item}`).val(data[item]).trigger("change");
+        //     }
+        //   }
+        // }
+        // $("wrd").html("Update");
+
+        // let preloaded = [{ id: 1, src: data.path }];
+        // $(".file").empty();
+        // $(".file").imageUploader({
+        //   preloaded: preloaded,
+        // });
       },
     });
   }

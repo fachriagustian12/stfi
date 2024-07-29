@@ -337,7 +337,6 @@ class View extends \CodeIgniter\Controller
 			$this->data['here'] 			= 'user';
 			$this->data['data_provinsi'] 	= $user->getprovinsi();
 			$this->data['data_role']		= $user->getrole();
-			var_dump($this->data['data_role']);die;
 
 			$this->data['script'] 			= $this->data['baseURL'] . '/action-js/admin/user/user.js';
 			return \Twig::instance()->display('admin/user/index.html', $this->data);

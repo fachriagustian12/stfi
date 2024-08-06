@@ -3,6 +3,11 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use App\Controller\BaseController;
 use CodeIgniter\Files\File;
+use App\Models\SkripsiModel;
+use App\Models\JurnalDosenModel;
+use App\Models\RisetDosenModel;
+use App\Models\MahasiswaModel;
+use App\Models\UserModel;
 
 class Jsondata extends \CodeIgniter\Controller
 {
@@ -737,46 +742,100 @@ class Jsondata extends \CodeIgniter\Controller
   public function addmahasiswa()
   {
 	try {
-		$request		= $this->request;
-		$param		= $request->getVar('param');
+		$request = $this->request;
+		$param = $request->getVar('param');
 		
-		$method			= $request->getMethod();
-		$mahasiswa = new \App\Models\MahasiswaModel();
+		$method	= $request->getMethod();
+		$mahasiswa = new MahasiswaModel();
+		$user = new UserModel();
+
+		// $idRole = $request->getVar('id_role');
+		$idRole = 2;
+
 		if($method == 'post'){
-				
-				if($request->getVar('id')){
-					$data = [
-						'nama' 				=> $request->getVar('nama'),
-						'npm' 				=> $request->getVar('npm'),
-						'semester' 			=> $request->getVar('semester'),
-						'prodi' 			=> $request->getVar('prodi'),
-						'status_mahasiswa' => ($request->getVar('status_mahasiswa') == 'on') ? 1 : 0,
-						'status_perwalian' => ($request->getVar('status_perwalian') == 'on') ? 1 : 0,
-						'update_date' 	=> $this->now,
-						'update_by' 	=> $this->session->get('id')
+			$part1 = bin2hex(random_bytes(4));
+			$part2 = bin2hex(random_bytes(2));
+			$part3 = bin2hex(random_bytes(2));
+			$part4 = bin2hex(random_bytes(2));
+			$part5 = bin2hex(random_bytes(6));
+			$uuid = sprintf('%s-%s-%s-%s-%s', $part1, $part2, $part3, $part4, $part5);
+			if($request->getVar('id')){
+				$data = [
+					'nama' => $request->getVar('nama'),
+					'nm_mhs' => $request->getVar('nama'),
+					'npm' => $request->getVar('npm'),
+					'nim' => $request->getVar('npm'),
+					'id_angkatan' => $request->getVar('angkatan'),
+					'prodi' => $request->getVar('prodi'),
+					'nm_prodi' => $request->getVar('prodi'),
+					'semester' => $request->getVar('semester'),
+					'status_mahasiswa' => $request->getVar('status_mahasiswa'),
+					'status_mhs' => $request->getVar('status_mahasiswa'),
+					'status_perwalian' => $request->getVar('status_perwalian'),
+					'update_date' => $this->now,
+					'update_by' => $this->session->get('id')
+				];
+				$mahasiswa->update($request->getVar('id'), $data);
+
+				$userid = $request->getVar('userid');
+				if($userid){
+					$datas = [
+						'name' => $request->getVar('nama'),	
+						'email' => $request->getVar('email'),	
+						'username' => $request->getVar('npm'),
+						'update_date' => $this->now,
+						'update_by' => $this->session->get('id')
 					];
 					
-					$mahasiswa->update($request->getVar('id'), $data);
-
-					
+					if($request->getVar('password')){
+						$datas['password'] = md5($request->getVar('password'));
+					}
+					$user->updateUser($request->getVar('userid'), $datas);
 				}else{
-					$data = [
-						'nama' => $request->getVar('nama'),
-						'npm' => $request->getVar('npm'),
-						'semester' => $request->getVar('semester'),
-						'prodi' => $request->getVar('prodi'),
-						'status_mahasiswa' => ($request->getVar('status_mahasiswa') == 'on') ? 1 : 0,
-						'status_perwalian' => ($request->getVar('status_perwalian') == 'on') ? 1 : 0,
-						'create_date' 	=> $this->now,
-						'update_date' 	=> $this->now,
-						'create_by' 	=> $this->session->get('id'),
-						'update_by' 	=> $this->session->get('id')
+					$datas = [
+						'name' => $request->getVar('nama'),	
+						'email' => $request->getVar('email'),	
+						'username' => $request->getVar('npm'),	
+						'password' => md5($request->getVar('password')),
+						'id_role' => $idRole,
+						'status' => 1,
+						'create_date' => $this->now,
+						'create_by' => $this->session->get('id')
 					];
-					
-					$mahasiswa->insert($data);
-					$lastid = $mahasiswa->insertID();
-
+					$user->insert($datas);
 				}
+			}else{
+				$data = [
+					'id' => $uuid,
+					'id_mhs' => $uuid,
+					'nama' => $request->getVar('nama'),
+					'nm_mhs' => $request->getVar('nama'),
+					'npm' => $request->getVar('npm'),
+					'nim' => $request->getVar('npm'),
+					'id_angkatan' => $request->getVar('angkatan'),
+					'prodi' => $request->getVar('prodi'),
+					'nm_prodi' => $request->getVar('prodi'),
+					'semester' => $request->getVar('semester'),
+					'status_mahasiswa' => $request->getVar('status_mahasiswa'),
+					'status_mhs' => $request->getVar('status_mahasiswa'),
+					'status_perwalian' => $request->getVar('status_perwalian'),
+					'create_date' => $this->now,
+					'create_by' => $this->session->get('id')
+				];
+				$mahasiswa->insertMhs($data);
+				$lastid = $mahasiswa->insertID();
+				$datas = [
+					'name' => $request->getVar('nama'),	
+					'email' => $request->getVar('email'),	
+					'username' => $request->getVar('npm'),	
+					'password' => md5($request->getVar('password')),
+					'id_role' => $idRole,
+					'status' => 1,
+					'create_date' => $this->now,
+					'create_by' => $this->session->get('id')
+				];
+				$user->insert($datas);
+			}
 		}
 		redirect('data_mahasiswa','refresh');
 	} catch (\Exception $e) {
@@ -1273,6 +1332,106 @@ class Jsondata extends \CodeIgniter\Controller
 		die($e->getMessage());
 	}
   }
+  
+  public function addskripsis(){
+	try {
+		$request = $this->request;
+		$buku = new SkripsiModel();
+		if($request->getVar('id_skripsi')){
+			$data = [
+				'judul_buku' => $request->getVar('judul_buku_skripsi'),
+				'pengarang' => $request->getVar('pengarang_skripsi'),
+				'penerbit' => $request->getVar('penerbit_skripsi'),
+				'tempat_terbit' => $request->getVar('tempat_terbit_skripsi'),
+				'tahun_terbit' => $request->getVar('tahun_terbit_skripsi'),
+				'kondisi_buku' => $request->getVar('kondisi_buku_skripsi'),
+				'updated_at' => $this->now,
+				'updated_by' => $this->session->get('id'),
+			];
+			$buku->update($request->getVar('id_skripsi'), $data);
+		}else{
+			$data = [
+				'judul_buku' => $request->getVar('judul_buku_skripsi'),
+				'pengarang' => $request->getVar('pengarang_skripsi'),
+				'penerbit' => $request->getVar('penerbit_skripsi'),
+				'tempat_terbit' => $request->getVar('tempat_terbit_skripsi'),
+				'tahun_terbit' => $request->getVar('tahun_terbit_skripsi'),
+				'kondisi_buku' => $request->getVar('kondisi_buku_skripsi'),
+				'created_at' => $this->now,
+				'created_by' => $this->session->get('id'),
+			];
+			$buku->insert($data);
+			$lastid = $buku->insertID();
+		}
+		redirect('data_buku','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+  
+  public function addjurnals(){
+	try {
+		$request = $this->request;
+		$skripsi = new JurnalDosenModel();
+		if($request->getVar('id_jurnal')){
+			$data = [
+				'nidn' => $request->getVar('nidn_jurnal'),
+				'kode_dosen' => $request->getVar('nm_dosen_jurnal'),
+				'judul' => $request->getVar('judul_jurnal'),
+				'jenis_jurnal' => $request->getVar('jenis_jurnal'),
+				'tahun' => $request->getVar('tahun_jurnal'),
+				'updated_at' => $this->now,
+			];
+			$skripsi->update($request->getVar('id_jurnal'), $data);
+		}else{
+			$data = [
+				'nidn' => $request->getVar('nidn_jurnal'),
+				'kode_dosen' => $request->getVar('nm_dosen_jurnal'),
+				'judul' => $request->getVar('judul_jurnal'),
+				'jenis_jurnal' => $request->getVar('jenis_jurnal'),
+				'tahun' => $request->getVar('tahun_jurnal'),
+				'created_at' => $this->now,
+			];
+			$skripsi->insert($data);
+			$lastid = $skripsi->insertID();
+		}
+		redirect('data_buku','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
+  
+  public function addrisets(){
+	try {
+		$request = $this->request;
+		$riset = new RisetDosenModel();
+		if($request->getVar('id_riset')){
+			$data = [
+				'nidn' => $request->getVar('nidn_riset'),
+				'kode_dosen' => $request->getVar('nm_dosen_riset'),
+				'judul' => $request->getVar('judul_riset'),
+				'jenis_karyailmiah' => $request->getVar('jenis_riset'),
+				'tahun' => $request->getVar('tahun_riset'),
+				'updated_at' => $this->now,
+			];
+			$riset->update($request->getVar('id_riset'), $data);
+		}else{
+			$data = [
+				'nidn' => $request->getVar('nidn_riset'),
+				'kode_dosen' => $request->getVar('nm_dosen_riset'),
+				'judul' => $request->getVar('judul_riset'),
+				'jenis_karyailmiah' => $request->getVar('jenis_riset'),
+				'tahun' => $request->getVar('tahun_riset'),
+				'created_at' => $this->now,
+			];
+			$riset->insert($data);
+			$lastid = $riset->insertID();
+		}
+		redirect('data_buku','refresh');
+	} catch (\Exception $e) {
+		die($e->getMessage());
+	}
+  }
 
   public function addbuku()
   {
@@ -1481,6 +1640,24 @@ class Jsondata extends \CodeIgniter\Controller
 		  
 		  if($table == 'perkuliahan'){
 			$data = $user->joinDosen();
+		  }else if($table == 'jurnal_dosen'){
+			if($id){
+				$data = $user->jurnaldosen($id);
+			}else{
+				$data = $user->jurnaldosen();
+			}
+		  }else if($table == 'riset_dosen'){
+			if($id){
+				$data = $user->risetdosen($id);
+			}else{
+				$data = $user->risetdosen();
+			}
+		  }else if($table == 'mahasiswa'){
+			if($id){
+				$data = $user->getUserMahasiswa($id);
+			}else{
+				$data = $user->getUserMahasiswa();
+			}
 		  }else{
 			$data = $user->getData($table, $id);
 		  }
@@ -1635,13 +1812,29 @@ class Jsondata extends \CodeIgniter\Controller
   public function deletedata()
   {
 	try {
-		$request		= $this->request;
-		$method			= $request->getMethod();
-		$user = new \App\Models\UserModel();
+		$request = $this->request;
+		$method = $request->getMethod();
+		$table = $request->getVar('table');
 
-		$user->deleteData($request->getVar('id'), $request->getVar('table'));
-		if (file_exists($request->getVar('path'))) {
-			unlink($request->getVar('path'));
+		if($table == 'skripsi'){
+			$skripsi = new SkripsiModel();
+			$skripsi->deleteData($request->getVar('id'), $table);
+		}else if($table == 'jurnal_dosen'){
+			$skripsi = new JurnalDosenModel();
+			$skripsi->deleteData($request->getVar('id'), $table);
+		}else if($table == 'riset_dosen'){
+			$skripsi = new RisetDosenModel();
+			$skripsi->deleteData($request->getVar('id'), $table);
+		}else if($table == 'mahasiswa'){
+			$skripsi = new MahasiswaModel();
+			$skripsi->deleteData($request->getVar('id'), $table);
+		}
+		else{
+			$user = new \App\Models\UserModel();
+			$user->deleteData($request->getVar('id'), $request->getVar('table'));
+			if (file_exists($request->getVar('path'))) {
+				unlink($request->getVar('path'));
+			}
 		}
 
 		$response = [

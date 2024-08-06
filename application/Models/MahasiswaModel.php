@@ -87,7 +87,15 @@ class MahasiswaModel extends Model{
         'nm_jenis_tinggal'
     ];
 
-    // public function insert_manu($data){
-    //     $res = $this->db->table('data_mahasiswa')->insert($data);
-    // }
+    public function insertMhs($data = null)
+    {
+        $res = $this->db->table('data_mahasiswa')->insert($data);
+        return  $res;
+    }
+
+    public function deleteData($id = null, $table = null)
+    {
+        $res = $this->db->table("data_$table")->where('id', $id)->delete();
+        return  $res;
+    }
 }

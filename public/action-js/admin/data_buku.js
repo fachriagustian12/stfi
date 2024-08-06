@@ -11,6 +11,20 @@ $(() => {
       mimes: ["application/pdf"],
     });
   });
+  
+  $('button[data-dismiss="modal"]').on('click', function () {
+    var modal = $(this).closest('.modal');
+
+    // Reset form di dalam modal jika ada
+    modal.find('form').trigger('reset');
+
+    // Hapus konten dinamis (misalnya daftar atau data lainnya)
+    modal.find('.dynamic-list').empty();
+
+    // Bersihkan elemen lain yang diperlukan
+    modal.find('textarea').val('');
+    modal.find('select').prop('selectedIndex', 0);
+});
 
   load();
 });
@@ -113,6 +127,7 @@ function load() {
       }
     },
   });
+
   $.ajax({
     type: "post",
     dataType: "json",
@@ -137,7 +152,7 @@ function load() {
             ">",
           destroy: true,
           paging: true,
-          lengthChange: false,
+          lengthChange: true,
           searching: true,
           ordering: true,
           info: true,
@@ -146,6 +161,7 @@ function load() {
           pageLength: 10,
           aaData: result.data,
           aoColumns: [
+            { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "judul_buku", class: "text-center" },
             { mDataProp: "pengarang", class: "text-center", width: "10%" },
@@ -156,7 +172,19 @@ function load() {
           ],
           order: [[0, "ASC"]],
           fixedColumns: true,
-          aoColumnDefs: [],
+          aoColumnDefs: [
+            {
+              mRender: function (data, type, row) {
+                var elem =
+                        '<div class="btn-group" role="group" aria-label="Basic example">';
+                elem += `<button class="btn btn-icon btn-info btn-sm" onclick="action('updateskripsi', ${row.id})"><i class="la la-edit"></i></button>`;
+                elem += `<button class="btn btn-icon btn-danger btn-sm" onclick="action('deleteskripsi', ${row.id})"><i class="la la-trash"></i></button>`;
+                elem += "</div>";
+                return elem;
+              },
+              aTargets: [1],
+            },
+          ],
           fnRowCallback: function (
             nRow,
             aData,
@@ -190,6 +218,7 @@ function load() {
       }
     },
   });
+
   $.ajax({
     type: "post",
     dataType: "json",
@@ -214,7 +243,7 @@ function load() {
             ">",
           destroy: true,
           paging: true,
-          lengthChange: false,
+          lengthChange: true,
           searching: true,
           ordering: true,
           info: true,
@@ -224,6 +253,7 @@ function load() {
           aaData: result.data,
           aoColumns: [
             { mDataProp: "id", class: "text-center", width: "2%" },
+            { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "nidn", class: "text-center", width: "10%" },
             { mDataProp: "nm_dosen", class: "text-center", width: "12%" },
             { mDataProp: "judul", class: "text-center" },
@@ -232,7 +262,19 @@ function load() {
           ],
           order: [[0, "ASC"]],
           fixedColumns: true,
-          aoColumnDefs: [],
+          aoColumnDefs: [
+            {
+              mRender: function (data, type, row) {
+                var elem =
+                        '<div class="btn-group" role="group" aria-label="Basic example">';
+                elem += `<button class="btn btn-icon btn-info btn-sm" onclick="action('updatejurnal', ${row.id})"><i class="la la-edit"></i></button>`;
+                elem += `<button class="btn btn-icon btn-danger btn-sm" onclick="action('deletejurnal', ${row.id})"><i class="la la-trash"></i></button>`;
+                elem += "</div>";
+                return elem;
+              },
+              aTargets: [1],
+            },
+          ],
           fnRowCallback: function (
             nRow,
             aData,
@@ -266,6 +308,7 @@ function load() {
       }
     },
   });
+
   $.ajax({
     type: "post",
     dataType: "json",
@@ -290,7 +333,7 @@ function load() {
             ">",
           destroy: true,
           paging: true,
-          lengthChange: false,
+          lengthChange: true,
           searching: true,
           ordering: true,
           info: true,
@@ -300,19 +343,28 @@ function load() {
           aaData: result.data,
           aoColumns: [
             { mDataProp: "id", class: "text-center", width: "2%" },
+            { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "nidn", class: "text-center", width: "10%" },
-            { mDataProp: "nm_dosen", class: "text-center", width: "15%" },
+            { mDataProp: "nm_dosen", class: "text-center", width: "12%" },
             { mDataProp: "judul", class: "text-center" },
-            {
-              mDataProp: "jenis_karyailmiah",
-              class: "text-center",
-              width: "12%",
-            },
+            { mDataProp: "jenis_karyailmiah", class: "text-center", width: "12%" },
             { mDataProp: "tahun", class: "text-center", width: "10%" },
           ],
           order: [[0, "ASC"]],
           fixedColumns: true,
-          aoColumnDefs: [],
+          aoColumnDefs: [
+            {
+              mRender: function (data, type, row) {
+                var elem =
+                        '<div class="btn-group" role="group" aria-label="Basic example">';
+                elem += `<button class="btn btn-icon btn-info btn-sm" onclick="action('updateriset', ${row.id})"><i class="la la-edit"></i></button>`;
+                elem += `<button class="btn btn-icon btn-danger btn-sm" onclick="action('deleteriset', ${row.id})"><i class="la la-trash"></i></button>`;
+                elem += "</div>";
+                return elem;
+              },
+              aTargets: [1],
+            },
+          ],
           fnRowCallback: function (
             nRow,
             aData,
@@ -382,7 +434,179 @@ function action(mode, id, path) {
         });
       }
     });
-  } else {
+  } 
+  else if(mode == 'updateskripsi'){
+    $.ajax({
+      type: "post",
+      dataType: "json",
+      url: "/getdata",
+      data: {
+        id: id,
+        table: "skripsi",
+      },
+      success: function (result) {
+        var data = result.data;
+        $("#modal_add_data_skripsi").modal("show");
+        $("#id_skripsi").val(id);
+        $("#judul_buku_skripsi").val(data.judul_buku);
+        $("#pengarang_skripsi").val(data.pengarang);
+        $("#penerbit_skripsi").val(data.penerbit);
+        $("#tempat_terbit_skripsi").val(data.tempat_terbit);
+        $("#tahun_terbit_skripsi").val(data.tahun_terbit);
+        $("#kondisi_buku_skripsi").val(data.kondisi_buku);
+        $("wrd").html("Update");
+
+        let preloaded = [{ id: 1, src: data.path }];
+        $(".file").empty();
+        $(".file").imageUploader({
+          preloaded: preloaded,
+          extensions: [".pdf"],
+          mimes: ["application/pdf"],
+        });
+      },
+    });
+  }
+  else if(mode == "deleteskripsi"){
+    Swal.fire({
+      html: `Apakah anda yakin data ini?`,
+      icon: "warning",
+      buttonsStyling: true,
+      showCancelButton: true,
+      confirmButtonText: "Ya, Hapus!",
+      cancelButtonText: "Tidak",
+      customClass: {
+        confirmButton: "btn btn-danger btn-sm",
+        cancelButton: "btn btn-success btn-sm",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          type: "post",
+          dataType: "json",
+          data: {
+            id: id,
+            table: "skripsi",
+          },
+          url: "/deletedata",
+          success: function (result) {
+            load("buku");
+          },
+        });
+      }
+    });
+  } 
+  else if(mode == 'updatejurnal'){
+    $.ajax({
+      type: "post",
+      dataType: "json",
+      url: "/getdata",
+      data: {
+        id: id,
+        table: "jurnal_dosen",
+      },
+      success: function (result) {
+        var data = result.data;
+        $("#modal_add_data_jurnal").modal("show");
+        $("#id_jurnal").val(id);
+        $("#nidn_jurnal").val(data.nidn);
+        $("#nm_dosen_jurnal").val(data.kd_dosen);
+        $("#judul_jurnal").val(data.judul);
+        $("#jenis_jurnal").val(data.jenis_jurnal);
+        $("#tahun_jurnal").val(data.tahun);
+        $("wrd").html("Update");
+
+        let preloaded = [{ id: 1, src: data.path }];
+        $(".file").empty();
+        $(".file").imageUploader({
+          preloaded: preloaded,
+          extensions: [".pdf"],
+          mimes: ["application/pdf"],
+        });
+      },
+    });
+  }
+  else if(mode == "deletejurnal"){
+    Swal.fire({
+      html: `Apakah anda yakin data ini?`,
+      icon: "warning",
+      buttonsStyling: true,
+      showCancelButton: true,
+      confirmButtonText: "Ya, Hapus!",
+      cancelButtonText: "Tidak",
+      customClass: {
+        confirmButton: "btn btn-danger btn-sm",
+        cancelButton: "btn btn-success btn-sm",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          type: "post",
+          dataType: "json",
+          data: {
+            id: id,
+            table: "jurnal_dosen",
+          },
+          url: "/deletedata",
+          success: function (result) {
+            load("buku");
+          },
+        });
+      }
+    });
+  } 
+  else if(mode == 'updateriset'){
+    $.ajax({
+      type: "post",
+      dataType: "json",
+      url: "/getdata",
+      data: {
+        id: id,
+        table: "riset_dosen",
+      },
+      success: function (result) {
+        var data = result.data;
+        console.log(data)
+        $("#modal_add_data_riset").modal("show");
+        $("#id_riset").val(id);
+        $("#nidn_riset").val(data.nidn);
+        $("#nm_dosen_riset").val(data.kd_dosen);
+        $("#judul_riset").val(data.judul);
+        $("#jenis_riset").val(data.jenis_karyailmiah);
+        $("#tahun_riset").val(data.tahun);
+        $("wrd").html("Update");
+      },
+    });
+  }
+  else if(mode == "deleteriset"){
+    Swal.fire({
+      html: `Apakah anda yakin data ini?`,
+      icon: "warning",
+      buttonsStyling: true,
+      showCancelButton: true,
+      confirmButtonText: "Ya, Hapus!",
+      cancelButtonText: "Tidak",
+      customClass: {
+        confirmButton: "btn btn-danger btn-sm",
+        cancelButton: "btn btn-success btn-sm",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          type: "post",
+          dataType: "json",
+          data: {
+            id: id,
+            table: "riset_dosen",
+          },
+          url: "/deletedata",
+          success: function (result) {
+            load("buku");
+          },
+        });
+      }
+    });
+  } 
+  else {
     $.ajax({
       type: "post",
       dataType: "json",

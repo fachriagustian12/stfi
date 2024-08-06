@@ -216,3 +216,7 @@ function action(mode, id, path) {
   }
 }
 
+function ekspor(params) {
+  window.location.href=params;
+}
+

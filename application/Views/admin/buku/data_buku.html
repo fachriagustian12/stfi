@@ -101,6 +101,12 @@
             </div>
 
             <div id="skripsi" class="tabcontent" style="padding-top: 30px">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>Data Skripsi</h3>
+                <button type="button" class="btn btn-success btn-min-width mr-1 mb-1" id="add_data_skripsi" data-toggle="modal" data-target="#modal_add_data_skripsi">
+                  Tambah
+                </button>
+              </div>
               <div class="table-responsive">
                 <table
                   id="all_skripsi"
@@ -109,6 +115,7 @@
                   <thead>
                     <tr>
                       <th>#No</th>
+                      <th>Aksi</th>
                       <th>Title</th>
                       <th>Pengarang</th>
                       <th>Penerbit</th>
@@ -122,14 +129,18 @@
             </div>
 
             <div id="jurnal" class="tabcontent" style="padding-top: 30px">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>Data Jurnal Dosen</h3>
+                <button type="button" class="btn btn-success btn-min-width mr-1 mb-1" id="add_data_jurnal" data-toggle="modal" data-target="#modal_add_data_jurnal">
+                  Tambah
+                </button>
+              </div>
               <div class="table-responsive">
-                <table
-                  id="all_jurnal"
-                  class="table table-striped table-bordered bootstrap-3"
-                >
+                <table id="all_jurnal" class="table table-striped table-bordered bootstrap-3">
                   <thead>
                     <tr>
                       <th>#No</th>
+                      <th>AKSI</th>
                       <th>NIDN</th>
                       <th>Nama Dosen</th>
                       <th>Judul</th>
@@ -142,6 +153,14 @@
             </div>
 
             <div id="riset" class="tabcontent" style="padding-top: 30px">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>Data Riset Dosen</h3>
+                <button type="button"
+                  class="btn btn-success btn-min-width mr-1 mb-1"
+                  id="add_data_riset"
+                  data-toggle="modal"
+                  data-target="#modal_add_data_riset">Tambah</button>
+              </div>
               <div class="table-responsive">
                 <table
                   id="all_riset"
@@ -150,6 +169,7 @@
                   <thead>
                     <tr>
                       <th>#No</th>
+                      <th>AKSI</th>
                       <th>NIDN</th>
                       <th>Nama Dosen</th>
                       <th>Judul</th>
@@ -167,12 +187,7 @@
   </div>
 </div>
 
-<div
-  class="modal fade"
-  tabindex="-1"
-  id="modal_add_data_buku"
-  data-backdrop="static"
->
+<div class="modal fade" tabindex="-1" id="modal_add_data_buku" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -267,6 +282,283 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" tabindex="-1" id="modal_add_data_skripsi" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data Skripsi
+        </h5>
+        <a class="btn btn-icon" data-dismiss="modal" aria-label="Close">
+          <span class="la la-times"></span>
+        </a>
+      </div>
+
+    <form action="addskripsis" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id_skripsi" id="id_skripsi" />
+        <div class="modal-body">
+          <fieldset>
+            <div class="form-group">
+              <h5>Title</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Title" name="judul_buku_skripsi" id="judul_buku_skripsi"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Pengarang</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Pengarang" name="pengarang_skripsi" id="pengarang_skripsi"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Penerbit</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Penerbit" name="penerbit_skripsi" id="penerbit_skripsi"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Tempat Penerbit</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Tempat Penerbit" name="tempat_terbit_skripsi" id="tempat_terbit_skripsi"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Tahun Terbit</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="number" class="form-control" placeholder="Tahun Terbit" name="tahun_terbit_skripsi" id="tahun_terbit_skripsi"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Kondisi Buku</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Kondisi Buku" name="kondisi_buku_skripsi" id="kondisi_buku_skripsi"/>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm mr-1 mb-1" data-dismiss="modal">
+            <i class="la la-times"></i> Batal
+          </button>
+          <button type="submit" class="btn btn-success btn-sm mr-1 mb-1">
+            <i class="la la-check"></i> Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modal_add_data_jurnal" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data Jurnal Dosen
+        </h5>
+        <a class="btn btn-icon" data-dismiss="modal" aria-label="Close">
+          <span class="la la-times"></span>
+        </a>
+      </div>
+
+    <form action="addjurnals" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id_jurnal" id="id_jurnal" />
+        <div class="modal-body">
+          <fieldset>
+            <div class="form-group">
+              <h5>NIDN</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="NIDN" name="nidn_jurnal" id="nidn_jurnal"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Nama Dosen</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <select class="form-control" name="nm_dosen_jurnal" id="nm_dosen_jurnal">
+                  <option> -- PILIH DOSEN -- </option>
+                  {% for dosen in data_dosen %}
+                  <option value="{{dosen.kd_dosen}}">{{dosen.nama}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Judul</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Judul" name="judul_jurnal" id="judul_jurnal"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Jenis Jurnal</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Jenis Jurnal" name="jenis_jurnal" id="jenis_jurnal"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Tahun</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="number" class="form-control" placeholder="Tahun" name="tahun_jurnal" id="tahun_jurnal"/>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm mr-1 mb-1" data-dismiss="modal">
+            <i class="la la-times"></i> Batal
+          </button>
+          <button type="submit" class="btn btn-success btn-sm mr-1 mb-1">
+            <i class="la la-check"></i> Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modal_add_data_riset" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data Riset Dosen
+        </h5>
+        <a class="btn btn-icon" data-dismiss="modal" aria-label="Close">
+          <span class="la la-times"></span>
+        </a>
+      </div>
+
+    <form action="addrisets" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id_riset" id="id_riset" />
+        <div class="modal-body">
+          <fieldset>
+            <div class="form-group">
+              <h5>NIDN</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="NIDN" name="nidn_riset" id="nidn_riset"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Nama Dosen</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <select class="form-control" name="nm_dosen_riset" id="nm_dosen_riset">
+                  <option> -- PILIH DOSEN -- </option>
+                  {% for dosen in data_dosen %}
+                  <option value="{{dosen.kd_dosen}}">{{dosen.nama}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Judul</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Judul" name="judul_riset" id="judul_riset"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Jenis Karya Ilmiah</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Jenis Karya Ilmiah" name="jenis_riset" id="jenis_riset"/>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="form-group">
+              <h5>Tahun</h5>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id=""><i class="la la-home"></i></span>
+                </div>
+                <input type="number" class="form-control" placeholder="Tahun" name="tahun_riset" id="tahun_riset"/>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm mr-1 mb-1" data-dismiss="modal">
+            <i class="la la-times"></i> Batal
+          </button>
+          <button type="submit" class="btn btn-success btn-sm mr-1 mb-1">
+            <i class="la la-check"></i> Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script>
   window.onload = function () {
     // Aktifkan tab1 secara default

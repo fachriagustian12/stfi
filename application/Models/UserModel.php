@@ -124,7 +124,6 @@ class UserModel extends Model{
 
     public function updateUser($id = null, $data = null)
     {
-      
         $res = $this->db->table('m_user')->where('id', $id)->update($data);
         //  echo $this->db->getLastQuery();die;
         return  $res;
@@ -181,6 +180,42 @@ class UserModel extends Model{
           return $query->getResult();
         }
     }
+    
+    public function jurnaldosen($id = null)
+    {
+        $builder = $this->db->table("data_jurnal_dosen");
+        $builder->select("
+          data_jurnal_dosen.id,
+          data_jurnal_dosen.nidn, data_jurnal_dosen.jenis_jurnal, 
+          data_jurnal_dosen.judul, data_jurnal_dosen.tahun,data_dosen.nm_dosen,
+          data_dosen.kd_dosen");
+        $builder->join('data_dosen', 'data_jurnal_dosen.kode_dosen = data_dosen.kd_dosen', 'INNER');
+        if($id){
+          $query  = $builder->getWhere(['data_jurnal_dosen.id' => $id]);
+          return $query->getRow();
+        }else{
+          $query   = $builder->get();
+          return $query->getResult();
+        }
+    }
+    
+    public function risetdosen($id = null)
+    {
+        $builder = $this->db->table("data_riset_dosen");
+        $builder->select("
+          data_riset_dosen.id,
+          data_riset_dosen.nidn, data_riset_dosen.jenis_karyailmiah, 
+          data_riset_dosen.judul, data_riset_dosen.tahun,data_dosen.nm_dosen,
+          data_dosen.kd_dosen");
+        $builder->join('data_dosen', 'data_riset_dosen.kode_dosen = data_dosen.kd_dosen', 'INNER');
+        if($id){
+          $query  = $builder->getWhere(['data_riset_dosen.id' => $id]);
+          return $query->getRow();
+        }else{
+          $query   = $builder->get();
+          return $query->getResult();
+        }
+    }
 
     
     public function getDosenPraktik($id = null)
@@ -205,6 +240,77 @@ class UserModel extends Model{
         return $query->getResult();
       }
     }
+
+    // public function getUserMahasiswa($id = null)
+    // {
+    //   $builder = $this->db->table("data_mahasiswa");
+    //   $builder->select("
+    //   data_mahasiswa.id, data_mahasiswa.nama, 
+    //   data_mahasiswa.semester, data_mahasiswa.prodi, 
+    //   data_mahasiswa.status_mahasiswa, data_mahasiswa.status_perwalian, 
+    //   data_mahasiswa.id_angkatan, data_mahasiswa.tgl_masuk, 
+    //   data_mahasiswa.nim, m_user.email");
+    //   $builder->join('m_user', 'data_mahasiswa.nim = m_user.username', 'INNER');
+    //   if($id){
+    //     $query = $builder->getWhere(['data_mahasiswa.id' => $id]);
+    //     return $query->getRow();
+    //   }else{
+    //     $query = $builder->get();
+    //     return $query->getResult();
+    //   }
+    // }
+    
+    public function getUserMahasiswa($id = null)
+    {
+      $builder = $this->db->table("data_mahasiswa");
+      $builder->select("
+        data_mahasiswa.id, 
+        data_mahasiswa.nama, 
+        data_mahasiswa.semester, 
+        data_mahasiswa.prodi, 
+        data_mahasiswa.status_mahasiswa, 
+        data_mahasiswa.status_perwalian, 
+        data_mahasiswa.id_angkatan, 
+        data_mahasiswa.tgl_masuk, 
+        data_mahasiswa.nim, 
+        data_mahasiswa.create_date, 
+        m_user.email AS user_email,
+        m_user.id AS user_id
+      ");
+      $builder->join('m_user', 'data_mahasiswa.nim = m_user.username', 'LEFT');
+      if ($id) {
+        $query = $builder->getWhere(['data_mahasiswa.id' => $id]);
+        return $query->getRow();
+      }
+      else {
+          $query = $builder->get();
+          return $query->getResult();
+      }
+    }
+
+    // public function getUserMahasiswa($id = null){
+    //   $builder = $this->db->table("data_mahasiswa");
+    //   $builder->select("*");
+    //   if($id){
+    //     $query = $builder->getWhere(['id' => $id]);
+    //     return $query->getRow();
+    //   }else{
+    //     $query = $builder->get();
+    //     return $query->getResult();
+    //   }
+    // }
+
+    // public function getUserNPMMahasiswa($id = null){
+    //   $builder = $this->db->table("m_user");
+    //   $builder->select("*");
+    //   if($id){
+    //     $query = $builder->getWhere(['m_user.username' => $id]);
+    //     return $query->getRow();
+    //   }else{
+    //     $query = $builder->get();
+    //     return $query->getResult();
+    //   }
+    // }
 
     public function deleteData($id = null, $table = null)
     {

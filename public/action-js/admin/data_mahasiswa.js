@@ -22,7 +22,6 @@ function load(table) {
     success: function (result) {
       let data = result.data;
       let code = result.code;
-      console.log(data);
       if (code != "0") {
         var dt = $("#all_mahasiswa").DataTable({
           dom:
@@ -47,6 +46,7 @@ function load(table) {
           aaData: result.data,
           aoColumns: [
             { mDataProp: "id", class: "text-center", width: "2%" },
+            { mDataProp: "id", class: "text-center", width: "2%" },
             { mDataProp: "nama", class: "text-center" },
             { mDataProp: "nim", class: "text-center" },
             { mDataProp: "id_angkatan", class: "text-center" },
@@ -62,26 +62,27 @@ function load(table) {
             {
               mRender: function (data, type, row) {
                 var elem = "";
-                if (data == 1) {
+                if (data == "SUDAH") {
                   elem = '<div class="badge badge-success">Sudah</div>';
                 } else {
                   elem = '<div class="badge badge-danger">Belum</div>';
                 }
                 return elem;
               },
-              aTargets: [6],
+              aTargets: [7],
             },
-            // {
-            //   mRender: function (data, type, row) {
-            //     var elem =
-            //       '<div class="btn-group" role="group" aria-label="Basic example">';
-            //     elem += `<button class="btn btn-icon btn-info btn-sm" onclick="action('update', ${row.id})"><i class="la la-edit"></i></button>`;
-            //     elem += `<button class="btn btn-icon btn-danger btn-sm" onclick="action('delete', ${row.id})"><i class="la la-trash"></i></button>`;
-            //     elem += "</div>";
-            //     return elem;
-            //   },
-            //   aTargets: [8],
-            // },
+            {
+              mRender: function (data, type, row) {
+                var id = "`"+row.id+"`";
+                var elem =
+                  '<div class="btn-group" role="group" aria-label="Basic example">';
+                elem += `<button class="btn btn-icon btn-info btn-sm" onclick="action('update', ${id})"><i class="la la-edit"></i></button>`;
+                elem += `<button class="btn btn-icon btn-danger btn-sm" onclick="action('delete', ${id})"><i class="la la-trash"></i></button>`;
+                elem += "</div>";
+                return elem;
+              },
+              aTargets: [1],
+            },
           ],
           fnRowCallback: function (
             nRow,
@@ -118,7 +119,7 @@ function load(table) {
   });
 }
 
-function action(mode, id, path) {
+function action(mode, id) {
   if (mode == "delete") {
     Swal.fire({
       html: `Apakah anda yakin data ini?`,
@@ -138,7 +139,6 @@ function action(mode, id, path) {
           dataType: "json",
           data: {
             id: id,
-            path: path,
             table: "mahasiswa",
           },
           url: "/deletedata",
@@ -161,21 +161,21 @@ function action(mode, id, path) {
         var data = result.data;
         $("#modal_add_mahasiswa").modal("show");
         $("#id").val(id);
-        $("#prodi").val(data.prodi);
-
-        for (let item in data) {
-          if ($(`#${item}`).length) {
-            if (item == "status_mahasiswa" || item == "status_perwalian") {
-              if (data[item] == 1) {
-                $(`#${item}`).prop("checked", true);
-              } else {
-                $(`#${item}`).prop("checked", false);
-              }
-            } else {
-              $(`#${item}`).val(data[item]).trigger("change");
-            }
-          }
+        $("#userid").val(data.user_id);
+        if(data.user_id){
+          var nameInput = document.getElementById('password');
+          nameInput.required = false;
+          var nameInputnpm = document.getElementById('npm');
+          nameInputnpm.required = false;
         }
+        $("#nama").val(data.nama);
+        $("#npm").val(data.nim);
+        $("#email").val(data.user_email);
+        $("#angkatan").val(data.id_angkatan);
+        $("#prodi").val(data.prodi);
+        $("#semester").val(data.semester);
+        $("#status_mahasiswa").val(data.status_mahasiswa);
+        $("#status_perwalian").val(data.status_perwalian);
         $("wrd").html("Update");
       },
     });

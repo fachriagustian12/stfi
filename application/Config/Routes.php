@@ -182,6 +182,11 @@ $routes->post('addkelas', 'Jsondata::addkelas');
 $routes->post('addjadwalpraktikum', 'Jsondata::addjadwalpraktikum');
 $routes->post('addbuku', 'Jsondata::addbuku');
 $routes->post('addbukus', 'Jsondata::addbukus');
+$routes->get('dataexport/perkuliahan', 'EksporController::exportJadwalPerkuliahan');
+$routes->get('dataexport/jadwal_praktikum', 'EksporController::exportJadwalPraktikum');
+$routes->post('addskripsis', 'Jsondata::addskripsis');
+$routes->post('addjurnals', 'Jsondata::addjurnals');
+$routes->post('addrisets', 'Jsondata::addrisets');
 
 // API
 $routes->group('api', ['namespace' => 'App\Controllers'], function ($routes) {

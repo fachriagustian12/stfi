@@ -254,16 +254,6 @@ class View extends \CodeIgniter\Controller
 		}
 	}
 
-	public function data_buku()
-	{
-		if ($this->logged) {
-			$this->data['script'] = $this->data['baseURL'] . '/action-js/admin/data_buku.js';
-			return \Twig::instance()->display('admin/buku/data_buku.html', $this->data);
-		} else {
-			return redirect('login');
-		}
-	}
-
 	public function data_slider()
 	{
 		if ($this->logged) {
@@ -293,6 +283,20 @@ class View extends \CodeIgniter\Controller
 			$this->data['data_dosen']	= $user->getDosen();
 			$this->data['script'] = $this->data['baseURL'] . '/action-js/admin/content/data_kelas.js';
 			return \Twig::instance()->display('admin/content/data_kelas.html', $this->data);
+		} else {
+			return redirect('login');
+		}
+	}
+
+	public function data_buku()
+	{
+		if ($this->logged) {
+			helper('form');
+			$user = new \App\Models\UserModel();
+
+			$this->data['data_dosen']	= $user->getDosen();
+			$this->data['script'] = $this->data['baseURL'] . '/action-js/admin/data_buku.js';
+			return \Twig::instance()->display('admin/buku/data_buku.html', $this->data);
 		} else {
 			return redirect('login');
 		}

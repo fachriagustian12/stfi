@@ -40,4 +40,10 @@ class SkripsiModel extends Model
         'no_panggil',
         'created_at'
     ];
+
+    public function deleteData($id = null, $table = null)
+    {
+        $res = $this->db->table("data_$table")->where('id', $id)->delete();
+        return  $res;
+    }
 }

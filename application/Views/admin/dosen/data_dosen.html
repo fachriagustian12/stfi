@@ -11,14 +11,8 @@
           ></a>
           <div class="heading-elements">
             <ul class="list-inline mb-0">
-              <li hidden>
-                <button
-                  type="button"
-                  class="btn btn-success btn-min-width mr-1 mb-1"
-                  id="add_dosen"
-                  data-toggle="modal"
-                  data-target="#modal_add_dosen"
-                >
+              <li>
+                <button type="button" class="btn btn-success btn-min-width mr-1 mb-1"id="add_dosen"data-toggle="modal"data-target="#modal_add_dosen">
                   <i class="la la-plus"></i> Tambah Dosen
                 </button>
               </li>
@@ -53,25 +47,16 @@
   </div>
 </div>
 
-<div
-  class="modal fade"
-  tabindex="-1"
-  id="modal_add_dosen"
-  data-backdrop="static"
->
+<div class="modal fade" tabindex="-1" id="modal_add_dosen"data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">
-          <i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data
-          Dosen
+          <i class="bi bi-person-plus fs-2 me-2"></i> <wrd>Tambah</wrd> Data Dosen
         </h5>
-
-        <!--begin::Close-->
         <a class="btn btn-icon" data-dismiss="modal" aria-label="Close">
           <span class="la la-times"></span>
         </a>
-        <!--end::Close-->
       </div>
 
       <form action="adddosen" method="POST" enctype="multipart/form-data">
@@ -84,17 +69,86 @@
                   <h5>Nama Dosen</h5>
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id=""
-                        ><i class="la la-user"></i
-                      ></span>
+                      <span class="input-group-text" id="">
+                        <i class="la la-user"></i>
+                      </span>
                     </div>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder=""
-                      name="nama"
-                      id="nama"
-                    />
+                    <input type="text" class="form-control" placeholder="Nama Dosen" name="nama" id="nama"/>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-sm-12">
+              <fieldset>
+                <div class="form-group">
+                  <h5>Jabatan</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="">
+                        <i class="la la-info"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Jabatan" name="nm_jab" id="nm_jab"/>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-sm-12">
+              <fieldset>
+                <div class="form-group">
+                  <h5>Pangkat</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="">
+                        <i class="la la-info"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Pangkat" name="nm_pangkat" id="nm_pangkat"/>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-sm-12">
+              <fieldset>
+                <div class="form-group">
+                  <h5>Kategori Dosen</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="">
+                        <i class="la la-info"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Kategori Dosen" name="kategori_dosen" id="kategori_dosen"/>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-sm-12">
+              <fieldset>
+                <div class="form-group">
+                  <h5>Alamat</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="">
+                        <i class="la la-info"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Alamat" name="alamat" id="alamat"/>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-sm-12">
+              <fieldset>
+                <div class="form-group">
+                  <h5>Kontak</h5>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="">
+                        <i class="la la-info"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Kontak Dosen" name="kontak" id="kontak"/>
                   </div>
                 </div>
               </fieldset>
@@ -105,17 +159,11 @@
                   <h5>Mata Kuliah</h5>
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id=""
-                        ><i class="la la-info"></i
-                      ></span>
+                      <span class="input-group-text" id="">
+                        <i class="la la-info"></i>
+                      </span>
                     </div>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder=""
-                      name="mata_kuliah"
-                      id="mata_kuliah"
-                    />
+                    <input type="text" class="form-control" placeholder="Mata Kuliah" name="mata_kuliah" id="mata_kuliah"/>
                   </div>
                 </div>
               </fieldset>
@@ -133,7 +181,7 @@
                     <input
                       type="date"
                       class="form-control"
-                      placeholder=""
+                      placeholder="Jadwal Mengajar"
                       name="jadwal"
                       id="jadwal"
                     />
@@ -154,7 +202,7 @@
                     <input
                       type="text"
                       class="form-control"
-                      placeholder=""
+                      placeholder="Kelas"
                       name="kelas"
                       id="kelas"
                     />
@@ -192,7 +240,7 @@
                     <input
                       type="text"
                       class="form-control"
-                      placeholder=""
+                      placeholder="Tugas"
                       name="tugas"
                       id="tugas"
                     />

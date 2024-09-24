@@ -618,20 +618,21 @@ function action(mode, id, path) {
       success: function (result) {
         var data = result.data;
         $("#modal_add_data_buku").modal("show");
-        $("#id").val(id);
-        for (let item in data) {
-          if ($(`#${item}`).length) {
-            if (item == "perkuliahan") {
-              if (data[item] == "online") {
-                $(`#${item}`).prop("checked", true);
-              } else {
-                $(`#${item}`).prop("checked", false);
-              }
-            } else {
-              $(`#${item}`).val(data[item]).trigger("change");
-            }
-          }
-        }
+        $("#id").val(data.id);
+        $("#title").val(data.title);
+        $("#pengarang").val(data.pengarang);
+        $("#penerbit").val(data.penerbit);
+        $("#tempat_terbit").val(data.tempat_terbit);
+        $("#tahun_terbit").val(data.tahun_terbit);
+        // for (let item in data) {
+        //   if ($(`#${item}`).length) {
+        //     if (item == "path" && data[item]) {
+        //       $("#file-preview").attr("href", baseUrl + "/" + data[item]).show();
+        //     } else {
+        //       $(`#${item}`).val(data[item]).trigger("change");
+        //     }
+        //   }
+        // }
         $("wrd").html("Update");
 
         let preloaded = [{ id: 1, src: data.path }];

@@ -8,6 +8,8 @@ use App\Models\JurnalDosenModel;
 use App\Models\RisetDosenModel;
 use App\Models\MahasiswaModel;
 use App\Models\UserModel;
+use Config\App;
+
 
 class Jsondata extends \CodeIgniter\Controller
 {
@@ -856,6 +858,12 @@ class Jsondata extends \CodeIgniter\Controller
 				if($request->getVar('id')){
 					$data = [
 						'nama' 			=> $request->getVar('nama'),
+						'nm_dosen' 		=> $request->getVar('nama'),
+						'nm_jab' 		=> $request->getVar('nm_jab'),
+						'nm_pangkat' 	=> $request->getVar('nm_pangkat'),
+						'kategori_dosen'=> $request->getVar('kategori_dosen'),
+						'alamat' 		=> $request->getVar('alamat'),
+						'kontak' 		=> $request->getVar('kontak'),
 						'mata_kuliah' 	=> $request->getVar('mata_kuliah'),
 						'jadwal' 		=> $request->getVar('jadwal'),
 						'kelas' 		=> $request->getVar('kelas'),
@@ -872,6 +880,12 @@ class Jsondata extends \CodeIgniter\Controller
 				}else{
 					$data = [
 						'nama' 			=> $request->getVar('nama'),
+						'nm_dosen' 		=> $request->getVar('nama'),
+						'nm_jab' 		=> $request->getVar('nm_jab'),
+						'nm_pangkat' 	=> $request->getVar('nm_pangkat'),
+						'kategori_dosen'=> $request->getVar('kategori_dosen'),
+						'alamat' 		=> $request->getVar('alamat'),
+						'kontak' 		=> $request->getVar('kontak'),
 						'mata_kuliah' 	=> $request->getVar('mata_kuliah'),
 						'jadwal' 		=> $request->getVar('jadwal'),
 						'kelas' 		=> $request->getVar('kelas'),
@@ -1299,34 +1313,48 @@ class Jsondata extends \CodeIgniter\Controller
 	try {
 		$request = $this->request;
 		$buku = new \App\Models\BukuModel();
-		if($request->getVar('id')){
-			$data = [
-				'title' => $request->getVar('title'),
-				'pengarang' => $request->getVar('pengarang'),
-				'penerbit' => $request->getVar('penerbit'),
-				'tempat_terbit' => $request->getVar('tempat_terbit'),
-				'tahun_terbit' => $request->getVar('tahun_terbit'),
-				'path' => $request->getVar('path'),
-				'url_file' => $request->getVar('path'),
-				'updated_at' => $this->now,
-				'updated_by'    => $this->session->get('id'),
-			];
-			$buku->update($request->getVar('id'), $data);
-		}else{
-			$data = [
-				'title' => $request->getVar('title'),
-				'pengarang' => $request->getVar('pengarang'),
-				'penerbit' => $request->getVar('penerbit'),
-				'tempat_terbit' => $request->getVar('tempat_terbit'),
-				'tahun_terbit' => $request->getVar('tahun_terbit'),
-				'path' => $request->getVar('path'),
-				'url_file' => $request->getVar('path'),
-				'created_at' => $this->now,
-				'created_by' => $this->session->get('id'),
-			];
-			$buku->insert($data);
-			$lastid = $buku->insertID();
-		}
+		$config = new App();
+        $baseUrl = $config->baseURL;
+		$filePath = null;
+		if ($file = $request->getFile('path')) {
+            if ($file->isValid() && !$file->hasMoved()) {
+                if (!is_dir('storage/buku')) {
+                    mkdir('storage/buku', 0777, true);
+                }
+                $newName = $file->getRandomName();
+                $file->move('storage/buku', $newName);
+                $filePath = 'storage/buku/' . $newName;
+            }
+        }
+		if ($request->getVar('id')) {
+			$existingBuku = $buku->find($request->getVar('id'));
+            $data = [
+                'title' => $request->getVar('title'),
+                'pengarang' => $request->getVar('pengarang'),
+                'penerbit' => $request->getVar('penerbit'),
+                'tempat_terbit' => $request->getVar('tempat_terbit'),
+                'tahun_terbit' => $request->getVar('tahun_terbit'),
+                'path' => $filePath ?? $existingBuku['path'],
+                'url_file' => ($filePath ? $baseUrl . $filePath : $baseUrl . $existingBuku['path']),
+                'updated_at' => $this->now,
+                'updated_by' => $this->session->get('id'),
+            ];
+            $buku->update($request->getVar('id'), $data);
+        } else {
+            $data = [
+                'title' => $request->getVar('title'),
+                'pengarang' => $request->getVar('pengarang'),
+                'penerbit' => $request->getVar('penerbit'),
+                'tempat_terbit' => $request->getVar('tempat_terbit'),
+                'tahun_terbit' => $request->getVar('tahun_terbit'),
+                'path' => $filePath,
+                'url_file' => $filePath ? $baseUrl . $filePath : null,
+                'created_at' => $this->now,
+                'created_by' => $this->session->get('id'),
+            ];
+            $buku->insert($data);
+            $lastid = $buku->insertID();
+        }
 		redirect('data_buku','refresh');
 	} catch (\Exception $e) {
 		die($e->getMessage());

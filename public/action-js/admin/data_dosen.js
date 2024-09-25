@@ -6,9 +6,23 @@ $(() => {
   $("#modal_add_dosen").on("show.bs.modal", function () {
     $("form").trigger("reset");
     $(".select2").val("0").trigger("change");
+    $("#id").val(null);
   });
 
-  // load("dosen");
+  $('button[data-dismiss="modal"]').on('click', function () {
+    var modal = $(this).closest('.modal');
+
+    // Reset form di dalam modal jika ada
+    modal.find('form').trigger('reset');
+
+    // Hapus konten dinamis (misalnya daftar atau data lainnya)
+    modal.find('.dynamic-list').empty();
+
+    // Bersihkan elemen lain yang diperlukan
+    modal.find('textarea').val('');
+    modal.find('select').prop('selectedIndex', 0);
+    modal.find("#id").val(null);
+  });
   getajar();
 });
 
@@ -273,7 +287,7 @@ function action(mode, id, path) {
           },
           url: "/deletedata",
           success: function (result) {
-            load("dosen");
+            location.reload();
           },
         });
       }

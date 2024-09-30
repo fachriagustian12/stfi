@@ -644,21 +644,21 @@
         $.ajax({
           type: "post",
           // AMBIL DATA USER DI DB
-          // dataType: "json",
-          // data: fd,
-          // processData: false,
-          // contentType: false,
-          // url: "temp_login",
+          dataType: "json",
+          data: fd,
+          processData: false,
+          contentType: false,
+          url: "loginMhs",
           // END AMBIL DATA USER DI DB
 
           // AMBIL DATA MHS API
-          data: JSON.stringify({
-            username_mhs: uname,
-            password_mhs: pass,
-          }),
-          processData: false,
-          contentType: "application/json",
-          url: "http://192.168.5.32/api/login-mhs",
+          // data: JSON.stringify({
+          //   username_mhs: uname,
+          //   password_mhs: pass,
+          // }),
+          // processData: false,
+          // contentType: "application/json",
+          // url: "http://192.168.5.32/api/login-mhs",
 
           // END AMBIL DATA MHS API
           beforeSend: function () {
@@ -674,11 +674,11 @@
           },
           success: function (res) {
             // API
-            if (res.status == "Success") {
+            if (res.code == 200) {
               // DB
               // if (res.code == 200) {
               Toastify({
-                text: res.status,
+                text: res.msg,
                 gravity: "bottom",
                 position: "left",
                 style: {

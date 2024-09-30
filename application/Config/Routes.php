@@ -99,6 +99,9 @@ $routes->get('detailagenda/(:num)', 'View::detail_agenda/$1');
 // TEMP LOGIN
 $routes->post("temp_login", 'Jsondatas::temp_login');
 
+// Login MHS
+$routes->post("loginMhs", 'Jsondatas::login_mhs');
+
 // GETDATA
 $routes->post('getMhs', 'Jsondatas::getMhs');
 $routes->get('getKelas', 'Jsondatas::getKelas');

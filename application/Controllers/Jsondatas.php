@@ -9,6 +9,7 @@ use App\Controllers\BaseController as ControllersBaseController;
 use App\Models\FrontModel;
 use App\Models\MhsModel;
 use App\Models\UserModel;
+use App\Models\MahasiswaModel;
 use App\Models\PraktikumModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\Response;
@@ -36,7 +37,7 @@ class Jsondatas extends ControllersBaseController
                 $row[] = $list->nim;
                 $row[] = $list->semester;
                 $row[] = $list->prodi;
-                $row[] = $list->status_mahasiswa == 1 ? '<span class="badge bg-success p-2"> AKTIF </span>' : '<span class="badge bg-danger p-2"> TIDAK AKTIF </span>';
+                $row[] = $list->status_mhs == 'LULUS' || $list->status_mhs == 'AKTIF' ? '<span class="badge bg-success p-2"> '.$list->status_mhs.' </span>' : '<span class="badge bg-danger p-2"> '.$list->status_mhs.' </span>';
                 $data[] = $row;
             }
 
@@ -357,5 +358,53 @@ class Jsondatas extends ControllersBaseController
             'aktifitas' => $aktifitas,
             'keterangan' => $keterangan,
         ]);
+    }
+
+    public function login_mhs()
+    {
+        try {
+            $model = new MahasiswaModel();
+
+            $username = $this->request->getVar('username');
+            $password = $this->request->getVar('password');
+            $datauname = $model->getWhere(['nim' => $username]);
+            if (!$datauname) {
+                $res = array(
+                    'code' => 500,
+                    'msg'  => 'Data anda tidak tersedia1'
+                );
+                echo json_encode($res);
+                exit;
+            }
+
+            $datapass = $model->getWhere(['nim' => $password])->getRow();
+
+            if (!$datapass) {
+                $res = array(
+                    'code' => 500,
+                    'msg'  => 'Data yang anda masukan tidak tersedia2'
+                );
+                echo json_encode($res);
+                exit;
+            }
+
+            if ($datauname && $datapass) {
+                $res = [
+                    'code'          => 200,
+                    'msg'           => 'Login Berhasil !',
+                    'username'      => $username,
+                    'logged_in'     => TRUE,
+                ];
+                echo json_encode($res);
+            } else {
+                $res = array(
+                    'code' => 500,
+                    'msg'  => 'Data yang anda masukan tidak tersedia3'
+                );
+                echo json_encode($res);
+            }
+        } catch (\Exception $e) {
+            die($e->getMessage());
+        }
     }
 }

@@ -33,6 +33,8 @@ class Database extends \CodeIgniter\Database\Config
 	 */
 	public $default = [
 		'DSN'          => '',
+		// 'hostname'     => 'localhost',
+		// 'password'     => '',
 		'hostname'     => '192.168.5.32',
 		'password'     => 'stfi!@#',
 		'username'     => 'root',

@@ -24,9 +24,42 @@ $(() => {
     // Bersihkan elemen lain yang diperlukan
     modal.find('textarea').val('');
     modal.find('select').prop('selectedIndex', 0);
-});
+  });
 
   load();
+
+  $('#addbukus').on('submit', function(e){ 
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+      xhr: function(){
+          var xhr = new window.XMLHttpRequest();
+          xhr.upload.addEventListener('progress', function(event){
+              if (event.lengthComputable) {
+                  var percentComplete = Math.round((event.loaded / event.total) * 100);
+                  $('#progressBar').val(percentComplete);
+                  $('#status').html(percentComplete + '% uploaded... please wait');
+                  $('#loaded_n_total').html('Uploaded ' + event.loaded + ' bytes of ' + event.total);
+              }
+          }, false);
+          return xhr;
+      },
+      url: 'addbukus',
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response){
+          $('#status').html(response);
+          $('#progressBar').val(0); // Reset progress bar
+          $("#modal_add_data_skripsi").modal("hide");
+      },
+      error: function(){
+          $('#status').html('Upload failed.');
+      }
+    })
+  })
+
 });
 
 function load() {

@@ -1355,7 +1355,14 @@ class Jsondata extends \CodeIgniter\Controller
             $buku->insert($data);
             $lastid = $buku->insertID();
         }
-		redirect('data_buku','refresh');
+		// redirect('data_buku','refresh');
+		$output = [
+            'code' => 200,
+            'data' => 'success'
+        ];
+
+        echo json_encode($output);
+		exit;
 	} catch (\Exception $e) {
 		die($e->getMessage());
 	}

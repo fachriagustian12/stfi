@@ -203,6 +203,7 @@ function load() {
             { mDataProp: "tempat_terbit", class: "text-center", width: "10%" },
             { mDataProp: "tahun_terbit", class: "text-center", width: "10%" },
             { mDataProp: "kondisi_buku", class: "text-center", width: "10%" },
+            { mDataProp: "path", class: "text-center", width: "12%" },
           ],
           order: [[0, "ASC"]],
           fixedColumns: true,
@@ -217,6 +218,13 @@ function load() {
                 return elem;
               },
               aTargets: [1],
+            },
+            {
+              mRender: function (data, type, row) {
+                var elem = `<button class="btn btn-sm btn-info" onclick="viewimage('${data}')"><i class="la la-image"></i></button>`;
+                return elem;
+              },
+              aTargets: [8],
             },
           ],
           fnRowCallback: function (
@@ -293,6 +301,7 @@ function load() {
             { mDataProp: "judul", class: "text-center" },
             { mDataProp: "jenis_jurnal", class: "text-center", width: "12%" },
             { mDataProp: "tahun", class: "text-center", width: "10%" },
+            { mDataProp: "path", class: "text-center", width: "12%" },
           ],
           order: [[0, "ASC"]],
           fixedColumns: true,
@@ -307,6 +316,13 @@ function load() {
                 return elem;
               },
               aTargets: [1],
+            },
+            {
+              mRender: function (data, type, row) {
+                var elem = `<button class="btn btn-sm btn-info" onclick="viewimage('${data}')"><i class="la la-image"></i></button>`;
+                return elem;
+              },
+              aTargets: [7],
             },
           ],
           fnRowCallback: function (
@@ -383,6 +399,7 @@ function load() {
             { mDataProp: "judul", class: "text-center" },
             { mDataProp: "jenis_karyailmiah", class: "text-center", width: "12%" },
             { mDataProp: "tahun", class: "text-center", width: "10%" },
+            { mDataProp: "path", class: "text-center", width: "12%" },
           ],
           order: [[0, "ASC"]],
           fixedColumns: true,
@@ -397,6 +414,13 @@ function load() {
                 return elem;
               },
               aTargets: [1],
+            },
+            {
+              mRender: function (data, type, row) {
+                var elem = `<button class="btn btn-sm btn-info" onclick="viewimage('${data}')"><i class="la la-image"></i></button>`;
+                return elem;
+              },
+              aTargets: [7],
             },
           ],
           fnRowCallback: function (

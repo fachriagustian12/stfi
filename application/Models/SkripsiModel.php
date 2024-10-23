@@ -38,7 +38,9 @@ class SkripsiModel extends Model
         'kondisi_buku',
         'status_aktif',
         'no_panggil',
-        'created_at'
+        'created_at',
+        'path',
+        'url_file'
     ];
 
     public function deleteData($id = null, $table = null)

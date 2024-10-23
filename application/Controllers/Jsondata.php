@@ -1372,7 +1372,21 @@ class Jsondata extends \CodeIgniter\Controller
 	try {
 		$request = $this->request;
 		$buku = new SkripsiModel();
+		$config = new App();
+        $baseUrl = $config->baseURL;
+		$filePath = null;
+		if ($file = $request->getFile('path')) {
+            if ($file->isValid() && !$file->hasMoved()) {
+                if (!is_dir('storage/skripsi')) {
+                    mkdir('storage/skripsi', 0777, true);
+                }
+                $newName = $file->getRandomName();
+                $file->move('storage/skripsi', $newName);
+                $filePath = 'storage/skripsi/' . $newName;
+            }
+        }
 		if($request->getVar('id_skripsi')){
+			$existingBuku = $buku->find($request->getVar('id'));
 			$data = [
 				'judul_buku' => $request->getVar('judul_buku_skripsi'),
 				'pengarang' => $request->getVar('pengarang_skripsi'),
@@ -1380,6 +1394,8 @@ class Jsondata extends \CodeIgniter\Controller
 				'tempat_terbit' => $request->getVar('tempat_terbit_skripsi'),
 				'tahun_terbit' => $request->getVar('tahun_terbit_skripsi'),
 				'kondisi_buku' => $request->getVar('kondisi_buku_skripsi'),
+				'path' => $filePath ?? $existingBuku['path'],
+                'url_file' => ($filePath ? $baseUrl . $filePath : $baseUrl . $existingBuku['path']),
 				'updated_at' => $this->now,
 				'updated_by' => $this->session->get('id'),
 			];
@@ -1392,6 +1408,8 @@ class Jsondata extends \CodeIgniter\Controller
 				'tempat_terbit' => $request->getVar('tempat_terbit_skripsi'),
 				'tahun_terbit' => $request->getVar('tahun_terbit_skripsi'),
 				'kondisi_buku' => $request->getVar('kondisi_buku_skripsi'),
+				'path' => $filePath,
+                'url_file' => $filePath ? $baseUrl . $filePath : null,
 				'created_at' => $this->now,
 				'created_by' => $this->session->get('id'),
 			];
@@ -1408,13 +1426,29 @@ class Jsondata extends \CodeIgniter\Controller
 	try {
 		$request = $this->request;
 		$skripsi = new JurnalDosenModel();
+		$config = new App();
+        $baseUrl = $config->baseURL;
+		$filePath = null;
+		if ($file = $request->getFile('path')) {
+            if ($file->isValid() && !$file->hasMoved()) {
+                if (!is_dir('storage/jurnals')) {
+                    mkdir('storage/jurnals', 0777, true);
+                }
+                $newName = $file->getRandomName();
+                $file->move('storage/jurnals', $newName);
+                $filePath = 'storage/jurnals/' . $newName;
+            }
+        }
 		if($request->getVar('id_jurnal')){
+			$existingBuku = $skripsi->find($request->getVar('id'));
 			$data = [
 				'nidn' => $request->getVar('nidn_jurnal'),
 				'kode_dosen' => $request->getVar('nm_dosen_jurnal'),
 				'judul' => $request->getVar('judul_jurnal'),
 				'jenis_jurnal' => $request->getVar('jenis_jurnal'),
 				'tahun' => $request->getVar('tahun_jurnal'),
+				'path' => $filePath ?? $existingBuku['path'],
+                'url_file' => ($filePath ? $baseUrl . $filePath : $baseUrl . $existingBuku['path']),
 				'updated_at' => $this->now,
 			];
 			$skripsi->update($request->getVar('id_jurnal'), $data);
@@ -1425,6 +1459,8 @@ class Jsondata extends \CodeIgniter\Controller
 				'judul' => $request->getVar('judul_jurnal'),
 				'jenis_jurnal' => $request->getVar('jenis_jurnal'),
 				'tahun' => $request->getVar('tahun_jurnal'),
+				'path' => $filePath,
+                'url_file' => $filePath ? $baseUrl . $filePath : null,
 				'created_at' => $this->now,
 			];
 			$skripsi->insert($data);
@@ -1440,13 +1476,29 @@ class Jsondata extends \CodeIgniter\Controller
 	try {
 		$request = $this->request;
 		$riset = new RisetDosenModel();
+		$config = new App();
+        $baseUrl = $config->baseURL;
+		$filePath = null;
+		if ($file = $request->getFile('path')) {
+            if ($file->isValid() && !$file->hasMoved()) {
+                if (!is_dir('storage/buku')) {
+                    mkdir('storage/buku', 0777, true);
+                }
+                $newName = $file->getRandomName();
+                $file->move('storage/buku', $newName);
+                $filePath = 'storage/buku/' . $newName;
+            }
+        }
 		if($request->getVar('id_riset')){
+			$existingBuku = $riset->find($request->getVar('id'));
 			$data = [
 				'nidn' => $request->getVar('nidn_riset'),
 				'kode_dosen' => $request->getVar('nm_dosen_riset'),
 				'judul' => $request->getVar('judul_riset'),
 				'jenis_karyailmiah' => $request->getVar('jenis_riset'),
 				'tahun' => $request->getVar('tahun_riset'),
+				'path' => $filePath ?? $existingBuku['path'],
+                'url_file' => ($filePath ? $baseUrl . $filePath : $baseUrl . $existingBuku['path']),
 				'updated_at' => $this->now,
 			];
 			$riset->update($request->getVar('id_riset'), $data);
@@ -1457,6 +1509,8 @@ class Jsondata extends \CodeIgniter\Controller
 				'judul' => $request->getVar('judul_riset'),
 				'jenis_karyailmiah' => $request->getVar('jenis_riset'),
 				'tahun' => $request->getVar('tahun_riset'),
+				'path' => $filePath,
+                'url_file' => $filePath ? $baseUrl . $filePath : null,
 				'created_at' => $this->now,
 			];
 			$riset->insert($data);

@@ -36,7 +36,7 @@ class Database extends \CodeIgniter\Database\Config
 		'hostname'     => 'localhost',
 		'password'     => 'stfi!@#',
 		'username'     => 'root',
-		'database'     => 'stfi_new',
+		'database'     => 'stfi',
 		'DBDriver'     => 'MySQLi',
 		'DBPrefix'     => '',
 		'pConnect'     => false,

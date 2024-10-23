@@ -34,7 +34,7 @@ class Database extends \CodeIgniter\Database\Config
 	public $default = [
 		'DSN'          => '',
 		'hostname'     => 'localhost',
-		'password'     => '',
+		'password'     => 'stfi!@#',
 		'username'     => 'root',
 		'database'     => 'stfi_new',
 		'DBDriver'     => 'MySQLi',

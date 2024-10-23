@@ -168,13 +168,13 @@ class Jsondatas extends ControllersBaseController
         $model = new \App\Models\BukuModel();
 
         $get = $this->request->getVar('search');
-
+        
         if ($get != "" && $get != NULL) {
             $results = $model->like('title', $get)->paginate(5, 'new_pagination');
         } else {
             $results = $model->paginate(5, 'new_pagination');
         }
-
+        
         // Menampilkan link pagination
         $pager = $model->pager;
         $links = $pager->links('new_pagination', 'new_pagination');

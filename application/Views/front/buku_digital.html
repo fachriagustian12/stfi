@@ -512,12 +512,13 @@
   ceklogin();
   $(() => {
     $("#page-layanan_buku").addClass("active");
-    getBuku();
+    getBuku('getBuku');
     // BUKU
     $("#links-buku").on("click", ".pagination a", function (e) {
       e.preventDefault();
-
+      
       var url = $(this).attr("href");
+      console.log(url);
       getBuku(url);
     });
 
@@ -760,7 +761,7 @@
       data: {
         search: search,
       },
-      url: "getBuku",
+      url: url,
       beforeSend: function () {
         $(".load").fadeIn();
         $(".loader").fadeIn();

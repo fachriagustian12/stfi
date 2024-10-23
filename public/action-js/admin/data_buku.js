@@ -3,7 +3,7 @@ $(() => {
   $("#all_buku").DataTable();
   $(".select2 ").select2();
 
-  $("#modal_add_buku").on("show.bs.modal", function () {
+  $("#modal_add_data_buku").on("show.bs.modal", function () {
     $("form").trigger("reset");
     $(".file").empty();
     $(".file").imageUploader({
@@ -52,7 +52,8 @@ $(() => {
       success: function(response){
           $('#status').html(response);
           $('#progressBar').val(0); // Reset progress bar
-          $("#modal_add_data_skripsi").modal("hide");
+          $("#modal_add_data_buku").modal("hide");
+          load();
       },
       error: function(){
           $('#status').html('Upload failed.');

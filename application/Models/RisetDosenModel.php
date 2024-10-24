@@ -18,7 +18,9 @@ class RisetDosenModel extends Model{
         'volume',
         'nomor',
         'tahun',
-        'created_at'
+        'created_at',
+        'path',
+        'url_file'
     ];
     public function deleteData($id = null, $table = null)
     {

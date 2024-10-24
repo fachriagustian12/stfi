@@ -410,7 +410,7 @@
         </a>
       </div>
 
-    <form action="addjurnals" method="POST" enctype="multipart/form-data">
+    <form id="addjurnals" enctype="multipart/form-data">
         <input type="hidden" name="id_jurnal" id="id_jurnal" />
         <div class="modal-body">
           <fieldset>
@@ -485,7 +485,9 @@
             </div>
           </fieldset>
         </div>
-
+        <p hidden id="status_jurnals"></p>
+        <p hidden id="loaded_n_total_jurnals"></p>
+        <progress id="progressBar_jurnals" value="0" max="100" style="width:100%;margin-bottom: -11px;"></progress>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm mr-1 mb-1" data-dismiss="modal">
             <i class="la la-times"></i> Batal

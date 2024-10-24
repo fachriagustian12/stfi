@@ -94,6 +94,39 @@ $(() => {
     })
   })
 
+  $('#addjurnals').on('submit', function(e){ 
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+      xhr: function(){
+          var xhr = new window.XMLHttpRequest();
+          xhr.upload.addEventListener('progress', function(event){
+              if (event.lengthComputable) {
+                  var percentComplete = Math.round((event.loaded / event.total) * 100);
+                  $('#progressBar_jurnals').val(percentComplete);
+                  $('#status_jurnals').html(percentComplete + '% uploaded... please wait');
+                  $('#loaded_n_total_jurnals').html('Uploaded ' + event.loaded + ' bytes of ' + event.total);
+              }
+          }, false);
+          return xhr;
+      },
+      url: 'addjurnals',
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response){
+          $('#status_jurnals').html(response);
+          $('#progressBar_jurnals').val(0); // Reset progress bar
+          $("#modal_add_data_jurnal").modal("hide");
+          load();
+      },
+      error: function(){
+          $('#status_jurnals').html('Upload failed.');
+      }
+    })
+  })
+
 });
 
 function load() {

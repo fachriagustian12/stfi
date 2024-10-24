@@ -301,8 +301,8 @@
         </a>
       </div>
 
-    <form action="addskripsis" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id_skripsi" id="id_skripsi" />
+    <form id="addskripsis" enctype="multipart/form-data">
+        <input type="text" name="id_skripsi" id="id_skripsi" />
         <div class="modal-body">
           <fieldset>
             <div class="form-group">
@@ -382,7 +382,9 @@
             </div>
           </fieldset>
         </div>
-
+        <p hidden id="status_skripsis"></p>
+        <p hidden id="loaded_n_total_skripsis"></p>
+        <progress id="progressBar_skripsis" value="0" max="100" style="width:100%;margin-bottom: -11px;"></progress>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm mr-1 mb-1" data-dismiss="modal">
             <i class="la la-times"></i> Batal

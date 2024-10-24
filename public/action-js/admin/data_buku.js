@@ -3,7 +3,7 @@ $(() => {
   $("#all_buku").DataTable();
   $(".select2 ").select2();
 
-  $("#modal_add_data_buku").on("show.bs.modal", function () {
+  $(".modal").on("show.bs.modal", function () {
     $("form").trigger("reset");
     $(".file").empty();
     $(".file").imageUploader({
@@ -57,6 +57,39 @@ $(() => {
       },
       error: function(){
           $('#status').html('Upload failed.');
+      }
+    })
+  })
+
+  $('#addskripsis').on('submit', function(e){ 
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+      xhr: function(){
+          var xhr = new window.XMLHttpRequest();
+          xhr.upload.addEventListener('progress', function(event){
+              if (event.lengthComputable) {
+                  var percentComplete = Math.round((event.loaded / event.total) * 100);
+                  $('#progressBar_skripsis').val(percentComplete);
+                  $('#status_skripsis').html(percentComplete + '% uploaded... please wait');
+                  $('#loaded_n_total_skripsis').html('Uploaded ' + event.loaded + ' bytes of ' + event.total);
+              }
+          }, false);
+          return xhr;
+      },
+      url: 'addskripsis',
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response){
+          $('#status_skripsis').html(response);
+          $('#progressBar_skripsis').val(0); // Reset progress bar
+          $("#modal_add_data_skripsi").modal("hide");
+          load();
+      },
+      error: function(){
+          $('#status_skripsis').html('Upload failed.');
       }
     })
   })

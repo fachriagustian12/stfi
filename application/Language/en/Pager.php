@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'next' => 'Next',
-    'previous' => 'Previous',
-    'last' => 'Last'
+	'next' => 'Next',
+	'previous' => 'Previous',
+	'last' => 'Last'
 ];
